@@ -138,9 +138,17 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="yaDebugObject.h" />
+    <ClInclude Include="yaEditor.h" />
+    <ClInclude Include="yaEditorObject.h" />
+    <ClInclude Include="yaWidget.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="yaDebugObject.cpp" />
+    <ClCompile Include="yaEditor.cpp" />
+    <ClCompile Include="yaEditorObject.cpp" />
+    <ClCompile Include="yaWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="44Engine.rc" />
@@ -148,6 +156,11 @@
   <ItemGroup>
     <Image Include="44Engine.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Engine_SOURCE\Engine_SOURCE.vcxproj">
+      <Project>{6dafa788-499e-4b34-98ec-f4075a483b9e}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

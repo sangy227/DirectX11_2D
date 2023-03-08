@@ -33,6 +33,33 @@ namespace ya
 			tr->SetRotation(rot);
 		}
 
+
+		if (Input::GetKey(eKeyCode::RIGHT))
+		{
+			Vector3 pos = tr->GetPosition();
+			pos.x += 6.0f * Time::DeltaTime();
+			tr->SetPosition(pos);
+		}
+		if (Input::GetKey(eKeyCode::LEFT))
+		{
+			Vector3 pos = tr->GetPosition();
+			pos.x -= 6.0f * Time::DeltaTime();
+			tr->SetPosition(pos);
+		}
+
+		if (Input::GetKey(eKeyCode::DOWN))
+		{
+			Vector3 pos = tr->GetPosition();
+			pos.z += 6.0f * Time::DeltaTime();
+			tr->SetPosition(pos);
+		}
+		if (Input::GetKey(eKeyCode::UP))
+		{
+			Vector3 pos = tr->GetPosition();
+			pos.z -= 6.0f * Time::DeltaTime();
+			tr->SetPosition(pos);
+		}
+
 		/*Transform* tr = GetOwner()->GetComponent<Transform>();
 
 		Vector3 pos = tr->GetPosition();
@@ -66,6 +93,18 @@ namespace ya
 	}
 
 	void PlayerScript::Render()
+	{
+	}
+
+	void PlayerScript::OnCollisionEnter(Collider2D* collider)
+	{
+	}
+
+	void PlayerScript::OnCollisionStay(Collider2D* collider)
+	{
+	}
+
+	void PlayerScript::OnCollisionExit(Collider2D* collider)
 	{
 	}
 

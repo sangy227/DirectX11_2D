@@ -64,6 +64,33 @@
     <Filter Include="Component\Camera">
       <UniqueIdentifier>{d5d09f34-c98b-40e4-9959-3f7e7df27f01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Script">
+      <UniqueIdentifier>{bd5eb4ff-9f54-4ada-b23b-dd4130c98faf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Base">
+      <UniqueIdentifier>{2bf45b05-0f71-4108-ade3-0f445677916d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Layer">
+      <UniqueIdentifier>{1e71bc42-a7cc-46d6-9577-a9d25d0f359c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Manager">
+      <UniqueIdentifier>{ed02c5d8-b13c-4afe-85b6-3e56a722014f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider">
+      <UniqueIdentifier>{92b865c2-1040-44bb-9ddb-b9ebff3bccbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Prefab">
+      <UniqueIdentifier>{b366b499-a62e-4505-9f52-19a691c5fba5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\Manager">
+      <UniqueIdentifier>{0347b04d-368f-41d2-b90e-b1a726c5fc71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\2D">
+      <UniqueIdentifier>{51ad1f08-b1a8-4cce-a84d-49b9b06e11a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\3D">
+      <UniqueIdentifier>{6b267699-3830-4c57-89d0-68c916e6fb9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -93,15 +120,6 @@
     <ClCompile Include="yaGameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="yaLayer.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="yaScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="yaSceneManager.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="yaMesh.cpp">
       <Filter>Resource\Mesh</Filter>
     </ClCompile>
@@ -117,7 +135,6 @@
     <ClCompile Include="yaMaterial.cpp">
       <Filter>Resource\Material</Filter>
     </ClCompile>
-    <ClCompile Include="yaConstantBuffer.cpp" />
     <ClCompile Include="yaTexture.cpp">
       <Filter>Resource\Texture</Filter>
     </ClCompile>
@@ -142,8 +159,51 @@
     <ClCompile Include="yaSpriteRenderer.cpp">
       <Filter>Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="yaBaseRenderer.cpp" />
-    <ClCompile Include="yaGridScript.cpp" />
+    <ClCompile Include="yaBaseRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="yaConstantBuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGridScript.cpp">
+      <Filter>Resource\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaTitleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLayer.cpp">
+      <Filter>Scene\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="yaScene.cpp">
+      <Filter>Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSceneManager.cpp">
+      <Filter>Scene\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCollisionManager.cpp">
+      <Filter>Component\Collider\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPrefab.cpp">
+      <Filter>Resource\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCollider2D.cpp">
+      <Filter>Component\Collider\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCollider3D.cpp">
+      <Filter>Component\Collider\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCollider.cpp">
+      <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayer.cpp">
+      <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMonster.cpp">
+      <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -185,15 +245,6 @@
     <ClInclude Include="yaGameObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="yaLayer.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="yaScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="yaSceneManager.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="yaMesh.h">
       <Filter>Resource\Mesh</Filter>
     </ClInclude>
@@ -209,7 +260,6 @@
     <ClInclude Include="yaMaterial.h">
       <Filter>Resource\Material</Filter>
     </ClInclude>
-    <ClInclude Include="yaConstantBuffer.h" />
     <ClInclude Include="yaTexture.h">
       <Filter>Resource\Texture</Filter>
     </ClInclude>
@@ -234,10 +284,53 @@
     <ClInclude Include="yaSpriteRenderer.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="yaBaseRenderer.h" />
-    <ClInclude Include="yaGridScript.h" />
     <ClInclude Include="yaObject.h">
       <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBaseRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="yaConstantBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="yaGridScript.h">
+      <Filter>Resource\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaTitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaLayer.h">
+      <Filter>Scene\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="yaScene.h">
+      <Filter>Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSceneManager.h">
+      <Filter>Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCollisionManager.h">
+      <Filter>Component\Collider\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPrefab.h">
+      <Filter>Resource\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCollider2D.h">
+      <Filter>Component\Collider\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCollider3D.h">
+      <Filter>Component\Collider\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCollider.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayer.h">
+      <Filter>Component\Script\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMonster.h">
+      <Filter>Component\Script\Contents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

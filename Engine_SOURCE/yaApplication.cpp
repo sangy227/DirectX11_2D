@@ -4,6 +4,7 @@
 #include "yaInput.h"
 #include "yaSceneManager.h"
 #include "yaResources.h"
+#include "yaCollisionManager.h"
 
 namespace ya
 {
@@ -16,14 +17,14 @@ namespace ya
 
 	Application::~Application()
 	{
-		SceneManager::Release();
+		
 	}
 
 	void Application::Initalize()
 	{
 		Time::Initialize();
 		Input::Initialize();
-
+		CollisionManager::Initialize();
 		renderer::Initialize();
 		SceneManager::Initalize();
 	}
@@ -34,13 +35,14 @@ namespace ya
 	{
 		Time::Update();
 		Input::Update();
-
+		CollisionManager::Update();
 		SceneManager::Update();
 	}
 
 	// GPU update
 	void Application::FixedUpdate()
 	{
+		CollisionManager::FixedUpdate();
 		SceneManager::FixedUpdate();
 	}
 
@@ -53,9 +55,16 @@ namespace ya
 
 		//SceneManager::Render();
 		renderer::Render();
-
+		CollisionManager::Render();
 		//graphicDevice->Render();
-		graphicDevice->Present();
+		//graphicDevice->Present();
+
+		
+	}
+
+	void Application::Destroy()
+	{
+
 	}
 
 	// Running main engine loop
@@ -64,6 +73,12 @@ namespace ya
 		Update();
 		FixedUpdate();
 		Render();
+		Destroy();
+	}
+
+	void Application::Present()
+	{
+		graphicDevice->Present();
 	}
 
 	void Application::Release()

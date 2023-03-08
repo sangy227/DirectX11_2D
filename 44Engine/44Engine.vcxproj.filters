@@ -8,12 +8,32 @@
     <Filter Include="main">
       <UniqueIdentifier>{9173a508-0e8e-47c5-a538-a4b61db55c55}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{c481625c-af51-4700-9efa-3051395fff83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{12b1979d-2e49-49c5-b737-4040a393e497}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="44Engine.h" />
-    <ClInclude Include="framework.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="targetver.h" />
+    <ClInclude Include="44Engine.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="yaEditor.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="yaDebugObject.h" />
+    <ClInclude Include="yaEditorObject.h" />
+    <ClInclude Include="yaWidget.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="44Engine.rc">
@@ -32,5 +52,11 @@
     <ClCompile Include="main.cpp">
       <Filter>main</Filter>
     </ClCompile>
+    <ClCompile Include="yaEditor.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="yaDebugObject.cpp" />
+    <ClCompile Include="yaEditorObject.cpp" />
+    <ClCompile Include="yaWidget.cpp" />
   </ItemGroup>
 </Project>

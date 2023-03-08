@@ -4,6 +4,7 @@
 #include "yaApplication.h"
 #include "yaConstantBuffer.h"
 #include "yaRenderer.h"
+#include "yaSceneManager.h"
 
 extern ya::Application application;
 
@@ -23,7 +24,8 @@ namespace ya
 
 	void GridScript::Initalize()
 	{
-		mCamera = renderer::cameras[0];
+		eSceneType type = SceneManager::GetActiveScene()->GetSceneType();
+		mCamera = renderer::cameras[(UINT)type][0];
 	}
 
 	void GridScript::Update()

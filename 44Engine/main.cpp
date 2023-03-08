@@ -4,7 +4,8 @@
 #include "framework.h"
 #include "44Engine.h"
 #include "yaApplication.h"
-
+#include "yaSceneManager.h"
+#include "yaEditor.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Lib\\Engine_SOURCE.lib") 
@@ -22,6 +23,7 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름�
 
 
 ya::Application application;
+ya::Editor editor;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -37,7 +39,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(682);
+    //_CrtSetBreakAlloc(855);
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_MY44ENGINE, szWindowClass, MAX_LOADSTRING);
@@ -70,10 +72,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             application.Run();
+            editor.Run();
+            application.Present();
         }
     }
 
+    ya::SceneManager::Release();
     application.Release();
+    editor.Release();
     return (int) msg.wParam;
 }
 
@@ -129,6 +135,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    application.SetWindow(hWnd, 1600, 900);
    application.Initalize();
+   editor.Initalize();
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 

@@ -22,6 +22,7 @@ namespace ya
 		void* GetVSBlobBufferPointer() { return mVSBlob->GetBufferPointer(); }
 		SIZE_T GetVSBlobBufferSize() { return mVSBlob->GetBufferSize(); }
 
+		void SetTopology(D3D11_PRIMITIVE_TOPOLOGY topology) { mTopology = topology; }
 		void SetRSState(eRSType state) { mRSType = state; }
 		void SetDSState(eDSType state) { mDSType = state; }
 		void SetBSState(eBSType state) { mBSType = state; }

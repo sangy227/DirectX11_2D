@@ -2,7 +2,12 @@
 
 namespace ya::enums
 {
-
+	enum class eSceneType
+	{
+		Tilte,
+		Play,
+		End,
+	};
 
 	enum class eLayerType
 	{
@@ -46,5 +51,21 @@ namespace ya::enums
 		Script,
 		End,
 	};
+
+	enum class eColliderType
+	{
+		None,
+		Rect,
+		Circle,
+		Box,
+		Sphere,
+		End,
+	};
+
+	//struct Ray
+	//{
+	//	Vector3 origin;
+	//	Vector3 dest;
+	//};
 
 }
