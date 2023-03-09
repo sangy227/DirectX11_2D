@@ -31,6 +31,7 @@ namespace ya::enums
 		//Collider2,
 		MeshRenerer,
 		SpriteRenderer,
+		Animator,
 		UI,
 		//FadeOut,FadeIn
 		Script,

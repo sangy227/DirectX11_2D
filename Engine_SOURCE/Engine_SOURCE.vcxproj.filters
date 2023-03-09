@@ -91,6 +91,9 @@
     <Filter Include="Component\Collider\3D">
       <UniqueIdentifier>{6b267699-3830-4c57-89d0-68c916e6fb9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Animator">
+      <UniqueIdentifier>{5617f228-a6b1-4d89-8a60-2aea1ca48f8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -204,6 +207,8 @@
     <ClCompile Include="yaMonster.cpp">
       <Filter>Component\Script\Contents</Filter>
     </ClCompile>
+    <ClCompile Include="yaAnimator.cpp" />
+    <ClCompile Include="yaAnimation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -332,6 +337,8 @@
     <ClInclude Include="yaMonster.h">
       <Filter>Component\Script\Contents</Filter>
     </ClInclude>
+    <ClInclude Include="yaAnimator.h" />
+    <ClInclude Include="yaAnimation.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="yaMath.inl">

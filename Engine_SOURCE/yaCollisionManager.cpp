@@ -166,7 +166,7 @@ namespace ya
 		Matrix leftMat = leftTr->GetWorldMatrix();
 		Matrix rightMat = rightTr->GetWorldMatrix();
 
-		// 분리축 벡터 ( 투영 벡터 )
+		// 분리축 벡터 4개 구하기
 		Vector3 Axis[4] = {};
 		Axis[0] = Vector3::Transform(arrLocalPos[1], leftMat); 
 		Axis[1] = Vector3::Transform(arrLocalPos[3], leftMat);
@@ -179,9 +179,7 @@ namespace ya
 		Axis[3] -= Vector3::Transform(arrLocalPos[0], rightMat);
 
 		for (size_t i = 0; i < 4; i++)
-		{
 			Axis[i].z = 0.0f;
-		}
 
 		Vector3 vc = left->GetPosition() - right->GetPosition();
 		vc.z = 0.0f;
@@ -205,6 +203,17 @@ namespace ya
 		}
 		// 숙제 Circle vs Cirlce
 
+		float totalRadius = (left->GetRadius() / 2) + (right->GetRadius() / 2);
+
+		// 거리 구하기
+		float distanceX = left->GetPosition().x - right->GetPosition().x;
+		float distanceY = left->GetPosition().y - right->GetPosition().y;
+		Vector2 distance = Vector2(distanceX, distanceY);
+		float totaldistance = distance.LengthSquared();
+
+		// 거리가 반지름 합보다 작거나 같으면 충돌
+		if (totaldistance <= totalRadius)
+			return true;
 
 
 		return true;
