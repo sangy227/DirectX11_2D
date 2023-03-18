@@ -35,7 +35,7 @@ namespace ya
 	void Collider2D::FixedUpdate()
 	{
 		Vector3 scale = mTransform->GetScale();
-		scale *= Vector3(mSize.x, mSize.y, 1.0f);
+		scale *= Vector3(mSize.x, mSize.y, 3.0f);
 
 		Vector3 rotation = mTransform->GetRotation();
 

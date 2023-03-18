@@ -373,11 +373,44 @@ namespace ya::renderer
 		Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
 		Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
 		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
+
+		//TitleSceen
+		//Resources::Load<Texture>(L"TitleBG", L"T_MainMenu_Background.png");
+		Resources::Load<Texture>(L"TitleBG", L"bg.png");
+		Resources::Load<Texture>(L"TitleLogo", L"T_MainMenu_Title_Moonscars.png");
 	}
 
 	void LoadMaterial()
 	{
+		//TitleSceen
+		std::shared_ptr <Texture> titleBGTexture = Resources::Find<Texture>(L"TitleBG");
+		std::shared_ptr<Shader> titleBGShader = Resources::Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Material> titleBGMaterial = std::make_shared<Material>();
+		titleBGMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		titleBGMaterial->SetTexture(titleBGTexture);
+		titleBGMaterial->SetShader(titleBGShader);
+		Resources::Insert<Material>(L"TitleBGMaterial", titleBGMaterial);
 
+		std::shared_ptr <Texture> titleLogoTexture = Resources::Find<Texture>(L"TitleLogo");
+		std::shared_ptr<Shader> titleLogoShader = Resources::Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Material> titleLogoMaterial = std::make_shared<Material>();
+		titleLogoMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		titleLogoMaterial->SetTexture(titleLogoTexture);
+		titleLogoMaterial->SetShader(titleLogoShader);
+		Resources::Insert<Material>(L"TitleLogoMaterial", titleLogoMaterial);
+
+
+
+
+
+
+
+
+
+
+
+
+		//-----------------------------------------------------------------------------
 		// Default
 		std::shared_ptr <Texture> texture = Resources::Find<Texture>(L"SmileTexture");
 		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
