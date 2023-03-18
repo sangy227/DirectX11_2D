@@ -41,11 +41,11 @@ namespace ya
 		{
 			pos += 10.0f * -tr->Foward() * Time::DeltaTime();
 		}
-		else if (Input::GetKeyState(eKeyCode::S) == eKeyState::PRESSED)
+		else if (Input::GetKeyState(eKeyCode::W) == eKeyState::PRESSED)
 		{
 			pos += 10.0f * tr->Up() * Time::DeltaTime();
 		}
-		else if (Input::GetKeyState(eKeyCode::W) == eKeyState::PRESSED)
+		else if (Input::GetKeyState(eKeyCode::S) == eKeyState::PRESSED)
 		{
 			pos += 10.0f * -tr->Up() * Time::DeltaTime();
 		}

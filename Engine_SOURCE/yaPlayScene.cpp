@@ -72,28 +72,34 @@ namespace ya
 		cameraObj->AddComponent<CameraScript>();
 		mainCamera = cameraComp;
 
-		//SMILE RECT
+
+		//GamePlayer
 		{
-			Player* obj = object::Instantiate<Player>(eLayerType::Player);
-			obj->SetName(L"Zelda");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(0.0f, 0.0f, 2.0f));
-			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
-			tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
+			Player* gameplayer = object::Instantiate<Player>(eLayerType::Player);
+			gameplayer->SetName(L"GamePlayer");
+			Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
+			gameplayer_tr->SetPosition(Vector3(0.0f, 0.0f, 2.0f));
+			gameplayer_tr->SetScale(Vector3(4.0f, 4.0f, 1.0f));
+			//gameplayer_tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 
-			Animator* animator = obj->AddComponent<Animator>();
-			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Zelda.png");
-			animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 3,2,6, 0.1f);
-			animator->Create(L"MoveDown", texture, Vector2(0.0f, 520.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 10,3,15, 0.1f);
-			animator->Play(L"MoveDown", true);
+			Animator* gameplayer_animator = gameplayer->AddComponent<Animator>();
+			std::shared_ptr<Texture> player_idle = Resources::Load<Texture>(L"Zelda1", L"T_BossIrma_Idle_Final.png");
+			std::shared_ptr<Texture> player_skill_hammer = Resources::Load<Texture>(L"Zelda", L"T_BossIrma_Hammer_Final.png");
 
-			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
-			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"SpriteMaterial");
-			mr->SetMaterial(mateiral);
-			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-			mr->SetMesh(mesh);
-			obj->AddComponent<PlayerScript>();
-			object::DontDestroyOnLoad(obj);
+			gameplayer_animator->Create(L"Idle", player_idle, Vector2(0.0f, 0.0f), Vector2(59.0f, 52.0f), Vector2::Zero, 7,4,26, 0.08f);
+			gameplayer_animator->Create(L"MoveDown", player_skill_hammer, Vector2(0.0f, 0.0f), Vector2(275.0f, 119.0f), Vector2(0.03f,-0.015f), 5, 12, 57, 0.04f);
+			
+			gameplayer_animator->Play(L"Idle", true);
+
+
+			SpriteRenderer* gameplayer_sr = gameplayer->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> gameplayer_mateiral = Resources::Find<Material>(L"SpriteMaterial");
+			gameplayer_sr->SetMaterial(gameplayer_mateiral);
+			std::shared_ptr<Mesh> gameplayer_mesh = Resources::Find<Mesh>(L"RectMesh");
+			gameplayer_sr->SetMesh(gameplayer_mesh);
+
+			gameplayer->AddComponent<PlayerScript>();
+			object::DontDestroyOnLoad(gameplayer);
 		}
 
 		//SMILE RECT

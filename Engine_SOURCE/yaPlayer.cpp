@@ -5,6 +5,7 @@ namespace ya
 {
 	Player::Player()
 	{
+		
 	}
 
 	Player::~Player()
@@ -14,6 +15,7 @@ namespace ya
 	void Player::Initalize()
 	{
 		GameObject::Initalize();
+		
 	}
 
 	void Player::Update()
