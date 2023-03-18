@@ -26,12 +26,11 @@ namespace ya
 		void SetType(eColliderType type) { mType = type; }
 		void SetSize(Vector2 size) { mSize = size; }
 		void SetCenter(Vector2 center) { mCenter = center; }
-		Vector2 GetCenter() { return mCenter; }
 		void SetRadius(float radius) { mRadius = radius; }
-		float GetRadius() { return mRadius; }
 		bool IsTriiger() { return mbTrigger; }
 		UINT GetID() { return mID; }
 		Vector3 GetPosition() { return mPosition; }
+		Vector2 GetSize() { return mSize; }
 
 	private:
 		static UINT ColliderNumber;

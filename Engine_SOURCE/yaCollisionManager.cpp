@@ -60,7 +60,6 @@ namespace ya
 			if (left->GetComponent<Collider2D>() == nullptr)
 				continue;
 
-
 			for (GameObject* right : rights)
 			{
 				if (right->GetState() != GameObject::Active)
@@ -73,6 +72,8 @@ namespace ya
 				ColliderCollision(left->GetComponent<Collider2D>(), right->GetComponent<Collider2D>());
 			}
 
+			if ((UINT)left == (UINT)right)
+				break;
 		}
 
 	}
@@ -151,8 +152,7 @@ namespace ya
 		// 0 --- 1
 		// |     |
 		// 3 --- 2
-
-		static const Vector3 arrLocalPos[4] =
+		Vector3 arrLocalPos[4] =
 		{
 			Vector3{-0.5f, 0.5f, 0.0f}
 			,Vector3{0.5f, 0.5f, 0.0f}
@@ -178,17 +178,25 @@ namespace ya
 		Axis[2] -= Vector3::Transform(arrLocalPos[0], rightMat);
 		Axis[3] -= Vector3::Transform(arrLocalPos[0], rightMat);
 
+		Vector3 leftScale = Vector3(left->GetSize().x, left->GetSize().y, 1.0f);
+		Axis[0] = Axis[0] * leftScale;
+		Axis[1] = Axis[1] * leftScale;
+
+		Vector3 rightScale = Vector3(right->GetSize().x, right->GetSize().y, 1.0f);
+		Axis[2] = Axis[2] * rightScale;
+		Axis[3] = Axis[3] * rightScale;
+
 		for (size_t i = 0; i < 4; i++)
 			Axis[i].z = 0.0f;
 
-		Vector3 vc = left->GetPosition() - right->GetPosition();
+		Vector3 vc = leftTr->GetPosition() - rightTr->GetPosition();
 		vc.z = 0.0f;
 
 		Vector3 centerDir = vc;
 		for (size_t i = 0; i < 4; i++)
 		{
 			Vector3 vA = Axis[i];
-			vA.Normalize();
+			//vA.Normalize();
 
 			float projDist = 0.0f;
 			for (size_t j = 0; j < 4; j++)
@@ -202,19 +210,6 @@ namespace ya
 			}
 		}
 		// 숙제 Circle vs Cirlce
-
-		float totalRadius = (left->GetRadius() / 2) + (right->GetRadius() / 2);
-
-		// 거리 구하기
-		float distanceX = left->GetPosition().x - right->GetPosition().x;
-		float distanceY = left->GetPosition().y - right->GetPosition().y;
-		Vector2 distance = Vector2(distanceX, distanceY);
-		float totaldistance = distance.LengthSquared();
-
-		// 거리가 반지름 합보다 작거나 같으면 충돌
-		if (totaldistance <= totalRadius)
-			return true;
-
 
 		return true;
 	}

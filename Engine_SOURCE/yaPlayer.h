@@ -15,5 +15,7 @@ namespace ya
 		virtual void Render();
 
 	private:
+		//GameObject* head;
+		//GameObject* body;
 	};
 }

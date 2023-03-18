@@ -63,6 +63,14 @@ namespace ya::enums
 		End,
 	};
 
+	enum class eAnimationType
+	{
+		None,
+		SecondDimension,
+		ThirdDimension,
+		End,
+	};
+
 	//struct Ray
 	//{
 	//	Vector3 origin;

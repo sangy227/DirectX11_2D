@@ -51,7 +51,7 @@ namespace ya::renderer
 		Vector2 offset;
 		Vector2 atlasSize;
 
-		UINT used;
+		UINT type;
 	};
 
 	extern Vertex vertexes[4];

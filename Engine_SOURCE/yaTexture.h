@@ -19,9 +19,13 @@ namespace ya::graphics
 		Texture();
 		virtual ~Texture();
 
+		static void Clear(UINT startSlot);
 		virtual HRESULT Load(const std::wstring& path) override;
 		void BindShader(eShaderStage stage, UINT slot);
 		void Clear();
+
+		size_t GetHeight() { return mImage.GetMetadata().height; }
+		size_t GetWidth() { return mImage.GetMetadata().width; }
 
 	private:
 		ScratchImage mImage;
