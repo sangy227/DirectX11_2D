@@ -55,7 +55,7 @@ namespace ya
 	void Animation::Create(const std::wstring& name
 		, std::shared_ptr<Texture> atlas
 		, Vector2 leftTop, Vector2 size, Vector2 offset
-		, UINT spriteLegth, float duration)
+		, UINT spriteLegth, UINT spriteHeight, UINT spritecount, float duration)
 	{
 		mAnimationName = name;
 
@@ -63,18 +63,27 @@ namespace ya
 		float width = (float)atlas->GetWidth();
 		float height = (float)atlas->GetHeight();
 
-		for (size_t i = 0; i < spriteLegth; i++)
-		{
-			// API 와는 다르게 0~1 사이의 비율좌표로 위치를 표현해야한다.
-			Sprite sprite = {};
-			sprite.leftTop = Vector2((leftTop.x + (size.x * (float)i)) / width
-									, (leftTop.y) / height) ;
-			sprite.size = Vector2(size.x / width, size.y / height);
-			sprite.offset = offset;
-			sprite.duration = duration;
-			sprite.atlasSize = Vector2(200.0f / width, 200.0f / height);
+		UINT count = 0;
+		for (size_t j = 0; j < spriteHeight; j++) {
+			for (size_t i = 0; i < spriteLegth; i++)
+			{
+				if (count == spritecount) // 스프라이트 x,y 총 갯수 카운트 
+					return;
+				else 
+				{
+					// API 와는 다르게 0~1 사이의 비율좌표로 위치를 표현해야한다.
+					Sprite sprite = {};
+					sprite.leftTop = Vector2((leftTop.x + (size.x * (float)i)) / width
+						, (leftTop.y + (size.y * (float)j)) / height);
+					sprite.size = Vector2(size.x / width, size.y / height);
+					sprite.offset = offset;
+					sprite.duration = duration;
+					sprite.atlasSize = Vector2(200.0f / width, 200.0f / height);
 
-			mSpriteSheet.push_back(sprite);
+					mSpriteSheet.push_back(sprite);
+				}
+				count++;
+			}
 		}
 	}
 

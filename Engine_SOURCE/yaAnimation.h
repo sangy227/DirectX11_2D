@@ -37,7 +37,7 @@ namespace ya
 
 		void Create(const std::wstring& name, std::shared_ptr<Texture> atlas
 					,Vector2 leftTop, Vector2 size, Vector2 offset
-					,UINT spriteLegth, float duration);
+					,UINT spriteLegth, UINT spriteHeight,UINT spritecount, float duration);
 
 		void BindShader();
 		void Reset();

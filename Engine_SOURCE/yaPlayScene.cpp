@@ -34,6 +34,9 @@ namespace ya
 	
 		
 
+
+
+
 		Scene::Initalize();
 	}
 
@@ -76,13 +79,13 @@ namespace ya
 			Transform* tr = obj->GetComponent<Transform>();
 			tr->SetPosition(Vector3(0.0f, 0.0f, 2.0f));
 			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
-			//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+			tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
 
 			Animator* animator = obj->AddComponent<Animator>();
 			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Zelda.png");
-			animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 3, 0.1f);
-			animator->Create(L"MoveDown", texture, Vector2(0.0f, 520.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 8, 0.1f);
-			animator->Play(L"Idle", true);
+			animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 3,2,6, 0.1f);
+			animator->Create(L"MoveDown", texture, Vector2(0.0f, 520.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 10,3,15, 0.1f);
+			animator->Play(L"MoveDown", true);
 
 			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"SpriteMaterial");
@@ -99,9 +102,7 @@ namespace ya
 			obj->SetName(L"SMILE");
 			Transform* tr = obj->GetComponent<Transform>();
 			tr->SetPosition(Vector3(2.0f, 0.0f, 5.0f));
-			//tr->SetScale(Vector3(2.0f, 1.0f, 1.0f));
-			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2 / 2.0f));
-			//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+			
 
 
 			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
