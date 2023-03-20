@@ -67,7 +67,7 @@ namespace ya
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-		//cameraComp->RegisterCameraInRenderer();
+		cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
 		mainCamera = cameraComp;
@@ -78,8 +78,8 @@ namespace ya
 			Player* gameplayer = object::Instantiate<Player>(eLayerType::Player);
 			gameplayer->SetName(L"GamePlayer");
 			Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
-			gameplayer_tr->SetPosition(Vector3(0.0f, 0.0f, 2.0f));
-			gameplayer_tr->SetScale(Vector3(4.0f, 4.0f, 1.0f));
+			gameplayer_tr->SetPosition(Vector3(1.0f, 1.0f, 2.0f));
+			gameplayer_tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
 			//gameplayer_tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 
 			Animator* gameplayer_animator = gameplayer->AddComponent<Animator>();
@@ -87,8 +87,8 @@ namespace ya
 			std::shared_ptr<Texture> player_skill_hammer = Resources::Load<Texture>(L"Zelda", L"T_BossIrma_Hammer_Final.png");
 
 			gameplayer_animator->Create(L"Idle", player_idle, Vector2(0.0f, 0.0f), Vector2(59.0f, 52.0f), Vector2::Zero, 7,4,26, 0.08f);
-			gameplayer_animator->Create(L"MoveDown", player_skill_hammer, Vector2(0.0f, 0.0f), Vector2(275.0f, 119.0f), Vector2(0.03f,-0.015f), 5, 12, 57, 0.04f);
-			
+			gameplayer_animator->Create(L"skill_hammer", player_skill_hammer, Vector2(0.0f, 0.0f), Vector2(275.0f, 119.0f), Vector2(0.03f, -0.015f), 5, 12, 57, 0.04f);
+																														//Vector2(0.03f,-0.015f)
 			gameplayer_animator->Play(L"Idle", true);
 
 
@@ -107,7 +107,7 @@ namespace ya
 			Player* obj = object::Instantiate<Player>(eLayerType::Player);
 			obj->SetName(L"SMILE");
 			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(2.0f, 0.0f, 5.0f));
+			tr->SetPosition(Vector3(2.3f, 1.0f, 2.0f));
 			
 
 

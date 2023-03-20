@@ -26,7 +26,7 @@ namespace ya
 
 		void SetPosition(Vector3 position) { mPosition = position; };
 		void SetRotation(Vector3 rotation) { mRotation = rotation; };
-		void SetScale(Vector3 scale) { mScale = scale; };
+		void SetScale(Vector3 scale) { mScale = scale; }; //임시로 내가바꿈
 
 		Vector3 Foward() { return mFoward; }
 		Vector3 Right() { return mRight; }

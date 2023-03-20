@@ -21,7 +21,7 @@ namespace ya
 	{
 		int a = 0;
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-		animator->GetStartEvent(L"MoveDown") = std::bind(&PlayerScript::Start, this);
+		animator->GetStartEvent(L"skill_hammer") = std::bind(&PlayerScript::Start, this);
 		animator->GetCompleteEvent(L"Idle") = std::bind(&PlayerScript::Action, this);
 		animator->GetEndEvent(L"Idle") = std::bind(&PlayerScript::End, this);
 		animator->GetEvent(L"Idle", 1) = std::bind(&PlayerScript::End, this);
@@ -41,13 +41,13 @@ namespace ya
 			tr->SetRotation(rot);
 		}
 
-
 		if (Input::GetKey(eKeyCode::RIGHT))
 		{
 			Vector3 pos = tr->GetPosition();
 			pos.x += 6.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
+
 		if (Input::GetKey(eKeyCode::LEFT))
 		{
 			Vector3 pos = tr->GetPosition();
@@ -61,6 +61,7 @@ namespace ya
 			pos.y -= 6.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
+
 		if (Input::GetKey(eKeyCode::UP))
 		{
 			Vector3 pos = tr->GetPosition();
@@ -69,16 +70,17 @@ namespace ya
 		}
 
 		
-		
+		//skill_hammer 구현부
 		if (Input::GetKeyDown(eKeyCode::Z))
 		{
 			Animator* animator = GetOwner()->GetComponent<Animator>();
-			animator->Play(L"MoveDown");
-			animator->GetCompleteEvent(L"MoveDown") = std::bind(&PlayerScript::Start, this);
-			
+			for (size_t i = 1; i < 38; i++)
+			{
+				animator->GetEvent(L"skill_hammer", i) = std::bind(&PlayerScript::Skill_Moving_Right, this);
+			}
+			animator->GetCompleteEvent(L"skill_hammer") = std::bind(&PlayerScript::Player_Idel, this);
+			animator->Play(L"skill_hammer");
 		}
-
-		
 
 	}
 
@@ -88,7 +90,7 @@ namespace ya
 
 	void PlayerScript::OnCollisionEnter(Collider2D* collider)
 	{
-		int a = 0;
+		
 	}
 
 	void PlayerScript::OnCollisionStay(Collider2D* collider)
@@ -101,8 +103,7 @@ namespace ya
 
 	void PlayerScript::Start()
 	{
-		Animator* animator = GetOwner()->GetComponent<Animator>();
-		animator->Play(L"Idle");
+		
 	}
 
 	void PlayerScript::Action()
@@ -112,7 +113,31 @@ namespace ya
 
 	void PlayerScript::End()
 	{
-		int a = 0;
+
+	}
+
+
+
+
+
+	void PlayerScript::Player_Idel() //스킬모션이끝나고 idel 애니메이션으로 전환
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->Play(L"Idle");
+	}
+	void PlayerScript::Skill_Moving_Right() //스킬 진행중 오른쪽으로 무빙하기
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		pos.x += 0.05f;
+		tr->SetPosition(pos);
+	}
+	void PlayerScript::Skill_Moving_Left() //스킬 진행중 왼쪽으로 무빙하기
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		pos.x -= 0.05f;
+		tr->SetPosition(pos);
 	}
 
 }

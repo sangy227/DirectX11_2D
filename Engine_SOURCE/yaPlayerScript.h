@@ -22,6 +22,10 @@ namespace ya
 		void Action();
 		void End();
 
+		void Player_Idel();
+		void Skill_Moving_Right();
+		void Skill_Moving_Left();
+
 	private:
 
 	};
