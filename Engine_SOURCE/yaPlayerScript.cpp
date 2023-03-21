@@ -81,7 +81,19 @@ namespace ya
 			animator->GetCompleteEvent(L"skill_hammer") = std::bind(&PlayerScript::Player_Idel, this);
 			animator->Play(L"skill_hammer");
 		}
+		
 
+		//skill_Painwheel 구현부
+		if (Input::GetKeyDown(eKeyCode::X))
+		{
+			Animator* animator = GetOwner()->GetComponent<Animator>();
+			for (size_t i = 1; i < 14; i++)
+			{
+				animator->GetEvent(L"skill_Painwheel", i) = std::bind(&PlayerScript::Skill_Moving_Right, this);
+			}
+			animator->GetCompleteEvent(L"skill_Painwheel") = std::bind(&PlayerScript::Player_Idel, this);
+			animator->Play(L"skill_Painwheel");
+		}
 	}
 
 	void PlayerScript::Render()
@@ -129,14 +141,14 @@ namespace ya
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
-		pos.x += 0.05f;
+		pos.x += 0.07f;
 		tr->SetPosition(pos);
 	}
 	void PlayerScript::Skill_Moving_Left() //스킬 진행중 왼쪽으로 무빙하기
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
-		pos.x -= 0.05f;
+		pos.x -= 0.07f;
 		tr->SetPosition(pos);
 	}
 

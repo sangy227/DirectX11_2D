@@ -1,6 +1,7 @@
 #include "yaGameObject.h"
 #include "yaTransform.h"
-
+#include "yaCollider.h"
+#include "yaCollider2D.h"
 namespace ya
 {
 	GameObject::GameObject()

@@ -31,9 +31,9 @@ namespace ya
 
 	void PlayScene::Initalize()
 	{
-	
 		
-
+		
+		int a = 0;
 
 
 
@@ -67,28 +67,35 @@ namespace ya
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-		cameraComp->RegisterCameraInRenderer();
+		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
 		mainCamera = cameraComp;
 
 
-		//GamePlayer
+		//Game_Main_Player
 		{
 			Player* gameplayer = object::Instantiate<Player>(eLayerType::Player);
 			gameplayer->SetName(L"GamePlayer");
 			Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
-			gameplayer_tr->SetPosition(Vector3(1.0f, 1.0f, 2.0f));
+			gameplayer_tr->SetPosition(Vector3(1.0f, 1.0f, 3.0f));
 			gameplayer_tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
 			//gameplayer_tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 
+			//이거왜 Player* transform 못읽을까?
+			//Collider2D* gameplayer_col = gameplayer->AddComponent<Collider2D>();
+			//gameplayer_col->SetType(eColliderType::Rect);
+			
+
 			Animator* gameplayer_animator = gameplayer->AddComponent<Animator>();
-			std::shared_ptr<Texture> player_idle = Resources::Load<Texture>(L"Zelda1", L"T_BossIrma_Idle_Final.png");
-			std::shared_ptr<Texture> player_skill_hammer = Resources::Load<Texture>(L"Zelda", L"T_BossIrma_Hammer_Final.png");
+			std::shared_ptr<Texture> player_idle = Resources::Load<Texture>(L"player", L"T_BossIrma_Idle_Final.png");
+			std::shared_ptr<Texture> player_skill_hammer = Resources::Load<Texture>(L"player_skill_1", L"T_BossIrma_Hammer_Final.png");
+			std::shared_ptr<Texture> player_skill_Painwheel = Resources::Load<Texture>(L"player_skill_2", L"T_BossIrma_Painwheel_Final.png");
 
 			gameplayer_animator->Create(L"Idle", player_idle, Vector2(0.0f, 0.0f), Vector2(59.0f, 52.0f), Vector2::Zero, 7,4,26, 0.08f);
-			gameplayer_animator->Create(L"skill_hammer", player_skill_hammer, Vector2(0.0f, 0.0f), Vector2(275.0f, 119.0f), Vector2(0.03f, -0.015f), 5, 12, 57, 0.04f);
-																														//Vector2(0.03f,-0.015f)
+			gameplayer_animator->Create(L"skill_hammer", player_skill_hammer, Vector2(0.0f, 0.0f), Vector2(275.0f, 119.0f), Vector2(0.03f, -0.015f), 5, 12, 57, 0.035f);
+			gameplayer_animator->Create(L"skill_Painwheel", player_skill_Painwheel, Vector2(0.0f, 0.0f), Vector2(190.0f, 85.0f), Vector2(0.03f, -0.015f), 5, 11, 54, 0.035f);
+																														
 			gameplayer_animator->Play(L"Idle", true);
 
 
@@ -100,6 +107,8 @@ namespace ya
 
 			gameplayer->AddComponent<PlayerScript>();
 			object::DontDestroyOnLoad(gameplayer);
+
+		
 		}
 
 		//SMILE RECT
@@ -107,7 +116,7 @@ namespace ya
 			Player* obj = object::Instantiate<Player>(eLayerType::Player);
 			obj->SetName(L"SMILE");
 			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(2.3f, 1.0f, 2.0f));
+			tr->SetPosition(Vector3(2.3f, 1.0f, 3.0f));
 			
 
 
