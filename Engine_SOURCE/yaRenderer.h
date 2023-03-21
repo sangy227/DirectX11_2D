@@ -7,6 +7,8 @@
 #include "yaShader.h"
 #include "yaConstantBuffer.h"
 #include "yaCamera.h"
+#include "yaLight.h"
+#include "yaStructedBuffer.h"
 
 using namespace ya::math;
 using namespace ya::graphics;
@@ -54,6 +56,14 @@ namespace ya::renderer
 		UINT type;
 	};
 
+	//CBSLOT_NUMBEROFLIGHT
+	CBUFFER(LightCB, CBSLOT_NUMBEROFLIGHT)
+	{
+		UINT numberOfLight;
+	};
+
+
+
 	extern Vertex vertexes[4];
 	extern Camera* mainCamera;
 	extern ConstantBuffer* constantBuffers[];
@@ -64,13 +74,16 @@ namespace ya::renderer
 	
 	extern std::vector<Camera*> cameras[];
 	extern std::vector<DebugMesh> debugMeshes;
+	extern std::vector<LightAttribute> lights;
+	extern StructedBuffer* lightsBuffer;
 
 	void Initialize();
 	void Render();
 	void Release();
 
 	//Renderer
-
+	void PushLightAttribute(LightAttribute lightAttribute);
+	void BindLights();
 
 }
 

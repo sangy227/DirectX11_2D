@@ -47,6 +47,10 @@ namespace ya
 			titleBGTr->SetPosition(Vector3(0.99f, 1.0f, 1.7f));
 			titleBGTr->SetScale(Vector3(1.5f, 0.88f, 1.0f));
 
+			Light* bglightComp = titleBGObj->AddComponent<Light>();
+			bglightComp->SetType(eLightType::Directional);
+			bglightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+
 			SpriteRenderer* titlesr = titleBGObj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 			std::shared_ptr<Material> titleBGmaterial = Resources::Find<Material>(L"TitleBGMaterial");
@@ -60,6 +64,10 @@ namespace ya
 			Transform* titleLogoTr = titleLogoObj->GetComponent<Transform>();
 			titleLogoTr->SetPosition(Vector3(1.02f, 1.28f, 1.7f));
 			titleLogoTr->SetScale(Vector3(0.68f, 0.12f, 1.0f));
+
+			Light* logolightComp = titleLogoObj->AddComponent<Light>();
+			logolightComp->SetType(eLightType::Directional);
+			logolightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
 			SpriteRenderer* logosr = titleLogoObj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Mesh> logomesh = Resources::Find<Mesh>(L"RectMesh");

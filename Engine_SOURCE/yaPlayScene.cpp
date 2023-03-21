@@ -63,6 +63,23 @@ namespace ya
 
 	void PlayScene::OnEnter()
 	{
+		{
+			/*GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player);
+			directionalLight->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.0f));
+			Light* lightComp = directionalLight->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));*/
+		}
+
+		{
+			/*GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player);
+			directionalLight->GetComponent<Transform>()->SetPosition(Vector3(3.0f, 0.0f, 0.0f));*/
+			//Light* lightComp = directionalLight->AddComponent<Light>();
+			//lightComp->SetType(eLightType::Point);
+			//lightComp->SetRadius(10.0f);
+			//lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+
 		// Main Camera Game Object
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
@@ -81,6 +98,10 @@ namespace ya
 			gameplayer_tr->SetPosition(Vector3(1.0f, 1.0f, 3.0f));
 			gameplayer_tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
 			//gameplayer_tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
+
+			Light* lightComp = gameplayer->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetDiffuse(Vector4(0.9f, 0.9f, 0.9f, 0.9f));
 
 			//이거왜 Player* transform 못읽을까?
 			//Collider2D* gameplayer_col = gameplayer->AddComponent<Collider2D>();
@@ -116,9 +137,14 @@ namespace ya
 			Player* obj = object::Instantiate<Player>(eLayerType::Player);
 			obj->SetName(L"SMILE");
 			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(2.3f, 1.0f, 3.0f));
-			
+			tr->SetPosition(Vector3(5.3f, 1.0f, 3.1f));
+			tr->SetScale(Vector3(0.5f, 1.5f, 1.0f));
 
+			
+			Light* lightComp = obj->AddComponent<Light>();
+			lightComp->SetType(eLightType::Point);
+			lightComp->SetRadius(5.0f);
+			lightComp->SetDiffuse(Vector4(1.0f, 2.0f, 2.0f, 1.0f));
 
 			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"RectMaterial");

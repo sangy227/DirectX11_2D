@@ -213,6 +213,8 @@
     <ClCompile Include="yaAnimator.cpp">
       <Filter>Component\Animator</Filter>
     </ClCompile>
+    <ClCompile Include="yaLight.cpp" />
+    <ClCompile Include="yaStructedBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -347,6 +349,8 @@
     <ClInclude Include="yaAnimator.h">
       <Filter>Component\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="yaLight.h" />
+    <ClInclude Include="yaStructedBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="yaMath.inl">

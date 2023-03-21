@@ -32,6 +32,7 @@ namespace ya::enums
 		//Collider2,
 		MeshRenerer,
 		SpriteRenderer,
+		Light,
 		Animator,
 		UI,
 		//FadeOut,FadeIn
@@ -69,6 +70,14 @@ namespace ya::enums
 		None,
 		SecondDimension,
 		ThirdDimension,
+		End,
+	};
+
+	enum class eLightType
+	{
+		Directional,
+		Point,
+		Spot,
 		End,
 	};
 
