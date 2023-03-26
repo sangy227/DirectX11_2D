@@ -94,6 +94,30 @@ namespace ya
 			animator->GetCompleteEvent(L"skill_Painwheel") = std::bind(&PlayerScript::Player_Idel, this);
 			animator->Play(L"skill_Painwheel");
 		}
+
+		//skill_Spear 备泅何
+		if (Input::GetKeyDown(eKeyCode::C))
+		{
+			Animator* animator = GetOwner()->GetComponent<Animator>();
+			for (size_t i = 1; i < 16; i++)
+			{
+				animator->GetEvent(L"skill_Spear", i) = std::bind(&PlayerScript::Skill_Moving_Right, this);
+			}
+			animator->GetCompleteEvent(L"skill_Spear") = std::bind(&PlayerScript::Player_Idel, this);
+			animator->Play(L"skill_Spear");
+		}
+
+		//skill_Whirlwind 备泅何
+		if (Input::GetKeyDown(eKeyCode::V))
+		{
+			Animator* animator = GetOwner()->GetComponent<Animator>();
+			/*for (size_t i = 1; i < 16; i++)
+			{
+				animator->GetEvent(L"skill_Whirlwind", i) = std::bind(&PlayerScript::Skill_Moving_Right, this);
+			}*/
+			animator->GetCompleteEvent(L"skill_Whirlwind") = std::bind(&PlayerScript::Player_Idel, this);
+			animator->Play(L"skill_Whirlwind");
+		}
 	}
 
 	void PlayerScript::Render()
