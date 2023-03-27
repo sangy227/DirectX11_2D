@@ -126,6 +126,26 @@ namespace ya
 		if (events)
 			events->mStartEvent();
 	}
+
+	void Animator::Stop(const std::wstring& name, bool loop)
+	{
+		Animation* prevAnimation = mActiveAnimation;
+		Events* events = nullptr;
+		if (prevAnimation)
+			events = FindEvents(prevAnimation->AnimationName());
+
+		if (events)
+			events->mEndEvent();
+
+		mActiveAnimation = FindAnimation(name);
+		mActiveAnimation->Reset();
+		mbLoop = loop;
+
+		events = FindEvents(mActiveAnimation->AnimationName());
+
+		if (events)
+			events->mStartEvent();
+	}
 	
 	void Animator::Binds()
 	{

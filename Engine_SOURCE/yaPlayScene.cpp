@@ -18,6 +18,7 @@
 #include "yaAnimator.h"
 #include "yaSkillEffect.h"
 #include "yaSkillEffectScript.h"
+#include "yaTime.h"
 
 namespace ya
 {
@@ -85,11 +86,16 @@ namespace ya
 		// Main Camera Game Object
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
-		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		cameraComp->SetProjectionType(Camera::eProjectionType::Perspective);
 		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
 		mainCamera = cameraComp;
+
+		Transform* cameratr = cameraObj->GetComponent<Transform>();
+		Vector3 camerapos = cameratr->GetPosition();
+		camerapos += (4.0f * -cameratr->Foward());
+		cameratr->SetPosition(camerapos);
 
 
 		//Game_Main_Player

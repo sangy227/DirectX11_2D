@@ -201,7 +201,6 @@ namespace ya
 			Player* skilleffect = object::Instantiate<Player>(eLayerType::Skill_Effect);
 			skilleffect->SetName(L"player_skill_effect");
 
-
 			Transform* skilleffct_tr = skilleffect->GetComponent<Transform>();
 			Transform* skilleffct_getplayer_tr = GetOwner()->GetComponent<Transform>();
 			skilleffct_tr->SetPosition(skilleffct_getplayer_tr->GetPosition());
@@ -209,9 +208,9 @@ namespace ya
 
 			Animator* skilleffct_Ani = skilleffect->AddComponent<Animator>();
 			std::shared_ptr<Texture> skill_idle = Resources::Load<Texture>(L"skill01", L"T_Player_Whirlwind_FX.png");
-			skilleffct_Ani->Create(L"skeffect", skill_idle, Vector2(0.0f, 0.0f), Vector2(262.0f, 73.0f), Vector2(0.03f, -0.0f), 3, 6, 17, 0.04f);
+			skilleffct_Ani->Create(L"skeffect", skill_idle, Vector2(0.0f, 0.0f), Vector2(262.0f, 73.0f), Vector2(0.03f, -0.0f), 3, 6, 18, 0.04f);
 
-			skilleffct_Ani->Play(L"skeffect", true);
+			skilleffct_Ani->Play(L"skeffect", false);
 			skilleffct_Ani->GetEndEvent(L"skeffect") = std::bind(&PlayerScript::End, this);
 			//GetEndEvent
 
