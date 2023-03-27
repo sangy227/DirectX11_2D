@@ -6,6 +6,7 @@
 namespace ya
 {
 	using namespace ya::enums;
+	class Player;
 	class Scene : public Entity
 	{
 	public:
@@ -31,5 +32,8 @@ namespace ya
 	private:
 		std::vector<Layer> mLayers;
 		eSceneType mType;
+
+	protected:
+		Player* gameplayer;
 	};
 }

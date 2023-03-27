@@ -4,6 +4,22 @@
 #include "yaInput.h"
 #include "yaTime.h"
 #include "yaAnimator.h"
+#include "yaMeshRenderer.h"
+#include "yaRenderer.h"
+#include "yaResources.h"
+#include "yaTexture.h"
+#include "yaPlayerScript.h"
+#include "yaCamera.h"
+#include "yaCameraScript.h"
+#include "yaSpriteRenderer.h"
+#include "yaGridScript.h"
+#include "yaObject.h"
+#include "yaCollider2D.h"
+#include "yaPlayer.h"
+#include "yaMonster.h"
+#include "yaCollisionManager.h"
+#include "yaSkillEffect.h"
+#include "yaSkillEffectScript.h"
 
 namespace ya
 {
@@ -111,10 +127,13 @@ namespace ya
 		if (Input::GetKeyDown(eKeyCode::V))
 		{
 			Animator* animator = GetOwner()->GetComponent<Animator>();
-			/*for (size_t i = 1; i < 16; i++)
+			for (size_t i = 1; i < 31; i++)
 			{
-				animator->GetEvent(L"skill_Whirlwind", i) = std::bind(&PlayerScript::Skill_Moving_Right, this);
-			}*/
+				if (i == 12)
+				{
+					animator->GetEvent(L"skill_Whirlwind", i) = std::bind(&PlayerScript::skill_Whirlwind_Fx, this);
+				}
+			}
 			animator->GetCompleteEvent(L"skill_Whirlwind") = std::bind(&PlayerScript::Player_Idel, this);
 			animator->Play(L"skill_Whirlwind");
 		}
@@ -149,7 +168,7 @@ namespace ya
 
 	void PlayerScript::End()
 	{
-
+		
 	}
 
 
@@ -174,6 +193,36 @@ namespace ya
 		Vector3 pos = tr->GetPosition();
 		pos.x -= 0.07f;
 		tr->SetPosition(pos);
+	}
+
+	void PlayerScript::skill_Whirlwind_Fx() // 이펙트 실험중
+	{
+		{
+			Player* skilleffect = object::Instantiate<Player>(eLayerType::Skill_Effect);
+			skilleffect->SetName(L"player_skill_effect");
+
+
+			Transform* skilleffct_tr = skilleffect->GetComponent<Transform>();
+			Transform* skilleffct_getplayer_tr = GetOwner()->GetComponent<Transform>();
+			skilleffct_tr->SetPosition(skilleffct_getplayer_tr->GetPosition());
+			skilleffct_tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+
+			Animator* skilleffct_Ani = skilleffect->AddComponent<Animator>();
+			std::shared_ptr<Texture> skill_idle = Resources::Load<Texture>(L"skill01", L"T_Player_Whirlwind_FX.png");
+			skilleffct_Ani->Create(L"skeffect", skill_idle, Vector2(0.0f, 0.0f), Vector2(262.0f, 73.0f), Vector2(0.03f, -0.0f), 3, 6, 17, 0.04f);
+
+			skilleffct_Ani->Play(L"skeffect", true);
+			skilleffct_Ani->GetEndEvent(L"skeffect") = std::bind(&PlayerScript::End, this);
+			//GetEndEvent
+
+			SpriteRenderer* skilleffect_sr = skilleffect->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> gameplayer_mateiral = Resources::Find<Material>(L"SpriteMaterial");
+			skilleffect_sr->SetMaterial(gameplayer_mateiral);
+			std::shared_ptr<Mesh> gameplayer_mesh = Resources::Find<Mesh>(L"RectMesh");
+			skilleffect_sr->SetMesh(gameplayer_mesh);
+			skilleffect->AddComponent<SkillEffectScript>();
+			object::DontDestroyOnLoad(skilleffect);
+		}
 	}
 
 }

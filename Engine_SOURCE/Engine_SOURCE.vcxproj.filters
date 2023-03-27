@@ -215,6 +215,12 @@
     </ClCompile>
     <ClCompile Include="yaLight.cpp" />
     <ClCompile Include="yaStructedBuffer.cpp" />
+    <ClCompile Include="yaSkillEffect.cpp">
+      <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSkillEffectScript.cpp">
+      <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -351,6 +357,12 @@
     </ClInclude>
     <ClInclude Include="yaLight.h" />
     <ClInclude Include="yaStructedBuffer.h" />
+    <ClInclude Include="yaSkillEffect.h">
+      <Filter>Component\Script\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSkillEffectScript.h">
+      <Filter>Component\Script\Contents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="yaMath.inl">

@@ -1,14 +1,15 @@
 #pragma once
+
 #include "yaScript.h"
 
 
 namespace ya
 {
-	class PlayerScript : public Script
+	class SkillEffectScript : public Script
 	{
 	public:
-		PlayerScript();
-		~PlayerScript();
+		SkillEffectScript();
+		~SkillEffectScript();
 
 		virtual void Initalize() override;
 		virtual void Update() override;
@@ -22,11 +23,6 @@ namespace ya
 		void Action();
 		void End();
 
-		void Player_Idel();
-		void Skill_Moving_Right();
-		void Skill_Moving_Left();
-
-		void skill_Whirlwind_Fx();
 
 	private:
 

@@ -17,6 +17,7 @@ namespace ya::enums
 		Grid,
 		Monster,
 		Player,
+		Skill_Effect,
 
 		UI,
 		End = 16,
