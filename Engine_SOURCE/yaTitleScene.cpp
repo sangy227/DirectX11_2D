@@ -16,6 +16,8 @@
 #include "yaMonster.h"
 #include "yaCollisionManager.h"
 #include "yaAnimator.h"
+#include "yaPaintShader.h"
+#include "yaParticleSystem.h"
 
 namespace ya
 {
@@ -28,6 +30,23 @@ namespace ya
 	}
 	void TitleScene::Initalize()
 	{
+		//Particle
+		{
+			Player* obj = object::Instantiate<Player>(eLayerType::Particle);
+			obj->SetName(L"PARTICLE");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
+			obj->AddComponent<ParticleSystem>();
+		}
+
+		////paint shader
+		//std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
+		////L"SmileTexture"
+		//std::shared_ptr<Texture> paintTex = Resources::Find<Texture>(L"PaintTexture");
+		//paintShader->SetTarget(paintTex);
+		//paintShader->OnExcute();
+		
+
 		// Main Camera Game Object
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
@@ -76,6 +95,7 @@ namespace ya
 			logosr->SetMesh(logomesh);
 		}
 
+		
 
 
 

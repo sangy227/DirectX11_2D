@@ -94,13 +94,25 @@
     <Filter Include="Component\Animator">
       <UniqueIdentifier>{5617f228-a6b1-4d89-8a60-2aea1ca48f8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Shader\CS">
+      <UniqueIdentifier>{ac7b6aa0-1ad5-41d8-9476-94899576df3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Shader\CS\Base">
+      <UniqueIdentifier>{8b7e7bab-fdbb-4c50-a560-44a7c85c2991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Light">
+      <UniqueIdentifier>{788a04b1-1196-4ad4-bfb5-600d900eb569}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Buffer">
+      <UniqueIdentifier>{1613b101-fda3-48e1-a285-0a3e12aee3b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\API">
+      <UniqueIdentifier>{836c8d06-61c7-4f4e-bc0e-0dd71e4e59df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
       <Filter>High Level Interface</Filter>
-    </ClCompile>
-    <ClCompile Include="yaGraphicDevice_DX11.cpp">
-      <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="yaMath.cpp">
       <Filter>Common\Math</Filter>
@@ -165,9 +177,6 @@
     <ClCompile Include="yaBaseRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="yaConstantBuffer.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="yaGridScript.cpp">
       <Filter>Resource\Script</Filter>
     </ClCompile>
@@ -213,13 +222,30 @@
     <ClCompile Include="yaAnimator.cpp">
       <Filter>Component\Animator</Filter>
     </ClCompile>
-    <ClCompile Include="yaLight.cpp" />
-    <ClCompile Include="yaStructedBuffer.cpp" />
     <ClCompile Include="yaSkillEffect.cpp">
       <Filter>Component\Script\Contents</Filter>
     </ClCompile>
     <ClCompile Include="yaSkillEffectScript.cpp">
       <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="yaComputeShader.cpp">
+      <Filter>Resource\Shader\CS\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPaintShader.cpp">
+      <Filter>Resource\Shader\CS</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLight.cpp">
+      <Filter>Component\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="yaParticleSystem.cpp" />
+    <ClCompile Include="yaStructedBuffer.cpp">
+      <Filter>Graphics\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="yaConstantBuffer.cpp">
+      <Filter>Graphics\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGraphicDevice_DX11.cpp">
+      <Filter>Graphics\API</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -228,9 +254,6 @@
     </ClInclude>
     <ClInclude Include="yaApplication.h">
       <Filter>High Level Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="yaGraphicDevice_DX11.h">
-      <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="yaMath.h">
       <Filter>Common\Math</Filter>
@@ -307,9 +330,6 @@
     <ClInclude Include="yaBaseRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="yaConstantBuffer.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="yaGridScript.h">
       <Filter>Resource\Script</Filter>
     </ClInclude>
@@ -355,13 +375,30 @@
     <ClInclude Include="yaAnimator.h">
       <Filter>Component\Animator</Filter>
     </ClInclude>
-    <ClInclude Include="yaLight.h" />
-    <ClInclude Include="yaStructedBuffer.h" />
     <ClInclude Include="yaSkillEffect.h">
       <Filter>Component\Script\Contents</Filter>
     </ClInclude>
     <ClInclude Include="yaSkillEffectScript.h">
       <Filter>Component\Script\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="yaComputeShader.h">
+      <Filter>Resource\Shader\CS\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPaintShader.h">
+      <Filter>Resource\Shader\CS</Filter>
+    </ClInclude>
+    <ClInclude Include="yaLight.h">
+      <Filter>Component\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="yaParticleSystem.h" />
+    <ClInclude Include="yaStructedBuffer.h">
+      <Filter>Graphics\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="yaConstantBuffer.h">
+      <Filter>Graphics\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="yaGraphicDevice_DX11.h">
+      <Filter>Graphics\API</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

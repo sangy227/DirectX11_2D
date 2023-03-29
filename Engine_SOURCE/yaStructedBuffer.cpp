@@ -54,7 +54,7 @@ namespace ya::graphics
 		return true;
 	}
 
-	void StructedBuffer::Bind(void* data, UINT bufferCount)
+	void StructedBuffer::SetData(void* data, UINT bufferCount)
 	{
 		if (mStride < bufferCount)
 		{
@@ -66,9 +66,9 @@ namespace ya::graphics
 		}
 	}
 
-	void StructedBuffer::SetPipeline(eShaderStage stage, UINT slot)
+	void StructedBuffer::Bind(eShaderStage stage, UINT slot)
 	{
-		GetDevice()->SetShaderResource(stage, slot, mSRV.GetAddressOf());
+		GetDevice()->BindShaderResource(stage, slot, mSRV.GetAddressOf());
 	}
 
 }

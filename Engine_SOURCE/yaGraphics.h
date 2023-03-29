@@ -17,6 +17,7 @@
 #define CBSLOT_GRID 2
 #define CBSLOT_ANIMATION 3
 #define CBSLOT_NUMBEROFLIGHT 4
+#define CBSLOT_PARTICLESYSTEM 4
 
 using namespace ya::math;
 namespace ya::graphics
@@ -105,6 +106,7 @@ namespace ya::graphics
 		Grid,
 		Animation,
 		Light,
+		ParticleSystem,
 		End,
 	};
 
@@ -123,6 +125,27 @@ namespace ya::graphics
 		None,
 		End,
 	};
+
+	enum class eTextureSlot
+	{
+		T0,
+		T1,
+		T2,
+		T3,
+		T4,
+		T5,
+		T6,
+		T7,
+
+		CubeT8,
+		CubeT9,
+
+		Array2DT10,
+		Array2DT11,
+
+		End,
+	};
+
 
 
 	struct DebugMesh
@@ -149,5 +172,16 @@ namespace ya::graphics
 		float radius;
 		float angle;
 		int padding;
+	};
+
+	struct Particle
+	{
+		Vector4 position;
+		Vector4 direction;
+
+		float lifeTime;
+		float time;
+		float speed;
+		UINT active;
 	};
 }

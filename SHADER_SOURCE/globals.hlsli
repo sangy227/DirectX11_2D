@@ -1,4 +1,5 @@
 #include "Light.hlsli"
+#include "Particle.hlsli"
 
 cbuffer Transform : register(b0)
 {
@@ -39,11 +40,20 @@ cbuffer NumberOfLight : register(b4)
     uint numberOfLight;
 }
 
+cbuffer ParticleSystem : register(b5)
+{
+    float4 particleColor;
+}
+
+
 SamplerState pointSampler : register(s0);
 SamplerState linearSampler : register(s1);
 SamplerState anisotropicSampler : register(s2);
 
 StructuredBuffer<LightAttribute> lightAttributes : register(t13);
+StructuredBuffer<Particle> particleBuffer : register(t15);
+
+//Texture2D test;
 
 Texture2D defaultTexture : register(t0);
 //Texture2D defaultTexture2 : register(t1);

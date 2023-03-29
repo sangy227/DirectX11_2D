@@ -62,6 +62,11 @@ namespace ya::renderer
 		UINT numberOfLight;
 	};
 
+	CBUFFER(ParticleSystemCB, CBSLOT_PARTICLESYSTEM)
+	{
+		Vector4 color;
+	};
+
 
 
 	extern Vertex vertexes[4];

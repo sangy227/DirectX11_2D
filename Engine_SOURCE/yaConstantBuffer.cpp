@@ -30,13 +30,13 @@ namespace ya::graphics
 		return true;
 	}
 
-	void ConstantBuffer::Bind(void* data)
+	void ConstantBuffer::SetData(void* data)
 	{
 		GetDevice()->BindBuffer(buffer.Get(), data, desc.ByteWidth);
 	}
 
-	void ConstantBuffer::SetPipline(eShaderStage stage)
+	void ConstantBuffer::Bind(eShaderStage stage)
 	{
-		GetDevice()->SetConstantBuffer(stage, mType, buffer.Get());
+		GetDevice()->BindConstantBuffer(stage, mType, buffer.Get());
 	}
 }

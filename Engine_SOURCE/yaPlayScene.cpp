@@ -19,6 +19,9 @@
 #include "yaSkillEffect.h"
 #include "yaSkillEffectScript.h"
 #include "yaTime.h"
+#include "yaPaintShader.h"
+#include "yaParticleSystem.h"
+
 
 namespace ya
 {
@@ -66,21 +69,30 @@ namespace ya
 
 	void PlayScene::OnEnter()
 	{
-		{
+		{ // Light1
 			/*GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player);
 			directionalLight->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.0f));
 			Light* lightComp = directionalLight->AddComponent<Light>();
 			lightComp->SetType(eLightType::Directional);
 			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));*/
-		}
+		} 
 
-		{
+		{ // Light2
 			/*GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player);
 			directionalLight->GetComponent<Transform>()->SetPosition(Vector3(3.0f, 0.0f, 0.0f));*/
 			//Light* lightComp = directionalLight->AddComponent<Light>();
 			//lightComp->SetType(eLightType::Point);
 			//lightComp->SetRadius(10.0f);
 			//lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+
+		{
+			//paint shader
+			std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
+			//L"SmileTexture"
+			std::shared_ptr<Texture> paintTex = Resources::Find<Texture>(L"PaintTexture");
+			paintShader->SetTarget(paintTex);
+			paintShader->OnExcute();
 		}
 
 		// Main Camera Game Object
@@ -156,7 +168,7 @@ namespace ya
 
 			
 			Light* lightComp = obj->AddComponent<Light>();
-			lightComp->SetType(eLightType::Point);
+			lightComp->SetType(eLightType::Point); //포인트여야지 주변 밝게 할수있음
 			lightComp->SetRadius(5.0f);
 			lightComp->SetDiffuse(Vector4(1.0f, 2.0f, 2.0f, 1.0f));
 
@@ -167,6 +179,7 @@ namespace ya
 			mr->SetMesh(mesh);
 			object::DontDestroyOnLoad(obj);
 		}
+		
 		
 	}
 

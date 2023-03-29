@@ -19,6 +19,9 @@ namespace ya::enums
 		Player,
 		Skill_Effect,
 
+		Particle,
+
+
 		UI,
 		End = 16,
 	};
@@ -35,6 +38,7 @@ namespace ya::enums
 		SpriteRenderer,
 		Light,
 		Animator,
+		ParticleSystem,
 		UI,
 		//FadeOut,FadeIn
 		Script,
