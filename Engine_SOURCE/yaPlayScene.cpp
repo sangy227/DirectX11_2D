@@ -100,8 +100,6 @@ namespace ya
 
 		//Game_Main_Player
 		{
-			//하나더 만들어서 레이어 타입 플레이어 뒤쪽에 생성 , 이펙트 cpp하나 만들고 특정 컷 이벤트에 집어넣어서 잔상 만들기
-			//이펙트 를 플레이어가 들게만들거나 ,  플레이어를 싱글턴 패턴으로 전역으로 올려서 여기저기 쓰게 만들어서 transfome을 가져오게 하기
 			gameplayer = object::Instantiate<Player>(eLayerType::Player);
 			gameplayer->SetName(L"GamePlayer");
 			Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
@@ -113,7 +111,7 @@ namespace ya
 			lightComp->SetType(eLightType::Directional);
 			lightComp->SetDiffuse(Vector4(0.9f, 0.9f, 0.9f, 0.9f));
 
-			//이거왜 Player* transform 못읽을까?
+			
 			Collider2D* gameplayer_col = gameplayer->AddComponent<Collider2D>();
 			gameplayer_col->SetType(eColliderType::Rect);
 			gameplayer_col->SetSize(Vector2(0.12f, 0.11f));
@@ -124,7 +122,6 @@ namespace ya
 			std::shared_ptr<Texture> player_skill_hammer = Resources::Load<Texture>(L"player_skill_1", L"T_BossIrma_Hammer_Final.png");
 			std::shared_ptr<Texture> player_skill_Painwheel = Resources::Load<Texture>(L"player_skill_2", L"T_BossIrma_Painwheel_Final.png");
 			std::shared_ptr<Texture> player_skill_Spear = Resources::Load<Texture>(L"player_skill_3", L"T_Player_Spear_Body.png");
-			//std::shared_ptr<Texture> player_skill_Spear = Resources::Load<Texture>(L"player_skill_3", L"test.png");
 			std::shared_ptr<Texture> player_skill_Whirlwind = Resources::Load<Texture>(L"player_skill_4", L"T_Player_Whirlwind_Body.png");
 			
 			gameplayer_animator->Create(L"Idle", player_idle, Vector2(0.0f, 0.0f), Vector2(59.0f, 52.0f), Vector2::Zero, 7,4,26, 0.08f);
@@ -148,41 +145,11 @@ namespace ya
 
 		}
 
-		//SKILL EFFECT
-		/*{
-			
-			SkillEffect* skilleffect = object::Instantiate<SkillEffect>(eLayerType::Skill_Effect);
-			skilleffect->SetName(L"player_skill_effect");
-
-			Light* lightComp = skilleffect->AddComponent<Light>();
-			lightComp->SetType(eLightType::Directional);
-			lightComp->SetDiffuse(Vector4(0.9f, 0.9f, 0.9f, 0.9f));
-
-			Transform* skilleffct_tr = skilleffect->GetComponent<Transform>();
-			Transform* skilleffct_getplayer_tr = gameplayer->GetComponent<Transform>();
-			skilleffct_tr->SetPosition(skilleffct_getplayer_tr->GetPosition());
-			skilleffct_tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
-
-			Animator* skilleffct_Ani = skilleffect->AddComponent<Animator>();
-			std::shared_ptr<Texture> skill_idle = Resources::Load<Texture>(L"skill01", L"T_Player_Whirlwind_FX.png");
-			skilleffct_Ani->Create(L"skeffect", skill_idle, Vector2(0.0f, 0.0f), Vector2(262.0f, 73.0f), Vector2(0.03f, -0.015f), 3,6,17, 0.04f);
-
-			skilleffct_Ani->Play(L"skeffect", true);
-
-
-			SpriteRenderer* skilleffect_sr = skilleffect->AddComponent<SpriteRenderer>();
-			std::shared_ptr<Material> gameplayer_mateiral = Resources::Find<Material>(L"SpriteMaterial");
-			skilleffect_sr->SetMaterial(gameplayer_mateiral);
-			std::shared_ptr<Mesh> gameplayer_mesh = Resources::Find<Mesh>(L"RectMesh");
-			skilleffect_sr->SetMesh(gameplayer_mesh);
-			skilleffect->AddComponent<SkillEffectScript>();
-			object::DontDestroyOnLoad(skilleffect);
-
-		}*/
+		
 		//SMILE RECT
 		{
 			Player* obj = object::Instantiate<Player>(eLayerType::Player);
-			obj->SetName(L"SMILE");
+			obj->SetName(L"tochlight");
 			Transform* tr = obj->GetComponent<Transform>();
 			tr->SetPosition(Vector3(5.3f, 1.0f, 3.1f));
 			tr->SetScale(Vector3(0.5f, 1.5f, 1.0f));
