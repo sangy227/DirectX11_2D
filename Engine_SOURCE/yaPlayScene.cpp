@@ -114,8 +114,9 @@ namespace ya
 			lightComp->SetDiffuse(Vector4(0.9f, 0.9f, 0.9f, 0.9f));
 
 			//이거왜 Player* transform 못읽을까?
-			//Collider2D* gameplayer_col = gameplayer->AddComponent<Collider2D>();
-			//gameplayer_col->SetType(eColliderType::Rect);
+			Collider2D* gameplayer_col = gameplayer->AddComponent<Collider2D>();
+			gameplayer_col->SetType(eColliderType::Rect);
+			gameplayer_col->SetSize(Vector2(0.12f, 0.11f));
 			
 
 			Animator* gameplayer_animator = gameplayer->AddComponent<Animator>();

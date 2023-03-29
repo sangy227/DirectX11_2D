@@ -17,6 +17,7 @@ namespace ya
 		, mRadius(0.0f)
 	{
 		mID = ColliderNumber++;
+	
 	}
 
 	Collider2D::~Collider2D()
@@ -34,6 +35,7 @@ namespace ya
 
 	void Collider2D::FixedUpdate()
 	{
+		mTransform = GetOwner()->GetComponent<Transform>();
 		Vector3 scale = mTransform->GetScale();
 		scale *= Vector3(mSize.x, mSize.y, 3.0f);
 
