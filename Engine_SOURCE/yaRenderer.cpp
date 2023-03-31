@@ -19,17 +19,21 @@ namespace ya::renderer
 	std::vector<LightAttribute> lights;
 	StructedBuffer* lightsBuffer = nullptr;
 
+
+
 	void LoadMesh()
 	{
-		//Point mesh
+#pragma region POINT MESH
 		Vertex v = {};
 		std::shared_ptr<Mesh> pointMesh = std::make_shared<Mesh>();
 		Resources::Insert<Mesh>(L"PointMesh", pointMesh);
 		pointMesh->CreateVertexBuffer(&v, 1);
 		UINT pointIndex = 0;
 		pointMesh->CreateIndexBuffer(&pointIndex, 1);
+#pragma endregion
 
-		//RECT
+#pragma region RECT MESH
+		//Rect
 		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
 		vertexes[0].uv = Vector2(0.f, 0.f);
@@ -60,8 +64,9 @@ namespace ya::renderer
 		indexes.push_back(3);
 		indexes.push_back(0);
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
+#pragma endregion
 
-		// 
+#pragma region DEBUG RECTMESH
 		vertexes[0].pos = Vector4(-0.5f, 0.5f, -0.00001f, 1.0f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
 		vertexes[0].uv = Vector2(0.f, 0.f);
@@ -83,7 +88,9 @@ namespace ya::renderer
 		Resources::Insert<Mesh>(L"DebugRectMesh", debugmesh);
 		debugmesh->CreateVertexBuffer(vertexes, 4);
 		debugmesh->CreateIndexBuffer(indexes.data(), indexes.size());
+#pragma endregion
 
+#pragma region CIRCLE MESH
 		// Circle Mesh
 		std::vector<Vertex> circleVtxes;
 		Vertex center = {};
@@ -123,6 +130,7 @@ namespace ya::renderer
 		Resources::Insert<Mesh>(L"CircleMesh", cirlceMesh);
 		cirlceMesh->CreateVertexBuffer(circleVtxes.data(), circleVtxes.size());
 		cirlceMesh->CreateIndexBuffer(indexes.data(), indexes.size());
+#pragma endregion
 	}
 
 	void SetUpState()
@@ -195,8 +203,6 @@ namespace ya::renderer
 		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		//D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR = 0x5,
-		//D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT = 0x10,
 		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT;
 
 
@@ -293,7 +299,7 @@ namespace ya::renderer
 		
 #pragma endregion
 #pragma region Blend State
-
+		//None
 		blendStates[(UINT)eBSType::Default] = nullptr;
 
 		D3D11_BLEND_DESC bsDesc = {};
@@ -327,7 +333,7 @@ namespace ya::renderer
 
 	void LoadBuffer()
 	{
-		// Constant Buffer
+#pragma region CONSTANT BUFFER
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
 
@@ -345,11 +351,12 @@ namespace ya::renderer
 
 		constantBuffers[(UINT)eCBType::ParticleSystem] = new ConstantBuffer(eCBType::ParticleSystem);
 		constantBuffers[(UINT)eCBType::ParticleSystem]->Create(sizeof(ParticleSystemCB));
-
-
+#pragma endregion
+#pragma region STRUCTED BUFFER
 		//Structed buffer
 		lightsBuffer = new StructedBuffer();
 		lightsBuffer->Create(sizeof(LightAttribute), 128, eSRVType::None, nullptr);
+#pragma endregion
 	}
 
 	void LoadShader()
@@ -365,7 +372,7 @@ namespace ya::renderer
 		std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
-
+		spriteShader->SetRSState(eRSType::SolidNone);
 		Resources::Insert<Shader>(L"SpriteShader", spriteShader);
 
 		// UI
@@ -418,16 +425,20 @@ namespace ya::renderer
 
 	void LoadTexture()
 	{
+#pragma region STATIC TEXTURE
 		Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
 		Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
 		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
 		Resources::Load<Texture>(L"CartoonSmoke", L"particle\\CartoonSmoke.png");
+#pragma endregion
 
+#pragma region DYNAMIC TEXTURE
 		//Create //paintTexture ½ÇÇè¿ë
 		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
 		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE
 			| D3D11_BIND_UNORDERED_ACCESS);
 		Resources::Insert<Texture>(L"PaintTexture", uavTexture);
+#pragma endregion
 
 		//TitleSceen
 		//Resources::Load<Texture>(L"TitleBG", L"T_MainMenu_Background.png");

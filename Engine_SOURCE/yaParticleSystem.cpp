@@ -18,6 +18,17 @@ namespace ya
 		, mEndColor(Vector4::Zero)
 		, mStartLifeTime(0.0f)
 	{
+
+	}
+
+	ParticleSystem::~ParticleSystem()
+	{
+		delete mBuffer;
+		mBuffer = nullptr;
+	}
+
+	void ParticleSystem::Initalize()
+	{
 		std::shared_ptr<Mesh> point = Resources::Find<Mesh>(L"PointMesh");
 		SetMesh(point);
 
@@ -44,18 +55,6 @@ namespace ya
 		mCount = 144;
 		mBuffer = new StructedBuffer();
 		mBuffer->Create(sizeof(Particle), mCount, eSRVType::None, particles);
-
-	}
-
-	ParticleSystem::~ParticleSystem()
-	{
-		delete mBuffer;
-		mBuffer = nullptr;
-	}
-
-	void ParticleSystem::Initalize()
-	{
-
 	}
 
 	void ParticleSystem::Update()

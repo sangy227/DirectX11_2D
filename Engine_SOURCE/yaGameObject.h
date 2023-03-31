@@ -40,6 +40,7 @@ namespace ya
 				comp->SetOwner(this);
 			}
 
+			comp->Initalize();
 			return comp;
 		}
 		void AddComponent(Component* comp);

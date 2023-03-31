@@ -117,18 +117,20 @@ namespace ya
 			Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
 			gameplayer_tr->SetPosition(Vector3(1.0f, 1.0f, 3.0f));
 			gameplayer_tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
-			//gameplayer_tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
+			// 스프라이트 이미지 좌우반전시킬려면->Transform->SetRotation() 가져와서 Vector3(0.0f, 180.0f, 0.0f) y축 반전 시켜버려야댐
+			// 추가적으로 반전시키면 <PlayerScript> 가서 스킬 이동시,움직이는것도 따로 조건문걸어서 반대로 이동시켜야함
+			//gameplayer_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
 
 			Light* lightComp = gameplayer->AddComponent<Light>();
 			lightComp->SetType(eLightType::Directional);
 			lightComp->SetDiffuse(Vector4(0.9f, 0.9f, 0.9f, 0.9f));
 
+			//실행되는거 확인완료
+			//Collider2D* gameplayer_col = gameplayer->AddComponent<Collider2D>();
+			//gameplayer_col->SetType(eColliderType::Rect);
+			//gameplayer_col->SetSize(Vector2(0.12f, 0.11f));
 			
-			Collider2D* gameplayer_col = gameplayer->AddComponent<Collider2D>();
-			gameplayer_col->SetType(eColliderType::Rect);
-			gameplayer_col->SetSize(Vector2(0.12f, 0.11f));
-			
-
+#pragma region Animator
 			Animator* gameplayer_animator = gameplayer->AddComponent<Animator>();
 			std::shared_ptr<Texture> player_idle = Resources::Load<Texture>(L"player", L"T_BossIrma_Idle_Final.png");
 			std::shared_ptr<Texture> player_skill_hammer = Resources::Load<Texture>(L"player_skill_1", L"T_BossIrma_Hammer_Final.png");
@@ -142,9 +144,8 @@ namespace ya
 			gameplayer_animator->Create(L"skill_Spear", player_skill_Spear, Vector2(0.0f, 0.0f), Vector2(272.0f, 71.0f), Vector2(0.03f, 0.0f), 4, 9, 34, 0.04f);
 			gameplayer_animator->Create(L"skill_Whirlwind", player_skill_Whirlwind, Vector2(0.0f, 0.0f), Vector2(128.0f, 60.0f), Vector2(-0.03f, 0.0f), 4, 8, 31, 0.04f);
 			
-			
 			gameplayer_animator->Play(L"Idle", true);
-
+#pragma endregion
 			
 			SpriteRenderer* gameplayer_sr = gameplayer->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Mesh> gameplayer_mesh = Resources::Find<Mesh>(L"RectMesh");

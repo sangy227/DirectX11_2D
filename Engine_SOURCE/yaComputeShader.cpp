@@ -10,9 +10,7 @@ namespace ya::graphics
 		, mThreadGroupCountX(0)
 		, mThreadGroupCountY(0)
 		, mThreadGroupCountZ(0)
-		//, mGroupX(0)
-		//, mGroupY(0)
-		//, mGroupZ(0)
+		
 	{
 		mThreadGroupCountX = 32;
 		mThreadGroupCountY = 32;
