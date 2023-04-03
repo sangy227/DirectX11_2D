@@ -125,6 +125,8 @@ namespace ya
 
 		if (events)
 			events->mStartEvent();
+
+		
 	}
 
 	void Animator::Stop(const std::wstring& name, bool loop)

@@ -25,27 +25,27 @@ namespace ya
 
 		Vector3 pos = tr->GetPosition();
 
-		if (Input::GetKeyState(eKeyCode::D) == eKeyState::PRESSED)
+		if (Input::GetKeyState(eKeyCode::L) == eKeyState::PRESSED)
 		{
 			pos += 10.0f * tr->Right() * Time::DeltaTime();
 		}
-		else if (Input::GetKeyState(eKeyCode::A) == eKeyState::PRESSED)
+		else if (Input::GetKeyState(eKeyCode::J) == eKeyState::PRESSED)
 		{
 			pos += 10.0f * -tr->Right() * Time::DeltaTime();
 		}
-		else if (Input::GetKeyState(eKeyCode::E) == eKeyState::PRESSED)
+		else if (Input::GetKeyState(eKeyCode::O) == eKeyState::PRESSED)
 		{
 			pos += 10.0f * tr->Foward() * Time::DeltaTime();
 		}
-		else if (Input::GetKeyState(eKeyCode::Q) == eKeyState::PRESSED)
+		else if (Input::GetKeyState(eKeyCode::U) == eKeyState::PRESSED)
 		{
 			pos += 10.0f * -tr->Foward() * Time::DeltaTime();
 		}
-		else if (Input::GetKeyState(eKeyCode::W) == eKeyState::PRESSED)
+		else if (Input::GetKeyState(eKeyCode::I) == eKeyState::PRESSED)
 		{
 			pos += 10.0f * tr->Up() * Time::DeltaTime();
 		}
-		else if (Input::GetKeyState(eKeyCode::S) == eKeyState::PRESSED)
+		else if (Input::GetKeyState(eKeyCode::K) == eKeyState::PRESSED)
 		{
 			pos += 10.0f * -tr->Up() * Time::DeltaTime();
 		}

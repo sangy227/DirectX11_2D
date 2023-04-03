@@ -7,6 +7,15 @@ namespace ya
 	class PlayerScript : public Script
 	{
 	public:
+		enum class eState
+		{
+			None,
+			RIGHT_Idle,
+			Left_Idle,
+			RIGHT_Run,
+			Left_Run
+		};
+
 		PlayerScript();
 		~PlayerScript();
 
@@ -23,12 +32,15 @@ namespace ya
 		void End();
 
 		void Player_Idel();
+		void Player_Run_to();
 		void Skill_Moving_Right();
 		void Skill_Moving_Left();
 
-		void skill_Whirlwind_Fx();
+		void Skill_Whirlwind_Fx();
+		void Skill_Spear_FX();
+		
 
 	private:
-
+		eState mState;
 	};
 }

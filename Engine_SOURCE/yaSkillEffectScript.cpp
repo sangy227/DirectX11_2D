@@ -38,7 +38,7 @@ namespace ya {
 	{
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-		animator->GetCompleteEvent(L"skeffect") = std::bind(&SkillEffectScript::End, this);
+
 
 
 	}

@@ -32,10 +32,10 @@ namespace ya
 
 	enum eKeyState
 	{
+		NONE,
 		DOWN,
 		PRESSED,
 		UP,
-		NONE,
 	};
 
 	class Input
