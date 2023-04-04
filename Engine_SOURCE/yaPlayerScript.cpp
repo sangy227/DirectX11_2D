@@ -325,6 +325,11 @@ namespace ya
 			Transform* skilleffct_tr = skilleffect->GetComponent<Transform>();
 			Transform* skilleffct_getplayer_tr = GetOwner()->GetComponent<Transform>();
 			skilleffct_tr->SetPosition(skilleffct_getplayer_tr->GetPosition());
+			if (mState == eState::Left_Idle)
+				skilleffct_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
+			if (mState == eState::RIGHT_Idle)
+				skilleffct_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
+
 			skilleffct_tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
 
 			Animator* skilleffct_Ani = skilleffect->AddComponent<Animator>();
