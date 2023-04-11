@@ -168,23 +168,26 @@ namespace ya
 
 		// ºÐ¸®Ãà º¤ÅÍ 4°³ ±¸ÇÏ±â
 		Vector3 Axis[4] = {};
-		Axis[0] = Vector3::Transform(arrLocalPos[1], leftMat); 
-		Axis[1] = Vector3::Transform(arrLocalPos[3], leftMat);
-		Axis[2] = Vector3::Transform(arrLocalPos[1], rightMat);
-		Axis[3] = Vector3::Transform(arrLocalPos[3], rightMat);
-
-		Axis[0] -= Vector3::Transform(arrLocalPos[0], leftMat);
-		Axis[1] -= Vector3::Transform(arrLocalPos[0], leftMat);
-		Axis[2] -= Vector3::Transform(arrLocalPos[0], rightMat);
-		Axis[3] -= Vector3::Transform(arrLocalPos[0], rightMat);
-
 		Vector3 leftScale = Vector3(left->GetSize().x, left->GetSize().y, 1.0f);
-		Axis[0] = Axis[0] * leftScale;
-		Axis[1] = Axis[1] * leftScale;
+
+		Matrix finalLeft = Matrix::CreateScale(leftScale);
+		finalLeft *= leftMat;
 
 		Vector3 rightScale = Vector3(right->GetSize().x, right->GetSize().y, 1.0f);
-		Axis[2] = Axis[2] * rightScale;
-		Axis[3] = Axis[3] * rightScale;
+		Matrix finalRight = Matrix::CreateScale(rightScale);
+		finalRight *= rightMat;
+
+		Axis[0] = Vector3::Transform(arrLocalPos[1], finalLeft);
+		Axis[1] = Vector3::Transform(arrLocalPos[3], finalLeft);
+		Axis[2] = Vector3::Transform(arrLocalPos[1], finalRight);
+		Axis[3] = Vector3::Transform(arrLocalPos[3], finalRight);
+
+		Axis[0] -= Vector3::Transform(arrLocalPos[0], finalLeft);
+		Axis[1] -= Vector3::Transform(arrLocalPos[0], finalLeft);
+		Axis[2] -= Vector3::Transform(arrLocalPos[0], finalRight);
+		Axis[3] -= Vector3::Transform(arrLocalPos[0], finalRight);
+
+
 
 		for (size_t i = 0; i < 4; i++)
 			Axis[i].z = 0.0f;
@@ -209,8 +212,36 @@ namespace ya
 				return false;
 			}
 		}
-		// ¼÷Á¦ Circle vs Cirlce
 
-		return true;
+		// ¼÷Á¦ Circle vs Cirlce
+		if (left->GetType() == eColliderType::Circle && right->GetType() == eColliderType::Circle)
+		{
+			Vector2 LeftSize = left->GetSize();
+			Vector2 RightSize = right->GetSize();
+
+			float LeftRadius = (LeftSize.x / 2.0f);
+			float RightRadius = (RightSize.x / 2.0f);
+
+			float TotalRadius = LeftRadius + RightRadius;
+
+			Vector3 vc = left->GetPosition() - right->GetPosition();
+			vc.z = 0.0f;
+
+			Vector3 CenterDir = vc;
+
+			if (CenterDir.x >= TotalRadius
+				|| CenterDir.y >= TotalRadius)
+			{
+				return false;
+			}
+			else if (CenterDir.x < TotalRadius
+				|| CenterDir.y < TotalRadius)
+			{
+				return true;
+			}
+			else
+				return false;
+
+		}
 	}
 }

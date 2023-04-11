@@ -31,6 +31,7 @@ namespace ya
 		void Action();
 		void End();
 
+
 		void Player_Idel();
 		void Player_Run_to();
 		void Skill_Moving_Right();
