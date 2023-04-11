@@ -20,6 +20,8 @@
 #include "yaCollisionManager.h"
 #include "yaSkillEffect.h"
 #include "yaSkillEffectScript.h"
+#include "yaRigidbody.h"
+
 
 namespace ya
 {
@@ -141,6 +143,14 @@ namespace ya
 				animator->GetCompleteEvent(L"jump") = std::bind(&PlayerScript::Player_Run_to, this);
 
 			animator->Play(L"jump");
+
+			//오류 많음 물어보자
+		/*	Rigidbody* rigidbody = GetOwner()->AddComponent<Rigidbody>();
+			Vector2 velocity = rigidbody->GetVelocity();
+			velocity.y = -0.1f;
+			rigidbody->SetVelocity(velocity);
+
+			rigidbody->SetGround(false);*/
 
 		}
 

@@ -1,6 +1,7 @@
 #include "yaGameObject.h"
 #include "yaTransform.h"
 #include "yaCollider.h"
+#include "yaRigidbody.h"
 #include "yaCollider2D.h"
 namespace ya
 {
@@ -11,6 +12,7 @@ namespace ya
 	{
 		mComponents.resize((UINT)eComponentType::End);
 		AddComponent(new Transform());
+		
 	}
 
 	GameObject::~GameObject()

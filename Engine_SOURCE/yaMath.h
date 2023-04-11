@@ -26,6 +26,7 @@ namespace ya::math
     struct Quaternion;
     struct Plane;
 
+   
     //------------------------------------------------------------------------------
     // 2D rectangle
     struct Rectangle
@@ -981,4 +982,14 @@ namespace ya::math
     };
 
 #include "yaMath.inl"
+}
+
+namespace ya::math{
+    inline float Dot(Vector2& v1, Vector2& v2)
+    {
+        return v1.x * v2.x + v1.y * v2.y;
+    }
+
+    
+    
 }

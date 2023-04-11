@@ -30,6 +30,7 @@ namespace ya::enums
 	{
 		None,
 		Transform, // 위치 데이터 수정하는 컴포넌트
+		Rigidbody, 
 		Camera,
 		Mesh,
 		Collider,

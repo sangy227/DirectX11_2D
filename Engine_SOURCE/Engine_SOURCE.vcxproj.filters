@@ -109,6 +109,9 @@
     <Filter Include="Graphics\API">
       <UniqueIdentifier>{836c8d06-61c7-4f4e-bc0e-0dd71e4e59df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Rigidbody">
+      <UniqueIdentifier>{c32086bf-54aa-4c61-a4ed-043a510624e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -246,6 +249,9 @@
     </ClCompile>
     <ClCompile Include="yaGraphicDevice_DX11.cpp">
       <Filter>Graphics\API</Filter>
+    </ClCompile>
+    <ClCompile Include="yaRigidbody.cpp">
+      <Filter>Component\Rigidbody</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -399,6 +405,9 @@
     </ClInclude>
     <ClInclude Include="yaGraphicDevice_DX11.h">
       <Filter>Graphics\API</Filter>
+    </ClInclude>
+    <ClInclude Include="yaRigidbody.h">
+      <Filter>Component\Rigidbody</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
