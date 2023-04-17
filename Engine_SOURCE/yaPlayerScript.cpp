@@ -133,8 +133,35 @@ namespace ya
 			tr->SetPosition(pos);
 		}
 
+		//Player_dash 구현부      //리지드 바디 추가해서 튕겨 나가듯이 만들어야댐
+		if (Input::GetKeyDown(eKeyCode::Z))
+		{
 
-		///Player_jump 구현부
+			for (size_t i = 1; i <= 8; i++)
+			{
+				{
+					//이동
+					Vector3 pos = tr->GetPosition();
+					if (mState == eState::RIGHT_Idle || mState == eState::RIGHT_Run)
+						pos.x += 0.4f;
+					if (mState == eState::Left_Idle || mState == eState::Left_Run)
+						pos.x -= 0.4f;
+					tr->SetPosition(pos);
+				}
+			}
+
+			//상태창              //아직 발동이 안댐
+			if (mState == eState::RIGHT_Idle || mState == eState::Left_Idle)
+				animator->GetCompleteEvent(L"dash") = std::bind(&PlayerScript::Player_Idel, this);
+			else if (mState == eState::RIGHT_Run || mState == eState::Left_Run)
+				animator->GetCompleteEvent(L"dash") = std::bind(&PlayerScript::Player_Run_to, this);
+
+			animator->GetCompleteEvent(L"dash") = std::bind(&PlayerScript::Player_Idel, this);
+			animator->Play(L"dash");
+		}
+
+
+		//Player_jump 구현부
 		if (Input::GetKeyDown(eKeyCode::C)) 
 		{
 			if(mState == eState::RIGHT_Idle || mState == eState::Left_Idle)
@@ -300,6 +327,8 @@ namespace ya
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->Play(L"run");
 	}
+
+
 	void PlayerScript::Skill_Moving_Right() //스킬 진행중 오른쪽으로 무빙하기
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
