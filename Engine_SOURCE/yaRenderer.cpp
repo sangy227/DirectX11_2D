@@ -427,7 +427,7 @@ namespace ya::renderer
 	{
 #pragma region STATIC TEXTURE
 		Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
-		Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
+		Resources::Load<Texture>(L"DefaultSprite", L"Smile.png");
 		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
 		Resources::Load<Texture>(L"CartoonSmoke", L"particle\\CartoonSmoke.png");
 #pragma endregion
@@ -440,10 +440,18 @@ namespace ya::renderer
 		Resources::Insert<Texture>(L"PaintTexture", uavTexture);
 #pragma endregion
 
+#pragma region USER TEXTURE
 		//TitleSceen
 		//Resources::Load<Texture>(L"TitleBG", L"T_MainMenu_Background.png");
 		Resources::Load<Texture>(L"TitleBG", L"bg.png");
 		Resources::Load<Texture>(L"TitleLogo", L"T_MainMenu_Title_Moonscars.png");
+
+		//PlaySceen
+		Resources::Load<Texture>(L"PlayBG_Leyer01", L"PlayBG01.png");
+		Resources::Load<Texture>(L"PlayBG_Leyer02", L"PlayBG02.png");
+		Resources::Load<Texture>(L"PlayBG_Leyer03", L"PlayBG03.png");
+#pragma endregion
+
 	}
 
 	void LoadMaterial()
@@ -465,16 +473,35 @@ namespace ya::renderer
 		titleLogoMaterial->SetShader(titleLogoShader);
 		Resources::Insert<Material>(L"TitleLogoMaterial", titleLogoMaterial);
 
+		//PlaySceen
+		{
+			//PlayBG
+			{
+				std::shared_ptr <Texture>  playBGTexture01 = Resources::Find<Texture>(L"PlayBG_Leyer01");
+				std::shared_ptr<Shader> playBGShader01 = Resources::Find<Shader>(L"SpriteShader");
+				std::shared_ptr<Material> playBGMaterial01 = std::make_shared<Material>();
+				playBGMaterial01->SetRenderingMode(eRenderingMode::Transparent);
+				playBGMaterial01->SetTexture(eTextureSlot::T0, playBGTexture01);
+				playBGMaterial01->SetShader(playBGShader01);
+				Resources::Insert<Material>(L"playBGMaterial01", playBGMaterial01);
 
+				std::shared_ptr <Texture>  playBGTexture02 = Resources::Find<Texture>(L"PlayBG_Leyer02");
+				std::shared_ptr<Shader> playBGShader02 = Resources::Find<Shader>(L"SpriteShader");
+				std::shared_ptr<Material> playBGMaterial02 = std::make_shared<Material>();
+				playBGMaterial02->SetRenderingMode(eRenderingMode::Transparent);
+				playBGMaterial02->SetTexture(eTextureSlot::T0, playBGTexture02);
+				playBGMaterial02->SetShader(playBGShader02);
+				Resources::Insert<Material>(L"playBGMaterial02", playBGMaterial02);
 
-
-
-
-
-
-
-
-
+				std::shared_ptr <Texture>  playBGTexture03 = Resources::Find<Texture>(L"PlayBG_Leyer03");
+				std::shared_ptr<Shader> playBGShader03 = Resources::Find<Shader>(L"SpriteShader");
+				std::shared_ptr<Material> playBGMaterial03 = std::make_shared<Material>();
+				playBGMaterial03->SetRenderingMode(eRenderingMode::Transparent);
+				playBGMaterial03->SetTexture(eTextureSlot::T0, playBGTexture03);
+				playBGMaterial03->SetShader(playBGShader03);
+				Resources::Insert<Material>(L"playBGMaterial03", playBGMaterial03);
+			}
+		}
 
 		//-----------------------------------------------------------------------------
 		// Default //현재 토치라이트 이미지로 쓰이는중

@@ -33,6 +33,7 @@ namespace ya
 	void Player::Render()
 	{
 		GameObject::Render();
+
 	}
 
 }

@@ -99,7 +99,7 @@ namespace ya
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Perspective);
-		//cameraComp->RegisterCameraInRenderer();
+		cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
 		mainCamera = cameraComp;
@@ -109,18 +109,76 @@ namespace ya
 		camerapos += (4.0f * -cameratr->Foward());
 		cameratr->SetPosition(camerapos);
 
+		//PlaySceenBG
+		{
+			{
+				//playBgLeyer01
+				GameObject* playBGObj_01 = object::Instantiate<GameObject>(eLayerType::BackGround);
+				playBGObj_01->SetName(L"PlayBG01");
+				Transform* playBGTr_01 = playBGObj_01->GetComponent<Transform>();
+				playBGTr_01->SetPosition(Vector3(1.0f, 1.0f, 6.3f));
+				playBGTr_01->SetScale(Vector3(21.0f, 11.0f, 1.0f));
+
+				Light* playBGComp_01 = playBGObj_01->AddComponent<Light>();
+				playBGComp_01->SetType(eLightType::Directional);
+				//playBGComp_01->SetDiffuse(Vector4(0.1f, 0.1f, 0.1f, 1.0f));
+
+				SpriteRenderer* playsr_01 = playBGObj_01->AddComponent<SpriteRenderer>();
+				std::shared_ptr<Mesh> playmesh_01 = Resources::Find<Mesh>(L"RectMesh");
+				std::shared_ptr<Material> playBGmaterial_01 = Resources::Find<Material>(L"playBGMaterial01");
+				playsr_01->SetMaterial(playBGmaterial_01);
+				playsr_01->SetMesh(playmesh_01);
+			}
+			{
+				//playBgLeyer02
+				GameObject* playBGObj_02 = object::Instantiate<GameObject>(eLayerType::BackGround);
+				playBGObj_02->SetName(L"PlayBG02");
+				Transform* playBGTr_02 = playBGObj_02->GetComponent<Transform>();
+				playBGTr_02->SetPosition(Vector3(1.0f, -3.0f, 6.2f));
+				playBGTr_02->SetScale(Vector3(17.0f, 6.0f, 1.0f));
+
+				//Light* playBGComp_02 = playBGObj_02->AddComponent<Light>();
+				//playBGComp_02->SetType(eLightType::Directional);
+				//playBGComp_02->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
+
+				SpriteRenderer* playsr_02 = playBGObj_02->AddComponent<SpriteRenderer>();
+				std::shared_ptr<Mesh> playmesh_02 = Resources::Find<Mesh>(L"RectMesh");
+				std::shared_ptr<Material> playtBGmaterial_02 = Resources::Find<Material>(L"playBGMaterial02");
+				playsr_02->SetMaterial(playtBGmaterial_02);
+				playsr_02->SetMesh(playmesh_02);
+			}
+			{
+				//playBgLeyer03
+				GameObject* playBGObj_03 = object::Instantiate<GameObject>(eLayerType::BackGround);
+				playBGObj_03->SetName(L"PlayBG03");
+
+				Transform* playBGTr_03 = playBGObj_03->GetComponent<Transform>();
+				playBGTr_03->SetPosition(Vector3(1.0f, 1.0f, 6.1f));
+				playBGTr_03->SetScale(Vector3(19.5f, 11.5f, 1.0f));
+
+				Light* playBGComp_03 = playBGObj_03->AddComponent<Light>();
+				playBGComp_03->SetType(eLightType::Directional);
+				//playBGComp_03->SetDiffuse(Vector4(0.4f, 0.4f, 0.4f, 1.0f));
+
+				SpriteRenderer* playsr_03 = playBGObj_03->AddComponent<SpriteRenderer>();
+				std::shared_ptr<Mesh> playmesh_03 = Resources::Find<Mesh>(L"RectMesh");
+				std::shared_ptr<Material> PlayBGmaterial_03 = Resources::Find<Material>(L"playBGMaterial03");
+				playsr_03->SetMaterial(PlayBGmaterial_03);
+				playsr_03->SetMesh(playmesh_03);
+			}
+		}
 
 		//Game_Main_Player
 		{
 			gameplayer = object::Instantiate<Player>(eLayerType::Player);
 			gameplayer->SetName(L"GamePlayer");
 			Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
-			gameplayer_tr->SetPosition(Vector3(1.0f, 1.0f, 3.0f));
+			gameplayer_tr->SetPosition(Vector3(-0.7f, -1.8f, 5.0f));
 			gameplayer_tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
 			
 			Light* lightComp = gameplayer->AddComponent<Light>();
 			lightComp->SetType(eLightType::Directional);
-			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+			lightComp->SetDiffuse(Vector4(0.7f, 0.7f, 0.7f, 1.0f));
 
 			//실행되는거 확인완료
 			//Collider2D* gameplayer_col = gameplayer->AddComponent<Collider2D>();
@@ -151,8 +209,8 @@ namespace ya
 			gameplayer_animator->Create(L"dash", player_dash, Vector2(0.0f, 0.0f), Vector2(181.0f, 46.0f), Vector2(-0.18f, -0.0f), 2, 8, 12, 0.05f);
 			gameplayer_animator->Create(L"jump", player_jump, Vector2(0.0f, 0.0f), Vector2(60.0f, 57.0f), Vector2(0.00f, 0.0f), 4, 4, 14, 0.05f);
 			
-			gameplayer_animator->Create(L"skill_hammer", player_skill_hammer, Vector2(0.0f, 0.0f), Vector2(275.0f, 119.0f), Vector2(0.03f,0.0f), 5, 12, 57, 0.04f);
-			gameplayer_animator->Create(L"skill_Painwheel", player_skill_Painwheel, Vector2(0.0f, 0.0f), Vector2(190.0f, 85.0f), Vector2(0.03f,0.0f), 5, 11, 54, 0.04f);
+			gameplayer_animator->Create(L"skill_hammer", player_skill_hammer, Vector2(0.0f, 0.0f), Vector2(275.0f, 119.0f), Vector2(0.03f,-0.015f), 5, 12, 57, 0.04f);
+			gameplayer_animator->Create(L"skill_Painwheel", player_skill_Painwheel, Vector2(0.0f, 0.0f), Vector2(190.0f, 85.0f), Vector2(0.03f,-0.015f), 5, 11, 54, 0.04f);
 			gameplayer_animator->Create(L"skill_Spear", player_skill_Spear, Vector2(0.0f, 0.0f), Vector2(272.0f, 71.0f), Vector2(0.03f, 0.0f), 4, 9, 34, 0.04f);
 			gameplayer_animator->Create(L"skill_Whirlwind", player_skill_Whirlwind, Vector2(0.0f, 0.0f), Vector2(128.0f, 60.0f), Vector2(-0.03f, 0.0f), 4, 8, 31, 0.04f);
 			
@@ -171,26 +229,58 @@ namespace ya
 		}
 
 		
+		//Boss_Wanda
+		{
+			Monster* wanda_obj = object::Instantiate<Monster>(eLayerType::Monster);
+			wanda_obj->SetName(L"Boss_Wanda");
+
+			Transform* wanda_tr = wanda_obj->GetComponent<Transform>();
+			wanda_tr->SetPosition(Vector3(2.5f, -1.4f, 5.15f));
+			wanda_tr->SetScale(Vector3(10.0f, 10.3f, 1.0f));
+			wanda_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
+
+			Light* lightComp = wanda_obj->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetDiffuse(Vector4(0.7f, 0.7f, 0.7f, 1.0f));
+
+			Animator* BossWanda_Animator = wanda_obj->AddComponent<Animator>();
+			std::shared_ptr<Texture> wanda_idle = Resources::Load<Texture>(L"wanda", L"Boss\\Boss_Wanda_Idle.png");
+
+			BossWanda_Animator->Create(L"wanda_Idle", wanda_idle, Vector2(0.0f, 0.0f), Vector2(83.0f, 96.9f), Vector2::Zero, 4, 4, 13, 0.09f);
+
+			BossWanda_Animator->Play(L"wanda_Idle", true);
+
+
+
+			SpriteRenderer* wanda_sr = wanda_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> wanda_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> wanda_mt = Resources::Find<Material>(L"SpriteMaterial");
+			wanda_sr->SetMesh(wanda_mesh);
+			wanda_sr->SetMaterial(wanda_mt);
+			object::DontDestroyOnLoad(wanda_obj);
+		}
+
+
 		//SMILE RECT
 		{
-			Player* obj = object::Instantiate<Player>(eLayerType::Player);
-			obj->SetName(L"tochlight");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(5.3f, 1.0f, 3.1f));
-			tr->SetScale(Vector3(0.5f, 1.5f, 1.0f));
-
-			
-			Light* lightComp = obj->AddComponent<Light>();
-			lightComp->SetType(eLightType::Point); //포인트여야지 주변 밝게 할수있음
-			lightComp->SetRadius(7.0f);
-			lightComp->SetDiffuse(Vector4(1.0f, 2.0f, 2.0f, 1.0f));
-
-			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
-			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"RectMaterial");
-			mr->SetMaterial(mateiral);
-			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-			mr->SetMesh(mesh);
-			object::DontDestroyOnLoad(obj);
+		//	Player* obj = object::Instantiate<Player>(eLayerType::Player);
+		//	obj->SetName(L"tochlight");
+		//	Transform* tr = obj->GetComponent<Transform>();
+		//	tr->SetPosition(Vector3(5.3f, 1.0f, 3.2f));
+		//	tr->SetScale(Vector3(0.5f, 1.5f, 1.0f));
+		//
+		//	
+		//	Light* lightComp = obj->AddComponent<Light>();
+		//	lightComp->SetType(eLightType::Point); //포인트여야지 주변 밝게 할수있음
+		//	lightComp->SetRadius(1.0f);
+		//	lightComp->SetDiffuse(Vector4(0.0f, 0.0f, 3.0f, 1.0f));
+		//
+		//	SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
+		//	std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"RectMaterial");
+		//	mr->SetMaterial(mateiral);
+		//	std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+		//	mr->SetMesh(mesh);
+		//	object::DontDestroyOnLoad(obj);
 		}
 		
 		

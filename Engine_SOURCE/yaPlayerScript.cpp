@@ -91,7 +91,7 @@ namespace ya
 		if (Input::GetKey(eKeyCode::DOWN))
 		{
 			Vector3 pos = tr->GetPosition();
-			pos.y -= 3.0f * Time::DeltaTime();
+			//pos.y -= 3.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 
@@ -99,7 +99,7 @@ namespace ya
 		if (Input::GetKey(eKeyCode::UP))
 		{
 			Vector3 pos = tr->GetPosition();
-			pos.y += 3.0f * Time::DeltaTime();
+			//pos.y += 3.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 
@@ -136,7 +136,6 @@ namespace ya
 		//Player_dash 구현부      //리지드 바디 추가해서 튕겨 나가듯이 만들어야댐
 		if (Input::GetKeyDown(eKeyCode::Z))
 		{
-
 			for (size_t i = 1; i <= 8; i++)
 			{
 				{
@@ -156,6 +155,7 @@ namespace ya
 			else if (mState == eState::RIGHT_Run || mState == eState::Left_Run)
 				animator->GetCompleteEvent(L"dash") = std::bind(&PlayerScript::Player_Run_to, this);
 
+			tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 			animator->GetCompleteEvent(L"dash") = std::bind(&PlayerScript::Player_Idel, this);
 			animator->Play(L"dash");
 		}
@@ -317,6 +317,9 @@ namespace ya
 
 	void PlayerScript::Player_Idel() //스킬모션이끝나고 idel 애니메이션으로 전환
 	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->Play(L"Idle");
 	}
