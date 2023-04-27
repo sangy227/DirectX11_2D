@@ -8,6 +8,7 @@ namespace ya
 {
 	CameraScript::CameraScript()
 		: Script()
+		, mState(camerastate::IDLE)
 	{
 	}
 
@@ -25,34 +26,89 @@ namespace ya
 
 		Vector3 pos = tr->GetPosition();
 
-		if (Input::GetKeyState(eKeyCode::L) == eKeyState::PRESSED)
 		{
-			pos += 10.0f * tr->Right() * Time::DeltaTime();
+			//카메라 기본 무빙
+			if (Input::GetKeyState(eKeyCode::L) == eKeyState::PRESSED)
+			{
+				pos += 10.0f * tr->Right() * Time::DeltaTime();
+			}
+			else if (Input::GetKeyState(eKeyCode::J) == eKeyState::PRESSED)
+			{
+				pos += 10.0f * -tr->Right() * Time::DeltaTime();
+			}
+			else if (Input::GetKeyState(eKeyCode::O) == eKeyState::PRESSED)
+			{
+				pos += 10.0f * tr->Foward() * Time::DeltaTime();
+			}
+			else if (Input::GetKeyState(eKeyCode::U) == eKeyState::PRESSED)
+			{
+				pos += 10.0f * -tr->Foward() * Time::DeltaTime();
+			}
+			else if (Input::GetKeyState(eKeyCode::I) == eKeyState::PRESSED)
+			{
+				pos += 10.0f * tr->Up() * Time::DeltaTime();
+			}
+			else if (Input::GetKeyState(eKeyCode::K) == eKeyState::PRESSED)
+			{
+				pos += 10.0f * -tr->Up() * Time::DeltaTime();
+			}
 		}
-		else if (Input::GetKeyState(eKeyCode::J) == eKeyState::PRESSED)
+
+		if(mState == camerastate::SMALL_SHAKE)
+			pos = CameraWeakShakeeffect(pos);
+
+		if (mState == camerastate::BIG_SHAKE)
+			pos = CameraStrongShakeeffect(pos);
+
+		if (mState == camerastate::IDLE) {
+			pos = Vector3::One;
+			pos += (4.0f * -tr->Foward());
+			
+		}
+			
+
+
+
+		if (Input::GetKey(eKeyCode::Q))
 		{
-			pos += 10.0f * -tr->Right() * Time::DeltaTime();
+			//pos = CameraWeakShakeeffect(pos);
+			mState = camerastate::SMALL_SHAKE;
 		}
-		else if (Input::GetKeyState(eKeyCode::O) == eKeyState::PRESSED)
+		if (Input::GetKeyUp(eKeyCode::Q))
 		{
-			pos += 10.0f * tr->Foward() * Time::DeltaTime();
+			//pos = Vector3::One;
+			//pos += (4.0f * -tr->Foward());
+			mState = camerastate::IDLE;
 		}
-		else if (Input::GetKeyState(eKeyCode::U) == eKeyState::PRESSED)
+		if (Input::GetKey(eKeyCode::W))
 		{
-			pos += 10.0f * -tr->Foward() * Time::DeltaTime();
+			pos = CameraStrongShakeeffect(pos);
 		}
-		else if (Input::GetKeyState(eKeyCode::I) == eKeyState::PRESSED)
+		if (Input::GetKeyUp(eKeyCode::W))
 		{
-			pos += 10.0f * tr->Up() * Time::DeltaTime();
+			pos = Vector3::One;
+			pos += (4.0f * -tr->Foward());
 		}
-		else if (Input::GetKeyState(eKeyCode::K) == eKeyState::PRESSED)
-		{
-			pos += 10.0f * -tr->Up() * Time::DeltaTime();
-		}
+
+		
 
 		tr->SetPosition(pos);
 	}
 	void CameraScript::Render()
 	{
+	}
+
+
+	Vector3 CameraScript::CameraWeakShakeeffect(Vector3 pos)
+	{
+		float shakeAmount = 0.01f; // Change this value to adjust the camera shake intensity
+		Vector3 shakeOffset = Vector3(RandomRange(-shakeAmount, shakeAmount), RandomRange(-shakeAmount, shakeAmount), 0.0f);
+		return pos += shakeOffset;
+	}
+	Vector3 CameraScript::CameraStrongShakeeffect(Vector3 pos)
+	{
+		float shakeAmount = 0.1f; // Change this value to adjust the camera shake intensity
+		Vector3 shakeOffset = Vector3(RandomRange(-shakeAmount, shakeAmount), RandomRange(-shakeAmount, shakeAmount), 0.0f);
+		return pos += shakeOffset;
 	}
 }

@@ -112,6 +112,12 @@
     <Filter Include="Component\Rigidbody">
       <UniqueIdentifier>{c32086bf-54aa-4c61-a4ed-043a510624e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script\Contents\Player">
+      <UniqueIdentifier>{6cf2596b-7202-427e-94b2-90de4376810f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Contents\Monster">
+      <UniqueIdentifier>{879904d0-cf2d-4a21-9767-9297177a495e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -165,9 +171,6 @@
     <ClCompile Include="yaMeshRenderer.cpp">
       <Filter>Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="yaPlayerScript.cpp">
-      <Filter>Component\Script\Contents</Filter>
-    </ClCompile>
     <ClCompile Include="yaCamera.cpp">
       <Filter>Component\Camera</Filter>
     </ClCompile>
@@ -213,23 +216,11 @@
     <ClCompile Include="yaCollider.cpp">
       <Filter>Component\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="yaPlayer.cpp">
-      <Filter>Component\Script\Contents</Filter>
-    </ClCompile>
-    <ClCompile Include="yaMonster.cpp">
-      <Filter>Component\Script\Contents</Filter>
-    </ClCompile>
     <ClCompile Include="yaAnimation.cpp">
       <Filter>Component\Animator</Filter>
     </ClCompile>
     <ClCompile Include="yaAnimator.cpp">
       <Filter>Component\Animator</Filter>
-    </ClCompile>
-    <ClCompile Include="yaSkillEffect.cpp">
-      <Filter>Component\Script\Contents</Filter>
-    </ClCompile>
-    <ClCompile Include="yaSkillEffectScript.cpp">
-      <Filter>Component\Script\Contents</Filter>
     </ClCompile>
     <ClCompile Include="yaComputeShader.cpp">
       <Filter>Resource\Shader\CS\Base</Filter>
@@ -252,6 +243,24 @@
     </ClCompile>
     <ClCompile Include="yaRigidbody.cpp">
       <Filter>Component\Rigidbody</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayer.cpp">
+      <Filter>Component\Script\Contents\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayerScript.cpp">
+      <Filter>Component\Script\Contents\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSkillEffect.cpp">
+      <Filter>Component\Script\Contents\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSkillEffectScript.cpp">
+      <Filter>Component\Script\Contents\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMonster.cpp">
+      <Filter>Component\Script\Contents\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBossWandaScript.cpp">
+      <Filter>Component\Script\Contents\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -318,9 +327,6 @@
     <ClInclude Include="yaMeshRenderer.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="yaPlayerScript.h">
-      <Filter>Component\Script\Contents</Filter>
-    </ClInclude>
     <ClInclude Include="yaCamera.h">
       <Filter>Component\Camera</Filter>
     </ClInclude>
@@ -369,23 +375,11 @@
     <ClInclude Include="yaCollider.h">
       <Filter>Component\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="yaPlayer.h">
-      <Filter>Component\Script\Contents</Filter>
-    </ClInclude>
-    <ClInclude Include="yaMonster.h">
-      <Filter>Component\Script\Contents</Filter>
-    </ClInclude>
     <ClInclude Include="yaAnimation.h">
       <Filter>Component\Animator</Filter>
     </ClInclude>
     <ClInclude Include="yaAnimator.h">
       <Filter>Component\Animator</Filter>
-    </ClInclude>
-    <ClInclude Include="yaSkillEffect.h">
-      <Filter>Component\Script\Contents</Filter>
-    </ClInclude>
-    <ClInclude Include="yaSkillEffectScript.h">
-      <Filter>Component\Script\Contents</Filter>
     </ClInclude>
     <ClInclude Include="yaComputeShader.h">
       <Filter>Resource\Shader\CS\Base</Filter>
@@ -408,6 +402,24 @@
     </ClInclude>
     <ClInclude Include="yaRigidbody.h">
       <Filter>Component\Rigidbody</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayer.h">
+      <Filter>Component\Script\Contents\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayerScript.h">
+      <Filter>Component\Script\Contents\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSkillEffect.h">
+      <Filter>Component\Script\Contents\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSkillEffectScript.h">
+      <Filter>Component\Script\Contents\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMonster.h">
+      <Filter>Component\Script\Contents\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBossWandaScript.h">
+      <Filter>Component\Script\Contents\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

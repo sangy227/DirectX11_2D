@@ -53,7 +53,7 @@ namespace ya
 		cameraComp->SetProjectionType(Camera::eProjectionType::Perspective);
 		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
-		cameraObj->AddComponent<CameraScript>();
+		//cameraObj->AddComponent<CameraScript>();
 		mainCamera = cameraComp;
 		
 		//renderer::cameras[0] = cameraComp;

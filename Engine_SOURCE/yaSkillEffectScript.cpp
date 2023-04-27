@@ -23,6 +23,7 @@
 
 namespace ya {
 	SkillEffectScript::SkillEffectScript()
+		: Script()
 	{
 	}
 	SkillEffectScript::~SkillEffectScript()

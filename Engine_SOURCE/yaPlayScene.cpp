@@ -21,6 +21,7 @@
 #include "yaTime.h"
 #include "yaPaintShader.h"
 #include "yaParticleSystem.h"
+#include "yaBossWandaScript.h"
 
 
 namespace ya
@@ -28,7 +29,15 @@ namespace ya
 	PlayScene::PlayScene()
 		: Scene(eSceneType::Play)
 	{
-		
+		//키코드 목록
+		//이동 방향키
+		//공격 ZXCV
+		//스킬 ASDF
+
+		//카메라이동 UIOJKL
+		//카메라 쉐이크 QW
+
+		//씬 넘기기 N
 	}
 
 	PlayScene::~PlayScene()
@@ -246,7 +255,7 @@ namespace ya
 			Animator* BossWanda_Animator = wanda_obj->AddComponent<Animator>();
 			std::shared_ptr<Texture> wanda_idle = Resources::Load<Texture>(L"wanda", L"Boss\\Boss_Wanda_Idle.png");
 
-			BossWanda_Animator->Create(L"wanda_Idle", wanda_idle, Vector2(0.0f, 0.0f), Vector2(83.0f, 96.9f), Vector2::Zero, 4, 4, 13, 0.09f);
+			BossWanda_Animator->Create(L"wanda_Idle", wanda_idle, Vector2(0.0f, 0.0f), Vector2(83.0f, 97.0f), Vector2::Zero, 4, 4, 13, 0.09f);
 
 			BossWanda_Animator->Play(L"wanda_Idle", true);
 
@@ -257,6 +266,7 @@ namespace ya
 			std::shared_ptr<Material> wanda_mt = Resources::Find<Material>(L"SpriteMaterial");
 			wanda_sr->SetMesh(wanda_mesh);
 			wanda_sr->SetMaterial(wanda_mt);
+			wanda_obj->AddComponent<BossWandaScript>();
 			object::DontDestroyOnLoad(wanda_obj);
 		}
 

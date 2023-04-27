@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="yaAnimation.h" />
     <ClInclude Include="yaAnimator.h" />
+    <ClInclude Include="yaBossWandaScript.h" />
     <ClInclude Include="yaCollider3D.h" />
     <ClInclude Include="yaCollider2D.h" />
     <ClInclude Include="yaCollisionManager.h" />
@@ -210,6 +211,7 @@
   <ItemGroup>
     <ClCompile Include="yaAnimation.cpp" />
     <ClCompile Include="yaAnimator.cpp" />
+    <ClCompile Include="yaBossWandaScript.cpp" />
     <ClCompile Include="yaCollider3D.cpp" />
     <ClCompile Include="yaCollider2D.cpp" />
     <ClCompile Include="yaCollisionManager.cpp" />
