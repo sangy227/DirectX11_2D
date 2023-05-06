@@ -2,7 +2,7 @@
 #include "yaComponent.h"
 
 namespace ya {
-	using namespace ya::math;
+	
 	class Rigidbody : public Component
 	{
 	public:

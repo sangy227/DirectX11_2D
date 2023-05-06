@@ -8,7 +8,7 @@ namespace ya
 {
 	CameraScript::CameraScript()
 		: Script()
-		, mState(camerastate::IDLE)
+		, mState(eCameraState::IDLE)
 	{
 	}
 
@@ -54,13 +54,13 @@ namespace ya
 			}
 		}
 
-		if(mState == camerastate::SMALL_SHAKE)
+		if(mState == eCameraState::SMALL_SHAKE)
 			pos = CameraWeakShakeeffect(pos);
 
-		if (mState == camerastate::BIG_SHAKE)
+		if (mState == eCameraState::BIG_SHAKE)
 			pos = CameraStrongShakeeffect(pos);
 
-		if (mState == camerastate::IDLE) {
+		if (mState == eCameraState::IDLE) {
 			pos = Vector3::One;
 			pos += (4.0f * -tr->Foward());
 			
@@ -72,13 +72,13 @@ namespace ya
 		if (Input::GetKey(eKeyCode::Q))
 		{
 			//pos = CameraWeakShakeeffect(pos);
-			mState = camerastate::SMALL_SHAKE;
+			mState = eCameraState::SMALL_SHAKE;
 		}
 		if (Input::GetKeyUp(eKeyCode::Q))
 		{
 			//pos = Vector3::One;
 			//pos += (4.0f * -tr->Foward());
-			mState = camerastate::IDLE;
+			mState = eCameraState::IDLE;
 		}
 		if (Input::GetKey(eKeyCode::W))
 		{

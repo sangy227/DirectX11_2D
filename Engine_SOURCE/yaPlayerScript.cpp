@@ -27,7 +27,7 @@ namespace ya
 {
 	PlayerScript::PlayerScript()
 		: Script()
-		, mState(eState::RIGHT_Idle)
+		, mState(ePlayerState::RIGHT_Idle)
 	{
 		int a = 0;
 	}
@@ -54,6 +54,8 @@ namespace ya
 		//tr->SetRotation(rot);
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 
+		
+
 
 		if (Input::GetKeyState(eKeyCode::R) == eKeyState::PRESSED) //회전
 		{
@@ -66,12 +68,12 @@ namespace ya
 		if (Input::GetKeyDown(eKeyCode::RIGHT))
 		{
 			animator->Play(L"run",true);
-			mState = eState::RIGHT_Run;
+			mState = ePlayerState::RIGHT_Run;
 		}
 		if (Input::GetKeyUp(eKeyCode::RIGHT))
 		{
 			animator->Play(L"Idle",true);
-			mState = eState::RIGHT_Idle;
+			mState = ePlayerState::RIGHT_Idle;
 
 		}
 		
@@ -79,19 +81,19 @@ namespace ya
 		if (Input::GetKeyDown(eKeyCode::LEFT))
 		{
 			animator->Play(L"run", true);
-			mState = eState::Left_Run;
+			mState = ePlayerState::Left_Run;
 		}
 		if (Input::GetKeyUp(eKeyCode::LEFT))
 		{
 			animator->Play(L"Idle", true);
-			mState = eState::Left_Idle;
+			mState = ePlayerState::Left_Idle;
 		}
 
 
 		if (Input::GetKey(eKeyCode::DOWN))
 		{
 			Vector3 pos = tr->GetPosition();
-			//pos.y -= 3.0f * Time::DeltaTime();
+			pos.y -= 3.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 
@@ -99,24 +101,24 @@ namespace ya
 		if (Input::GetKey(eKeyCode::UP))
 		{
 			Vector3 pos = tr->GetPosition();
-			//pos.y += 3.0f * Time::DeltaTime();
+			pos.y += 3.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 
 
 		//idle 구현부
-		if (mState == eState::RIGHT_Idle)
+		if (mState == ePlayerState::RIGHT_Idle)
 		{
 			
 		}
-		if (mState == eState::Left_Idle)
+		if (mState == ePlayerState::Left_Idle)
 		{
 			
 		}
 
 
 		//RIGHT_Run 구현부
-		if (mState == eState::RIGHT_Run)
+		if (mState == ePlayerState::RIGHT_Run)
 		{
 			Vector3 pos = tr->GetPosition();
 			tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
@@ -125,7 +127,7 @@ namespace ya
 		}
 
 		//LEFT_Run 구현부
-		if (mState == eState::Left_Run)
+		if (mState == ePlayerState::Left_Run)
 		{
 			Vector3 pos = tr->GetPosition();
 			tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
@@ -141,18 +143,18 @@ namespace ya
 				{
 					//이동
 					Vector3 pos = tr->GetPosition();
-					if (mState == eState::RIGHT_Idle || mState == eState::RIGHT_Run)
+					if (mState == ePlayerState::RIGHT_Idle || mState == ePlayerState::RIGHT_Run)
 						pos.x += 0.4f;
-					if (mState == eState::Left_Idle || mState == eState::Left_Run)
+					if (mState == ePlayerState::Left_Idle || mState == ePlayerState::Left_Run)
 						pos.x -= 0.4f;
 					tr->SetPosition(pos);
 				}
 			}
 
 			//상태창              //아직 발동이 안댐
-			if (mState == eState::RIGHT_Idle || mState == eState::Left_Idle)
+			if (mState == ePlayerState::RIGHT_Idle || mState == ePlayerState::Left_Idle)
 				animator->GetCompleteEvent(L"dash") = std::bind(&PlayerScript::Player_Idel, this);
-			else if (mState == eState::RIGHT_Run || mState == eState::Left_Run)
+			else if (mState == ePlayerState::RIGHT_Run || mState == ePlayerState::Left_Run)
 				animator->GetCompleteEvent(L"dash") = std::bind(&PlayerScript::Player_Run_to, this);
 
 			tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
@@ -164,9 +166,9 @@ namespace ya
 		//Player_jump 구현부
 		if (Input::GetKeyDown(eKeyCode::C)) 
 		{
-			if(mState == eState::RIGHT_Idle || mState == eState::Left_Idle)
+			if(mState == ePlayerState::RIGHT_Idle || mState == ePlayerState::Left_Idle)
 				animator->GetCompleteEvent(L"jump") = std::bind(&PlayerScript::Player_Idel, this);
-			else if(mState == eState::RIGHT_Run || mState == eState::Left_Run)
+			else if(mState == ePlayerState::RIGHT_Run || mState == ePlayerState::Left_Run)
 				animator->GetCompleteEvent(L"jump") = std::bind(&PlayerScript::Player_Run_to, this);
 
 			animator->Play(L"jump");
@@ -187,7 +189,7 @@ namespace ya
 			Animator* animator = GetOwner()->GetComponent<Animator>();
 			for (size_t i = 1; i < 24; i++)
 			{
-				if (mState == eState::RIGHT_Idle )
+				if (mState == ePlayerState::RIGHT_Idle )
 				{
 					if (i>=1 && i<=4)
 						animator->GetEvent(L"attack", i) = std::bind(&PlayerScript::Skill_Moving_Right, this);
@@ -196,7 +198,7 @@ namespace ya
 					if (i >= 17 && i <= 20)
 						animator->GetEvent(L"attack", i) = std::bind(&PlayerScript::Skill_Moving_Right, this);
 				}
-				if (mState == eState::Left_Idle )
+				if (mState == ePlayerState::Left_Idle )
 				{
 					if (i >= 1 && i <= 4)
 						animator->GetEvent(L"attack", i) = std::bind(&PlayerScript::Skill_Moving_Left, this);
@@ -217,9 +219,9 @@ namespace ya
 			Animator* animator = GetOwner()->GetComponent<Animator>();
 			for (size_t i = 1; i < 38; i++)
 			{
-				if(mState == eState::RIGHT_Idle )
+				if(mState == ePlayerState::RIGHT_Idle )
 					animator->GetEvent(L"skill_hammer", i) = std::bind(&PlayerScript::Skill_Moving_Right, this);
-				if (mState == eState::Left_Idle)
+				if (mState == ePlayerState::Left_Idle)
 					animator->GetEvent(L"skill_hammer", i) = std::bind(&PlayerScript::Skill_Moving_Left, this);
 			}
 			animator->GetCompleteEvent(L"skill_hammer") = std::bind(&PlayerScript::Player_Idel, this);
@@ -233,9 +235,9 @@ namespace ya
 			Animator* animator = GetOwner()->GetComponent<Animator>();
 			for (size_t i = 1; i < 14; i++)
 			{
-				if (mState == eState::RIGHT_Idle )
+				if (mState == ePlayerState::RIGHT_Idle )
 					animator->GetEvent(L"skill_Painwheel", i) = std::bind(&PlayerScript::Skill_Moving_Right, this);
-				if (mState == eState::Left_Idle )
+				if (mState == ePlayerState::Left_Idle )
 					animator->GetEvent(L"skill_Painwheel", i) = std::bind(&PlayerScript::Skill_Moving_Left, this);
 			}
 			animator->GetCompleteEvent(L"skill_Painwheel") = std::bind(&PlayerScript::Player_Idel, this);
@@ -248,12 +250,12 @@ namespace ya
 			Animator* animator = GetOwner()->GetComponent<Animator>();
 			for (size_t i = 1; i < 34; i++)
 			{
-				if (mState == eState::RIGHT_Idle )
+				if (mState == ePlayerState::RIGHT_Idle )
 				{
 					if (i < 16)
 						animator->GetEvent(L"skill_Spear", i) = std::bind(&PlayerScript::Skill_Moving_Right, this);
 				}
-				if (mState == eState::Left_Idle )
+				if (mState == ePlayerState::Left_Idle )
 				{
 					if (i < 16)
 						animator->GetEvent(L"skill_Spear", i) = std::bind(&PlayerScript::Skill_Moving_Left, this);
@@ -318,7 +320,7 @@ namespace ya
 	void PlayerScript::Player_Idel() //스킬모션이끝나고 idel 애니메이션으로 전환
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-		tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+		tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->Play(L"Idle");
@@ -356,12 +358,12 @@ namespace ya
 			Transform* skilleffct_tr = skilleffect->GetComponent<Transform>();
 			Transform* skilleffct_getplayer_tr = GetOwner()->GetComponent<Transform>();
 			skilleffct_tr->SetPosition(skilleffct_getplayer_tr->GetPosition());
-			if (mState == eState::Left_Idle)
+			if (mState == ePlayerState::Left_Idle)
 				skilleffct_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
-			if (mState == eState::RIGHT_Idle)
+			if (mState == ePlayerState::RIGHT_Idle)
 				skilleffct_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
 
-			skilleffct_tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+			skilleffct_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 
 			Animator* skilleffct_Ani = skilleffect->AddComponent<Animator>();
 			std::shared_ptr<Texture> skill_idle = Resources::Load<Texture>(L"skill01", L"Player\\T_Player_Whirlwind_FX.png");
@@ -390,7 +392,7 @@ namespace ya
 			Transform* skilleffct_tr = skilleffect->GetComponent<Transform>();
 			Transform* skilleffct_getplayer_tr = GetOwner()->GetComponent<Transform>();
 			skilleffct_tr->SetPosition(skilleffct_getplayer_tr->GetPosition());
-			skilleffct_tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+			skilleffct_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 
 			Animator* skilleffct_Ani = skilleffect->AddComponent<Animator>();
 			std::shared_ptr<Texture> skill_idle = Resources::Load<Texture>(L"skill02", L"Player\\T_Player_Spear_FX.png");

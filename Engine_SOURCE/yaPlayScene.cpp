@@ -22,7 +22,7 @@
 #include "yaPaintShader.h"
 #include "yaParticleSystem.h"
 #include "yaBossWandaScript.h"
-
+#include "yaRigidbody.h"
 
 namespace ya
 {
@@ -118,18 +118,19 @@ namespace ya
 		camerapos += (4.0f * -cameratr->Foward());
 		cameratr->SetPosition(camerapos);
 
-		//PlaySceenBG
+		//PlaySceenBG ->배경화면 부분
+		//3개의 레이어로 구상함
 		{
 			{
 				//playBgLeyer01
 				GameObject* playBGObj_01 = object::Instantiate<GameObject>(eLayerType::BackGround);
 				playBGObj_01->SetName(L"PlayBG01");
 				Transform* playBGTr_01 = playBGObj_01->GetComponent<Transform>();
-				playBGTr_01->SetPosition(Vector3(1.0f, 1.0f, 6.3f));
-				playBGTr_01->SetScale(Vector3(21.0f, 11.0f, 1.0f));
+				playBGTr_01->SetPosition(Vector3(1.0f, 1.0f, 6.0f));
+				playBGTr_01->SetScale(Vector3(20.0f, 10.0f, 1.0f));
 
-				Light* playBGComp_01 = playBGObj_01->AddComponent<Light>();
-				playBGComp_01->SetType(eLightType::Directional);
+				//Light* playBGComp_01 = playBGObj_01->AddComponent<Light>();
+				//playBGComp_01->SetType(eLightType::Directional);
 				//playBGComp_01->SetDiffuse(Vector4(0.1f, 0.1f, 0.1f, 1.0f));
 
 				SpriteRenderer* playsr_01 = playBGObj_01->AddComponent<SpriteRenderer>();
@@ -143,8 +144,8 @@ namespace ya
 				GameObject* playBGObj_02 = object::Instantiate<GameObject>(eLayerType::BackGround);
 				playBGObj_02->SetName(L"PlayBG02");
 				Transform* playBGTr_02 = playBGObj_02->GetComponent<Transform>();
-				playBGTr_02->SetPosition(Vector3(1.0f, -3.0f, 6.2f));
-				playBGTr_02->SetScale(Vector3(17.0f, 6.0f, 1.0f));
+				playBGTr_02->SetPosition(Vector3(1.0f, 3.5f, 4.0f));
+				playBGTr_02->SetScale(Vector3(20.0f, 3.15f, 1.0f));
 
 				//Light* playBGComp_02 = playBGObj_02->AddComponent<Light>();
 				//playBGComp_02->SetType(eLightType::Directional);
@@ -162,12 +163,12 @@ namespace ya
 				playBGObj_03->SetName(L"PlayBG03");
 
 				Transform* playBGTr_03 = playBGObj_03->GetComponent<Transform>();
-				playBGTr_03->SetPosition(Vector3(1.0f, 1.0f, 6.1f));
-				playBGTr_03->SetScale(Vector3(19.5f, 11.5f, 1.0f));
+				playBGTr_03->SetPosition(Vector3(1.0f, -2.0f, 4.0f));
+				playBGTr_03->SetScale(Vector3(20.0f, 3.14f, 1.0f));
 
-				Light* playBGComp_03 = playBGObj_03->AddComponent<Light>();
-				playBGComp_03->SetType(eLightType::Directional);
-				//playBGComp_03->SetDiffuse(Vector4(0.4f, 0.4f, 0.4f, 1.0f));
+				//Light* playBGComp_03 = playBGObj_03->AddComponent<Light>();
+				//playBGComp_03->SetType(eLightType::Directional);
+				//playBGComp_03->SetDiffuse(Vector4(1.f, 1.f, 1.f, 1.0f));
 
 				SpriteRenderer* playsr_03 = playBGObj_03->AddComponent<SpriteRenderer>();
 				std::shared_ptr<Mesh> playmesh_03 = Resources::Find<Mesh>(L"RectMesh");
@@ -182,12 +183,14 @@ namespace ya
 			gameplayer = object::Instantiate<Player>(eLayerType::Player);
 			gameplayer->SetName(L"GamePlayer");
 			Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
-			gameplayer_tr->SetPosition(Vector3(-0.7f, -1.8f, 5.0f));
-			gameplayer_tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+			gameplayer_tr->SetPosition(Vector3(-0.7f, -0.5f, 5.0f));
+			gameplayer_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 			
-			Light* lightComp = gameplayer->AddComponent<Light>();
-			lightComp->SetType(eLightType::Directional);
-			lightComp->SetDiffuse(Vector4(0.7f, 0.7f, 0.7f, 1.0f));
+			Light* gameplayer_light = gameplayer->AddComponent<Light>();
+			gameplayer_light->SetType(eLightType::Directional);
+			gameplayer_light->SetDiffuse(Vector4(0.7f, 0.7f, 0.7f, 1.0f));
+
+			Rigidbody* gameplayer_rigid = gameplayer->AddComponent<Rigidbody>();
 
 			//실행되는거 확인완료
 			//Collider2D* gameplayer_col = gameplayer->AddComponent<Collider2D>();
@@ -244,21 +247,24 @@ namespace ya
 			wanda_obj->SetName(L"Boss_Wanda");
 
 			Transform* wanda_tr = wanda_obj->GetComponent<Transform>();
-			wanda_tr->SetPosition(Vector3(2.5f, -1.4f, 5.15f));
-			wanda_tr->SetScale(Vector3(10.0f, 10.3f, 1.0f));
+			wanda_tr->SetPosition(Vector3(2.5f, 0.1f, 5.15f));
+			wanda_tr->SetScale(Vector3(13.0f, 13.3f, 1.0f));
 			wanda_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
 
 			Light* lightComp = wanda_obj->AddComponent<Light>();
 			lightComp->SetType(eLightType::Directional);
-			lightComp->SetDiffuse(Vector4(0.7f, 0.7f, 0.7f, 1.0f));
+			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.5f));
 
 			Animator* BossWanda_Animator = wanda_obj->AddComponent<Animator>();
-			std::shared_ptr<Texture> wanda_idle = Resources::Load<Texture>(L"wanda", L"Boss\\Boss_Wanda_Idle.png");
+			std::shared_ptr<Texture> wanda_idle = Resources::Load<Texture>(L"wanda", L"Boss\\T_Boss_Wanda_S1_Idle.png");
+			std::shared_ptr<Texture> wanda_aoe_middle = Resources::Load<Texture>(L"wanda_aoe", L"Boss\\T_Boss_Wanda_S1_AoE_Middle.png");
+			std::shared_ptr<Texture> wanda_chain = Resources::Load<Texture>(L"wanda_chain", L"Boss\\T_Boss_Wanda_S1_Chain.png");
 
-			BossWanda_Animator->Create(L"wanda_Idle", wanda_idle, Vector2(0.0f, 0.0f), Vector2(83.0f, 97.0f), Vector2::Zero, 4, 4, 13, 0.09f);
+			BossWanda_Animator->Create(L"wanda_idle", wanda_idle, Vector2(0.0f, 0.0f), Vector2(96.0f, 106.0f), Vector2::Zero, 4, 4, 13, 0.10f);
+			BossWanda_Animator->Create(L"wanda_aoe_middle", wanda_aoe_middle, Vector2(0.0f, 0.0f), Vector2(130.0f, 167.0f), Vector2(0.0f, -0.03f), 6, 6, 36, 0.10f);
+			BossWanda_Animator->Create(L"wanda_chain", wanda_chain, Vector2(0.0f, 0.0f), Vector2(285.0f, 98.0f), Vector2(0.0f, -0.03f), 5, 5, 25, 0.10f , 3);
 
-			BossWanda_Animator->Play(L"wanda_Idle", true);
-
+			BossWanda_Animator->Play(L"wanda_aoe_middle", true);
 
 
 			SpriteRenderer* wanda_sr = wanda_obj->AddComponent<SpriteRenderer>();

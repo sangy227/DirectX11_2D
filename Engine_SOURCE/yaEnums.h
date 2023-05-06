@@ -93,4 +93,20 @@ namespace ya::enums
 	//	Vector3 dest;
 	//};
 
+	enum class eCameraState {
+		IDLE,
+		SMALL_SHAKE,
+		BIG_SHAKE,
+		END
+	};
+
+	enum class ePlayerState
+	{
+		None,
+		RIGHT_Idle,
+		Left_Idle,
+		RIGHT_Run,
+		Left_Run
+	};
+
 }

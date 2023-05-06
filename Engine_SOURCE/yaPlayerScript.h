@@ -7,15 +7,6 @@ namespace ya
 	class PlayerScript : public Script
 	{
 	public:
-		enum class eState
-		{
-			None,
-			RIGHT_Idle,
-			Left_Idle,
-			RIGHT_Run,
-			Left_Run
-		};
-
 		PlayerScript();
 		~PlayerScript();
 
@@ -42,6 +33,6 @@ namespace ya
 		
 
 	private:
-		eState mState;
+		ePlayerState mState;
 	};
 }
