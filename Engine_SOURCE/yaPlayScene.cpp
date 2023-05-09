@@ -110,13 +110,12 @@ namespace ya
 		cameraComp->SetProjectionType(Camera::eProjectionType::Perspective);
 		cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
-		cameraObj->AddComponent<CameraScript>();
+		CameraScript* bcs = cameraObj->AddComponent<CameraScript>();
 		mainCamera = cameraComp;
 
 		Transform* cameratr = cameraObj->GetComponent<Transform>();
-		Vector3 camerapos = cameratr->GetPosition();
-		camerapos += (4.0f * -cameratr->Foward());
-		cameratr->SetPosition(camerapos);
+		
+		cameratr->SetPosition(Vector3(1.0f,1.0f,-3.0f));
 
 		//PlaySceenBG ->배경화면 부분
 		//3개의 레이어로 구상함
@@ -126,12 +125,12 @@ namespace ya
 				GameObject* playBGObj_01 = object::Instantiate<GameObject>(eLayerType::BackGround);
 				playBGObj_01->SetName(L"PlayBG01");
 				Transform* playBGTr_01 = playBGObj_01->GetComponent<Transform>();
-				playBGTr_01->SetPosition(Vector3(1.0f, 1.0f, 5.1f));
+				playBGTr_01->SetPosition(Vector3(1.0f, 1.0f, 6.0f));
 				playBGTr_01->SetScale(Vector3(20.0f, 10.0f, 1.0f));
 
 				Light* playBGComp_01 = playBGObj_01->AddComponent<Light>();
 				playBGComp_01->SetType(eLightType::Directional);
-				playBGComp_01->SetDiffuse(Vector4(2.0f, 2.0f, 2.0f, 1.0f));
+				playBGComp_01->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 				//playBGComp_01->SetAmbient(Vector4(2.0f, 2.0f, 2.0f, 1.0f));
 
 				SpriteRenderer* playsr_01 = playBGObj_01->AddComponent<SpriteRenderer>();
@@ -145,8 +144,8 @@ namespace ya
 				GameObject* playBGObj_02 = object::Instantiate<GameObject>(eLayerType::BackGround);
 				playBGObj_02->SetName(L"PlayBG02");
 				Transform* playBGTr_02 = playBGObj_02->GetComponent<Transform>();
-				playBGTr_02->SetPosition(Vector3(1.0f, 3.5f, 3.9f));
-				playBGTr_02->SetScale(Vector3(16.0f, 3.15f, 1.0f));
+				playBGTr_02->SetPosition(Vector3(1.0f, 3.4f, 4.0f));
+				playBGTr_02->SetScale(Vector3(16.0f, 3.5f, 1.0f));
 
 				/*Light* playBGComp_02 = playBGObj_02->AddComponent<Light>();
 				playBGComp_02->SetType(eLightType::Directional);
@@ -164,7 +163,7 @@ namespace ya
 				playBGObj_03->SetName(L"PlayBG03");
 
 				Transform* playBGTr_03 = playBGObj_03->GetComponent<Transform>();
-				playBGTr_03->SetPosition(Vector3(1.0f, -2.0f, 3.9f));
+				playBGTr_03->SetPosition(Vector3(1.0f, -2.0f, 4.0f));
 				playBGTr_03->SetScale(Vector3(16.0f, 3.14f, 1.0f));
 
 				/*Light* playBGComp_03 = playBGObj_03->AddComponent<Light>();
@@ -184,12 +183,12 @@ namespace ya
 			gameplayer = object::Instantiate<Player>(eLayerType::Player);
 			gameplayer->SetName(L"GamePlayer");
 			Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
-			gameplayer_tr->SetPosition(Vector3(-0.7f, -0.5f, 4.0f));
+			gameplayer_tr->SetPosition(Vector3(-0.7f, -0.5f, 5.0f));
 			gameplayer_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 			
-			/*Light* gameplayer_light = gameplayer->AddComponent<Light>();
+			Light* gameplayer_light = gameplayer->AddComponent<Light>();
 			gameplayer_light->SetType(eLightType::Directional);
-			gameplayer_light->SetDiffuse(Vector4(1.0f, 0.7f, 0.7f, 1.0f));*/
+			gameplayer_light->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
 			Rigidbody* gameplayer_rigid = gameplayer->AddComponent<Rigidbody>();
 
@@ -237,6 +236,9 @@ namespace ya
 			gameplayer_sr->SetMaterial(gameplayer_mateiral);
 
 			gameplayer->AddComponent<PlayerScript>();
+
+			PlayerScript* camsc = gameplayer->AddComponent<PlayerScript>();
+			camsc->setCameraScript(bcs);
 			object::DontDestroyOnLoad(gameplayer);
 
 		}
@@ -265,7 +267,7 @@ namespace ya
 			BossWanda_Animator->Create(L"wanda_aoe_middle", wanda_aoe_middle, Vector2(0.0f, 0.0f), Vector2(130.0f, 167.0f), Vector2(0.0f, -0.03f), 6, 6, 36, 0.10f);
 			BossWanda_Animator->Create(L"wanda_chain", wanda_chain, Vector2(0.0f, 0.0f), Vector2(285.0f, 98.0f), Vector2(0.0f, -0.03f), 5, 5, 25, 0.10f , 3);
 
-			BossWanda_Animator->Play(L"wanda_aoe_middle", true);
+			BossWanda_Animator->Play(L"wanda_idle", true);
 
 
 			SpriteRenderer* wanda_sr = wanda_obj->AddComponent<SpriteRenderer>();

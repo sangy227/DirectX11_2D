@@ -88,7 +88,7 @@ namespace ya
 			animator->Play(L"Idle", true);
 			mState = ePlayerState::Left_Idle;
 		}
-
+		
 
 		if (Input::GetKey(eKeyCode::DOWN))
 		{

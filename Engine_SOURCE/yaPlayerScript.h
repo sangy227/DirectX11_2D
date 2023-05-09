@@ -1,6 +1,6 @@
 #pragma once
 #include "yaScript.h"
-
+#include "yaCameraScript.h"
 
 namespace ya
 {
@@ -31,8 +31,10 @@ namespace ya
 		void Skill_Whirlwind_Fx();
 		void Skill_Spear_FX();
 		
+		void setCameraScript(CameraScript* sc) { Sc = sc; }
 
 	private:
 		ePlayerState mState;
+		CameraScript* Sc;
 	};
 }

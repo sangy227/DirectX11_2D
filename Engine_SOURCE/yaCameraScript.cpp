@@ -61,8 +61,8 @@ namespace ya
 			pos = CameraStrongShakeeffect(pos);
 
 		if (mState == eCameraState::IDLE) {
-			pos = Vector3::One;
-			pos += (4.0f * -tr->Foward());
+			pos = Vector3(1.0f, 1.0f, -3.0f); // 여기서 계속 카메라 트랜스폼 갱신중
+			//pos += (4.0f * -tr->Foward());
 			
 		}
 			

@@ -35,11 +35,16 @@ float4 main(VSOut In) : SV_Target
         
         color = atlasTexture.Sample(anisotropicSampler, UV);
     }
-    else 
+    else
     {
         color = defaultTexture.Sample(anisotropicSampler, In.UV);
     }
-    
+    if (color.a == 0)
+    {
+        discard;
+    }
+    //color = atlasTexture.Sample(anisotropicSampler, In.UV);
+    //color = defaultTexture.Sample(anisotropicSampler, In.UV);
     LightColor lightColor = (LightColor) 0.0f;
     for (int i = 0; i < numberOfLight; i++)
     {
