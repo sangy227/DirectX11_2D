@@ -21,7 +21,7 @@
 #include "yaSkillEffect.h"
 #include "yaSkillEffectScript.h"
 #include "yaRigidbody.h"
-
+#include "yaEnums.h"
 
 namespace ya
 {
@@ -157,7 +157,7 @@ namespace ya
 			else if (mState == ePlayerState::RIGHT_Run || mState == ePlayerState::Left_Run)
 				animator->GetCompleteEvent(L"dash") = std::bind(&PlayerScript::Player_Run_to, this);
 
-			tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+			tr->SetScale(Vector3(13.0f, 13.0f, 1.0f));
 			animator->GetCompleteEvent(L"dash") = std::bind(&PlayerScript::Player_Idel, this);
 			animator->Play(L"dash");
 		}
@@ -216,13 +216,18 @@ namespace ya
 		//skill_hammer 구현부
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
+			
 			Animator* animator = GetOwner()->GetComponent<Animator>();
 			for (size_t i = 1; i < 38; i++)
 			{
-				if(mState == ePlayerState::RIGHT_Idle )
+				if (i == 1)
+					cameraShakeSmall();
+				if (mState == ePlayerState::RIGHT_Idle) {
 					animator->GetEvent(L"skill_hammer", i) = std::bind(&PlayerScript::Skill_Moving_Right, this);
-				if (mState == ePlayerState::Left_Idle)
+				}
+				if (mState == ePlayerState::Left_Idle) {
 					animator->GetEvent(L"skill_hammer", i) = std::bind(&PlayerScript::Skill_Moving_Left, this);
+				}
 			}
 			animator->GetCompleteEvent(L"skill_hammer") = std::bind(&PlayerScript::Player_Idel, this);
 			animator->Play(L"skill_hammer");
@@ -317,6 +322,11 @@ namespace ya
 	}
 
 
+
+
+
+
+
 	void PlayerScript::Player_Idel() //스킬모션이끝나고 idel 애니메이션으로 전환
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -324,6 +334,7 @@ namespace ya
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->Play(L"Idle");
+		cameraShakeIdel();
 	}
 
 
@@ -410,6 +421,21 @@ namespace ya
 			skilleffect->AddComponent<SkillEffectScript>();
 			//object::DontDestroyOnLoad(skilleffect);
 		}
+	}
+
+	void PlayerScript::cameraShakeSmall()
+	{
+		mCameraSc->SetCameraState_Small_Shake();
+	}
+
+	void PlayerScript::cameraShakeBig()
+	{
+		mCameraSc->SetCameraState_Big_Shake();
+	}
+
+	void PlayerScript::cameraShakeIdel()
+	{
+		mCameraSc->SetCameraState_Idle();
 	}
 
 }

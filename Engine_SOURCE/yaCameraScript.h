@@ -21,12 +21,16 @@ namespace ya
 			return min + static_cast<float>(rand()) / static_cast<float>(RAND_MAX / (max - min));
 		}
 
-		eCameraState GetCamereState() { return mState; }
-		void SetCamereState(eCameraState mstate) { mState = mstate; }
+		eCameraState GetCamereState() { return mCameraState; }
+		void SetCamereState(eCameraState mstate) { mCameraState = mstate; }
+
+		void SetCameraState_Small_Shake() { mCameraState = eCameraState::SMALL_SHAKE; }
+		void SetCameraState_Big_Shake() { mCameraState = eCameraState::BIG_SHAKE; }
+		void SetCameraState_Idle() { mCameraState = eCameraState::IDLE; }
 
 	private:
 
 	public:
-		eCameraState mState;
+		eCameraState mCameraState;
 	};
 }

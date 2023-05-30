@@ -30,11 +30,16 @@ namespace ya
 
 		void Skill_Whirlwind_Fx();
 		void Skill_Spear_FX();
+
+		void cameraShakeSmall();
+		void cameraShakeBig();
+		void cameraShakeIdel();
 		
-		void setCameraScript(CameraScript* sc) { Sc = sc; }
+		void setCameraScript(CameraScript* sc) { mCameraSc = sc; }
+		CameraScript* GetCameraScript() { mCameraSc; }
 
 	private:
 		ePlayerState mState;
-		CameraScript* Sc;
+		CameraScript* mCameraSc;
 	};
 }
