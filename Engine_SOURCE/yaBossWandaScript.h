@@ -34,8 +34,32 @@ namespace ya
 		void Action();
 		void End();
 
+		void Wanda_Idel();
+
+		void Wanda_Skill_Spin();
+		void Wanda_Skill_Middle();
+		void Wanda_Skill_Chain();
+		void Wanda_Skill_S2();
+		void Wanda_Skill_Aoe();
+		void Wanda_Skill_Garden();
+
+		void setPlayerObject(GameObject* obj) { mPlayer = obj; }
+		GameObject* GetPlayerObject() { return mPlayer; }
+		
 	private:
 		eState mState;
+		GameObject* mPlayer;
 	};
 }
 
+
+//wanda_idle x
+//wanda_aoe_middle Y
+//wanda_chain U
+//wanda_s1_s2 I
+//wanda_s2_aoe O
+//wanda_s2_garden P
+//wanda_s2_npc E
+//wanda_s2_npc_idle x
+//wanda_s2_skinshed R //쓰지말자
+//wanda_s2_spin T

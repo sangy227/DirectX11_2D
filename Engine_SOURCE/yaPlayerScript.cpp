@@ -93,7 +93,7 @@ namespace ya
 		if (Input::GetKey(eKeyCode::DOWN))
 		{
 			Vector3 pos = tr->GetPosition();
-			pos.y -= 3.0f * Time::DeltaTime();
+			//pos.y -= 3.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 
@@ -101,7 +101,7 @@ namespace ya
 		if (Input::GetKey(eKeyCode::UP))
 		{
 			Vector3 pos = tr->GetPosition();
-			pos.y += 3.0f * Time::DeltaTime();
+			//pos.y += 3.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 

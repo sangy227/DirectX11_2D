@@ -183,7 +183,7 @@ namespace ya
 			gameplayer = object::Instantiate<Player>(eLayerType::Player);
 			gameplayer->SetName(L"GamePlayer");
 			Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
-			gameplayer_tr->SetPosition(Vector3(-0.7f, -0.5f, 5.0f));
+			gameplayer_tr->SetPosition(Vector3(-0.7f, -0.7f, 5.0f));
 			gameplayer_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 			
 			Light* gameplayer_light = gameplayer->AddComponent<Light>();
@@ -251,8 +251,16 @@ namespace ya
 
 			Transform* wanda_tr = wanda_obj->GetComponent<Transform>();
 			wanda_tr->SetPosition(Vector3(2.5f, -0.1f, 5.0f));
-			wanda_tr->SetScale(Vector3(13.0f, 14.0f, 1.0f));
-			wanda_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
+			wanda_tr->SetScale(Vector3(13.0f, 13.0f, 1.0f));
+			{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
+				Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
+				Vector3 firsttr = wanda_tr->GetPosition();
+				Vector3 secondtr = gameplayer_tr->GetPosition();
+				if(firsttr.x - secondtr.x > 0.0f )
+					wanda_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f)); //왼쪽 바라보기
+				else
+					wanda_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
+			}
 
 			/*Light* lightComp = wanda_obj->AddComponent<Light>();
 			lightComp->SetType(eLightType::Directional);
@@ -266,6 +274,7 @@ namespace ya
 			std::shared_ptr<Texture> wanda_s2_aoe = Resources::Load<Texture>(L"wanda_S1_AoE", L"Boss\\T_Boss_Wanda_S2_AoE.png");
 			std::shared_ptr<Texture> wanda_s2_garden = Resources::Load<Texture>(L"wanda_S2_Garden", L"Boss\\T_Boss_Wanda_S2_Garden.png");
 			std::shared_ptr<Texture> wanda_s2_npc = Resources::Load<Texture>(L"wanda_S2_NPC", L"Boss\\T_Boss_Wanda_S2_NPC.png");
+			std::shared_ptr<Texture> wanda_s2_npc_idle = Resources::Load<Texture>(L"wanda_S2_NPC_IDLE", L"Boss\\T_Boss_Wanda_S2_NPC_idel.png");
 			std::shared_ptr<Texture> wanda_s2_skinshed = Resources::Load<Texture>(L"wanda_S2_SkinShed", L"Boss\\T_Boss_Wanda_S2_SkinShed.png");
 			std::shared_ptr<Texture> wanda_s2_spin = Resources::Load<Texture>(L"wanda_S2_Spin", L"Boss\\T_Boss_Wanda_S2_Spin.png");
 
@@ -276,19 +285,22 @@ namespace ya
 			BossWanda_Animator->Create(L"wanda_s2_aoe", wanda_s2_aoe, Vector2(0.0f, 0.0f), Vector2(365.0f, 234.0f), Vector2(0.0f, -0.03f), 5, 5, 24, 0.10f);
 			BossWanda_Animator->Create(L"wanda_s2_garden", wanda_s2_garden, Vector2(0.0f, 0.0f), Vector2(181.0f, 228.0f), Vector2(0.0f, -0.01f), 6, 6, 31, 0.10f);
 			BossWanda_Animator->Create(L"wanda_s2_npc", wanda_s2_npc, Vector2(0.0f, 0.0f), Vector2(121.0f, 147.0f), Vector2(0.0f, -0.01f), 5, 5, 24, 0.10f);
+			BossWanda_Animator->Create(L"wanda_s2_npc_idle", wanda_s2_npc_idle, Vector2(0.0f, 0.0f), Vector2(48.0f, 61.0f), Vector2(0.0f, 0.1f), 1, 1, 1, 0.10f);
 			BossWanda_Animator->Create(L"wanda_s2_skinshed", wanda_s2_skinshed, Vector2(0.0f, 0.0f), Vector2(272.0f, 132.0f), Vector2(0.0f, -0.01f), 7, 6, 39, 0.10f);
 			BossWanda_Animator->Create(L"wanda_s2_spin", wanda_s2_spin, Vector2(0.0f, 0.0f), Vector2(391.0f, 216.0f), Vector2(0.0f, -0.03f), 6, 6, 31, 0.10f);
 
-			BossWanda_Animator->Play(L"wanda_idle", true);
-
+			BossWanda_Animator->Play(L"wanda_s2_npc_idle", true);
+			
 
 			SpriteRenderer* wanda_sr = wanda_obj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Mesh> wanda_mesh = Resources::Find<Mesh>(L"RectMesh");
 			std::shared_ptr<Material> wanda_mt = Resources::Find<Material>(L"SpriteMaterial");
 			wanda_sr->SetMesh(wanda_mesh);
 			wanda_sr->SetMaterial(wanda_mt);
-			wanda_obj->AddComponent<BossWandaScript>();
-			object::DontDestroyOnLoad(wanda_obj);
+			BossWandaScript* wandaSc = wanda_obj->AddComponent<BossWandaScript>();
+			wandaSc->setPlayerObject(gameplayer);
+			//wanda_obj->AddComponent<BossWandaScript>();
+			//object::DontDestroyOnLoad(wanda_obj);
 		}
 
 

@@ -36,7 +36,7 @@ namespace ya
 		void cameraShakeIdel();
 		
 		void setCameraScript(CameraScript* sc) { mCameraSc = sc; }
-		CameraScript* GetCameraScript() { mCameraSc; }
+		CameraScript* GetCameraScript() { return mCameraSc; }
 
 	private:
 		ePlayerState mState;
