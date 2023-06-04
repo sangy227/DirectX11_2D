@@ -13,6 +13,7 @@ namespace ya {
 	BossWandaScript::BossWandaScript()
 		: Script()
 		, mState(eState::Idle)
+		, Skill_index(0)
 	{
 	}
 	BossWandaScript::~BossWandaScript()
@@ -61,11 +62,34 @@ namespace ya {
 
 		}
 
-		//스킬 공격
-		if (mState == eState::Skill)
+		//스킬 랜덤 셀렉트
+		if (mState == eState::Skill_Selected)
 		{
 			srand((unsigned int)time(NULL));
 			int mRand = rand() % 4;
+			//이쪽부분 만지면댐
+			Skill_index = mRand;
+			
+			mState = eState::Skill_Start;
+		}
+
+		//스킬 초이스 부분
+		if (mState == eState::Skill_Start) 
+		{
+			if (Skill_index == 0)
+				Wanda_Skill_Spin();
+			if (Skill_index == 1)
+				Wanda_Skill_Middle();
+			if (Skill_index == 2)
+				Wanda_Skill_Chain();
+			if (Skill_index == 3)
+				Wanda_Skill_Aoe();
+		}
+		
+		//스킬 진행중 부분
+		if (mState == eState::Skill)
+		{
+			
 		}
 
 
@@ -158,8 +182,23 @@ namespace ya {
 		tr->SetScale(Vector3(13.0f, 15.0f, 1.0f));
 	
 		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"wanda_idle") = std::bind(&BossWandaScript::MState_Change_Skill_Selected, this);
 		animator->Play(L"wanda_idle");
 	}
+
+	void BossWandaScript::MState_Change_Skill_Selected()
+	{
+		mState = eState::Skill_Selected;
+	}
+
+
+
+
+
+
+
+
+
 	void BossWandaScript::Wanda_Skill_Spin()
 	{
 		mState = eState::Skill;
@@ -168,6 +207,7 @@ namespace ya {
 		animator->GetCompleteEvent(L"wanda_s2_spin") = std::bind(&BossWandaScript::Wanda_Idel, this);
 		animator->Play(L"wanda_s2_spin");
 	}
+
 	void BossWandaScript::Wanda_Skill_Middle()
 	{
 		mState = eState::Skill;
@@ -176,6 +216,7 @@ namespace ya {
 		animator->GetCompleteEvent(L"wanda_aoe_middle") = std::bind(&BossWandaScript::Wanda_Idel, this);
 		animator->Play(L"wanda_aoe_middle");
 	}
+
 	void BossWandaScript::Wanda_Skill_Chain()
 	{
 		mState = eState::Skill;
@@ -184,6 +225,7 @@ namespace ya {
 		animator->GetCompleteEvent(L"wanda_chain") = std::bind(&BossWandaScript::Wanda_Idel, this);
 		animator->Play(L"wanda_chain");
 	}
+
 	void BossWandaScript::Wanda_Skill_S2()
 	{
 		mState = eState::Skill;
@@ -192,6 +234,7 @@ namespace ya {
 		animator->GetCompleteEvent(L"wanda_s1_s2") = std::bind(&BossWandaScript::Wanda_Idel, this);
 		animator->Play(L"wanda_s1_s2");
 	}
+
 	void BossWandaScript::Wanda_Skill_Aoe()
 	{
 		mState = eState::Skill;
@@ -200,6 +243,7 @@ namespace ya {
 		animator->GetCompleteEvent(L"wanda_s2_aoe") = std::bind(&BossWandaScript::Wanda_Idel, this);
 		animator->Play(L"wanda_s2_aoe");
 	}
+
 	void BossWandaScript::Wanda_Skill_Garden()
 	{
 		mState = eState::Skill;

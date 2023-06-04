@@ -14,6 +14,8 @@ namespace ya
 			Idle,
 			Move,
 			Atack,
+			Skill_Selected,
+			Skill_Start,
 			Skill,
 
 			End,
@@ -35,6 +37,7 @@ namespace ya
 		void End();
 
 		void Wanda_Idel();
+		void MState_Change_Skill_Selected();
 
 		void Wanda_Skill_Spin();
 		void Wanda_Skill_Middle();
@@ -49,6 +52,7 @@ namespace ya
 	private:
 		eState mState;
 		GameObject* mPlayer;
+		UINT Skill_index;
 	};
 }
 

@@ -286,7 +286,7 @@ namespace ya
 			BossWanda_Animator->Create(L"wanda_s2_garden", wanda_s2_garden, Vector2(0.0f, 0.0f), Vector2(181.0f, 228.0f), Vector2(0.0f, -0.01f), 6, 6, 31, 0.10f);
 			BossWanda_Animator->Create(L"wanda_s2_npc", wanda_s2_npc, Vector2(0.0f, 0.0f), Vector2(121.0f, 147.0f), Vector2(0.0f, -0.01f), 5, 5, 24, 0.10f);
 			BossWanda_Animator->Create(L"wanda_s2_npc_idle", wanda_s2_npc_idle, Vector2(0.0f, 0.0f), Vector2(48.0f, 61.0f), Vector2(0.0f, 0.1f), 1, 1, 1, 0.10f);
-			BossWanda_Animator->Create(L"wanda_s2_skinshed", wanda_s2_skinshed, Vector2(0.0f, 0.0f), Vector2(272.0f, 132.0f), Vector2(0.0f, -0.01f), 7, 6, 39, 0.10f);
+			BossWanda_Animator->Create(L"wanda_s2_skinshed", wanda_s2_skinshed, Vector2(0.0f, 0.0f), Vector2(272.0f, 132.0f), Vector2(0.0f, -0.01f), 7, 6, 39, 0.10f); //ÁÂÇ¥ ºý¼¼¼­ ¾È¾¸
 			BossWanda_Animator->Create(L"wanda_s2_spin", wanda_s2_spin, Vector2(0.0f, 0.0f), Vector2(391.0f, 216.0f), Vector2(0.0f, -0.03f), 6, 6, 31, 0.10f);
 
 			BossWanda_Animator->Play(L"wanda_s2_npc_idle", true);
