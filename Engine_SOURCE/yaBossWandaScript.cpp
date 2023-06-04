@@ -5,6 +5,9 @@
 #include "yaTime.h"
 #include "yaAnimator.h"
 #include "yaPlayerScript.h"
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 namespace ya {
 	BossWandaScript::BossWandaScript()
@@ -61,7 +64,8 @@ namespace ya {
 		//스킬 공격
 		if (mState == eState::Skill)
 		{
-
+			srand((unsigned int)time(NULL));
+			int mRand = rand() % 4;
 		}
 
 
@@ -89,15 +93,15 @@ namespace ya {
 		//	animator->GetCompleteEvent(L"wanda_s2_skinshed") = std::bind(&BossWandaScript::Wanda_Idel, this);
 		//	animator->Play(L"wanda_s2_skinshed");
 		//}
-		if (Input::GetKeyDown(eKeyCode::T))
+		if (Input::GetKeyDown(eKeyCode::T)) //스킬
 		{
 			Wanda_Skill_Spin();
 		}
-		if (Input::GetKeyDown(eKeyCode::Y))
+		if (Input::GetKeyDown(eKeyCode::Y)) //스킬
 		{
 			Wanda_Skill_Middle();
 		}
-		if (Input::GetKeyDown(eKeyCode::U))
+		if (Input::GetKeyDown(eKeyCode::U))//스킬
 		{
 			Wanda_Skill_Chain();
 		}
@@ -105,7 +109,7 @@ namespace ya {
 		{
 			Wanda_Skill_S2();
 		}
-		if (Input::GetKeyDown(eKeyCode::O))
+		if (Input::GetKeyDown(eKeyCode::O))//스킬
 		{
 			Wanda_Skill_Aoe();
 		}
