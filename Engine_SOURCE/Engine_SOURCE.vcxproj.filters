@@ -262,6 +262,12 @@
     <ClCompile Include="yaBossWandaScript.cpp">
       <Filter>Component\Script\Contents\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="yaMainScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMainCameraSc.cpp">
+      <Filter>Component\Script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -420,6 +426,12 @@
     </ClInclude>
     <ClInclude Include="yaBossWandaScript.h">
       <Filter>Component\Script\Contents\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMainScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMainCameraSc.h">
+      <Filter>Component\Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

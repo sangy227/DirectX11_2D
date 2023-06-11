@@ -11,7 +11,7 @@
 #include "yaGridScript.h"
 #include "yaTitleScene.h"
 #include "yaPlayScene.h"
-
+#include "yaMainScene.h"
 namespace ya
 {
 	std::vector<Scene*> SceneManager::mScenes = {};
@@ -22,6 +22,7 @@ namespace ya
 		mScenes.resize((UINT)eSceneType::End);
 
 		mScenes[(UINT)eSceneType::Tilte] = new TitleScene();
+		mScenes[(UINT)eSceneType::Main] = new MainScene();
 		mScenes[(UINT)eSceneType::Play] = new PlayScene();
 
 		mActiveScene = mScenes[(UINT)eSceneType::Tilte];

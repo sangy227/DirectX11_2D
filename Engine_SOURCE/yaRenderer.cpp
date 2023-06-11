@@ -441,15 +441,19 @@ namespace ya::renderer
 #pragma endregion
 
 #pragma region USER TEXTURE
-		//TitleSceen
+		//TitleScene
 		//Resources::Load<Texture>(L"TitleBG", L"T_MainMenu_Background.png");
 		Resources::Load<Texture>(L"TitleBG", L"bg.png");
 		Resources::Load<Texture>(L"TitleLogo", L"T_MainMenu_Title_Moonscars.png");
 
-		//PlaySceen
+		//PlayScene
 		Resources::Load<Texture>(L"PlayBG_Leyer01", L"PlayBG01.png");
 		Resources::Load<Texture>(L"PlayBG_Leyer02", L"PlayBG02.png");
 		Resources::Load<Texture>(L"PlayBG_Leyer03", L"PlayBG03.png");
+
+		//MainScene
+		Resources::Load<Texture>(L"MainBG_Leyer01", L"MainBG01.png");
+		Resources::Load<Texture>(L"MainBG_Leyer02", L"MainBG02.png");
 #pragma endregion
 
 	}
@@ -457,22 +461,23 @@ namespace ya::renderer
 	void LoadMaterial()
 	{
 		//TitleSceen
-		std::shared_ptr <Texture> titleBGTexture = Resources::Find<Texture>(L"TitleBG");
-		std::shared_ptr<Shader> titleBGShader = Resources::Find<Shader>(L"SpriteShader");
-		std::shared_ptr<Material> titleBGMaterial = std::make_shared<Material>();
-		titleBGMaterial->SetRenderingMode(eRenderingMode::Transparent);
-		titleBGMaterial->SetTexture(eTextureSlot::T0, titleBGTexture);
-		titleBGMaterial->SetShader(titleBGShader);
-		Resources::Insert<Material>(L"TitleBGMaterial", titleBGMaterial);
+		{
+			std::shared_ptr <Texture> titleBGTexture = Resources::Find<Texture>(L"TitleBG");
+			std::shared_ptr<Shader> titleBGShader = Resources::Find<Shader>(L"SpriteShader");
+			std::shared_ptr<Material> titleBGMaterial = std::make_shared<Material>();
+			titleBGMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			titleBGMaterial->SetTexture(eTextureSlot::T0, titleBGTexture);
+			titleBGMaterial->SetShader(titleBGShader);
+			Resources::Insert<Material>(L"TitleBGMaterial", titleBGMaterial);
 
-		std::shared_ptr <Texture> titleLogoTexture = Resources::Find<Texture>(L"TitleLogo");
-		std::shared_ptr<Shader> titleLogoShader = Resources::Find<Shader>(L"SpriteShader");
-		std::shared_ptr<Material> titleLogoMaterial = std::make_shared<Material>();
-		titleLogoMaterial->SetRenderingMode(eRenderingMode::Transparent);
-		titleLogoMaterial->SetTexture(eTextureSlot::T0, titleLogoTexture);
-		titleLogoMaterial->SetShader(titleLogoShader);
-		Resources::Insert<Material>(L"TitleLogoMaterial", titleLogoMaterial);
-
+			std::shared_ptr <Texture> titleLogoTexture = Resources::Find<Texture>(L"TitleLogo");
+			std::shared_ptr<Shader> titleLogoShader = Resources::Find<Shader>(L"SpriteShader");
+			std::shared_ptr<Material> titleLogoMaterial = std::make_shared<Material>();
+			titleLogoMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			titleLogoMaterial->SetTexture(eTextureSlot::T0, titleLogoTexture);
+			titleLogoMaterial->SetShader(titleLogoShader);
+			Resources::Insert<Material>(L"TitleLogoMaterial", titleLogoMaterial);
+		}
 		//PlaySceen
 		{
 			//PlayBG
@@ -502,6 +507,27 @@ namespace ya::renderer
 				Resources::Insert<Material>(L"playBGMaterial03", playBGMaterial03);
 			}
 		}
+
+		//MainScene
+		{
+			std::shared_ptr <Texture>  mainBGTexture01 = Resources::Find<Texture>(L"MainBG_Leyer01");
+			std::shared_ptr<Shader> mainBGShader01 = Resources::Find<Shader>(L"SpriteShader");
+			std::shared_ptr<Material> mainBGMaterial01 = std::make_shared<Material>();
+			mainBGMaterial01->SetRenderingMode(eRenderingMode::Transparent);
+			mainBGMaterial01->SetTexture(eTextureSlot::T0, mainBGTexture01);
+			mainBGMaterial01->SetShader(mainBGShader01);
+			Resources::Insert<Material>(L"mainBGMaterial01", mainBGMaterial01);
+
+			std::shared_ptr <Texture>  mainBGTexture02 = Resources::Find<Texture>(L"MainBG_Leyer02");
+			std::shared_ptr<Shader> mainBGShader02 = Resources::Find<Shader>(L"SpriteShader");
+			std::shared_ptr<Material> mainBGMaterial02 = std::make_shared<Material>();
+			mainBGMaterial02->SetRenderingMode(eRenderingMode::Transparent);
+			mainBGMaterial02->SetTexture(eTextureSlot::T0, mainBGTexture02);
+			mainBGMaterial02->SetShader(mainBGShader02);
+			Resources::Insert<Material>(L"mainBGMaterial02", mainBGMaterial02);
+		}
+
+
 
 		//-----------------------------------------------------------------------------
 		// Default //현재 토치라이트 이미지로 쓰이는중

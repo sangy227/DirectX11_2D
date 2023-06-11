@@ -67,7 +67,7 @@ namespace ya {
 		{
 			srand((unsigned int)time(NULL));
 			int mRand = rand() % 4;
-			//이쪽부분 만지면댐
+			
 			Skill_index = mRand;
 			
 			mState = eState::Skill_Start;
@@ -106,7 +106,7 @@ namespace ya {
 			wanda_s2_spin T
 		}*/
 
-		if (Input::GetKeyDown(eKeyCode::E)) 
+		if (Input::GetKeyDown(eKeyCode::E)) //여긴 콜라이더 설정
 		{
 			animator->GetCompleteEvent(L"wanda_s2_npc") = std::bind(&BossWandaScript::Wanda_Idel, this);
 			animator->Play(L"wanda_s2_npc");
@@ -117,30 +117,30 @@ namespace ya {
 		//	animator->GetCompleteEvent(L"wanda_s2_skinshed") = std::bind(&BossWandaScript::Wanda_Idel, this);
 		//	animator->Play(L"wanda_s2_skinshed");
 		//}
-		if (Input::GetKeyDown(eKeyCode::T)) //스킬
-		{
-			Wanda_Skill_Spin();
-		}
-		if (Input::GetKeyDown(eKeyCode::Y)) //스킬
-		{
-			Wanda_Skill_Middle();
-		}
-		if (Input::GetKeyDown(eKeyCode::U))//스킬
-		{
-			Wanda_Skill_Chain();
-		}
-		if (Input::GetKeyDown(eKeyCode::I))
-		{
-			Wanda_Skill_S2();
-		}
-		if (Input::GetKeyDown(eKeyCode::O))//스킬
-		{
-			Wanda_Skill_Aoe();
-		}
-		if (Input::GetKeyDown(eKeyCode::P))
-		{
-			Wanda_Skill_Garden();
-		}
+		//if (Input::GetKeyDown(eKeyCode::T)) //스킬
+		//{
+		//	Wanda_Skill_Spin();
+		//}
+		//if (Input::GetKeyDown(eKeyCode::Y)) //스킬
+		//{
+		//	Wanda_Skill_Middle();
+		//}
+		//if (Input::GetKeyDown(eKeyCode::U))//스킬
+		//{
+		//	Wanda_Skill_Chain();
+		//}
+		//if (Input::GetKeyDown(eKeyCode::I))
+		//{
+		//	Wanda_Skill_S2();
+		//}
+		//if (Input::GetKeyDown(eKeyCode::O))//스킬
+		//{
+		//	Wanda_Skill_Aoe();
+		//}
+		//if (Input::GetKeyDown(eKeyCode::P))
+		//{
+		//	Wanda_Skill_Garden();
+		//}
 
 
 	}

@@ -8,7 +8,7 @@ namespace ya
 {
 	CameraScript::CameraScript()
 		: Script()
-		, mCameraState(eCameraState::IDLE)
+		, mCameraState(eCameraState::IDLE_LE)
 	{
 	}
 
@@ -63,7 +63,7 @@ namespace ya
 		if (mCameraState == eCameraState::IDLE) {
 			pos = Vector3(1.0f, 1.0f, -3.0f); // 여기서 계속 카메라 트랜스폼 갱신중
 			//pos += (4.0f * -tr->Foward());
-			
+			mCameraState = eCameraState::IDLE_LE;
 		}
 			
 

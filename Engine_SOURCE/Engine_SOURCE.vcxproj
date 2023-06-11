@@ -179,6 +179,8 @@
     <ClInclude Include="yaInput.h" />
     <ClInclude Include="yaLayer.h" />
     <ClInclude Include="yaLight.h" />
+    <ClInclude Include="yaMainCameraSc.h" />
+    <ClInclude Include="yaMainScene.h" />
     <ClInclude Include="yaMaterial.h" />
     <ClInclude Include="yaMath.h" />
     <ClInclude Include="yaMesh.h" />
@@ -230,6 +232,8 @@
     <ClCompile Include="yaInput.cpp" />
     <ClCompile Include="yaLayer.cpp" />
     <ClCompile Include="yaLight.cpp" />
+    <ClCompile Include="yaMainCameraSc.cpp" />
+    <ClCompile Include="yaMainScene.cpp" />
     <ClCompile Include="yaMaterial.cpp" />
     <ClCompile Include="yaMath.cpp" />
     <ClCompile Include="yaMesh.cpp" />

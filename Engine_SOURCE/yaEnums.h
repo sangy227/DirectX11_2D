@@ -5,6 +5,7 @@ namespace ya::enums
 	enum class eSceneType
 	{
 		Tilte,
+		Main,
 		Play,
 		End,
 	};
@@ -95,6 +96,7 @@ namespace ya::enums
 
 	enum class eCameraState {
 		IDLE,
+		IDLE_LE,
 		SMALL_SHAKE,
 		BIG_SHAKE,
 		END
