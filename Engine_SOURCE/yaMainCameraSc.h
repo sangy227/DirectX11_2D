@@ -8,6 +8,11 @@ namespace ya
 	class MainCameraSc : public Script
 	{
 	public:
+		enum class eMainCameraState {
+			IDLE,
+			MOVE,
+			STOP
+		};
 		MainCameraSc();
 		~MainCameraSc();
 
@@ -33,5 +38,6 @@ namespace ya
 
 	public:
 		eCameraState mCameraState;
+		eMainCameraState mMaincameraState;
 	};
 }

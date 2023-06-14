@@ -193,9 +193,9 @@ namespace ya
 			Rigidbody* gameplayer_rigid = gameplayer->AddComponent<Rigidbody>();
 
 			//실행되는거 확인완료
-			//Collider2D* gameplayer_col = gameplayer->AddComponent<Collider2D>();
-			//gameplayer_col->SetType(eColliderType::Rect);
-			//gameplayer_col->SetSize(Vector2(0.12f, 0.11f));
+			Collider2D* gameplayer_col = gameplayer->AddComponent<Collider2D>();
+			gameplayer_col->SetType(eColliderType::Rect);
+			gameplayer_col->SetSize(Vector2(0.12f, 0.11f));
 			
 #pragma region Animator
 			Animator* gameplayer_animator = gameplayer->AddComponent<Animator>();

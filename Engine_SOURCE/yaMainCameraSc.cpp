@@ -7,6 +7,7 @@ namespace ya {
 	MainCameraSc::MainCameraSc()
 		: Script()
 		, mCameraState(eCameraState::IDLE_LE)
+		, mMaincameraState(eMainCameraState::IDLE)
 	{
 	}
 	MainCameraSc::~MainCameraSc()
@@ -49,15 +50,19 @@ namespace ya {
 			}
 		}
 
-		if (Input::GetKeyState(eKeyCode::ENTER) == eKeyState::PRESSED)
+		if (Input::GetKeyState(eKeyCode::ENTER) == eKeyState::DOWN)
 		{
-			pos += 15.0f * tr->Right() * Time::DeltaTime();
-			//pos += 16.0f * tr->Right(); //* Time::DeltaTime();
+			if (mMaincameraState == eMainCameraState::IDLE)
+				mMaincameraState = eMainCameraState::MOVE;
+			else if(mMaincameraState == eMainCameraState::MOVE)
+				mMaincameraState = eMainCameraState::IDLE;
 		}
-		if (Input::GetKeyState(eKeyCode::LSHIFT) == eKeyState::DOWN)
+
+		if (mMaincameraState == eMainCameraState::MOVE)
 		{
-			//pos += 17.0f * tr->Right(); //* Time::DeltaTime();
+			pos += 10.0f * tr->Right() * Time::DeltaTime();
 		}
+		
 
 
 		tr->SetPosition(pos);

@@ -29,7 +29,10 @@ namespace ya {
 	MainScene::MainScene()
 		: Scene(eSceneType::Main)
 	{
-	}
+		//키보드 목록
+		//ENTER 카메라 무브및 멈춤
+		//UIOJKL 카메라 이동
+ 	}
 	MainScene::~MainScene()
 	{
 	}
@@ -55,6 +58,7 @@ namespace ya {
 	}
 	void MainScene::OnEnter()
 	{
+
 		// Main Camera Game Object
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
