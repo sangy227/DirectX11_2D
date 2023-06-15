@@ -268,6 +268,9 @@
     <ClCompile Include="yaMainCameraSc.cpp">
       <Filter>Component\Script</Filter>
     </ClCompile>
+    <ClCompile Include="yaPlayerScMainScene.cpp">
+      <Filter>Component\Script\Contents\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -432,6 +435,9 @@
     </ClInclude>
     <ClInclude Include="yaMainCameraSc.h">
       <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayerScMainScene.h">
+      <Filter>Component\Script\Contents\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

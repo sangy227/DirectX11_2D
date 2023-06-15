@@ -86,8 +86,7 @@ namespace ya
 		}
 		if (Input::GetKeyUp(eKeyCode::W))
 		{
-			pos = Vector3::One;
-			pos += (4.0f * -tr->Foward());
+			mCameraState = eCameraState::IDLE;
 		}
 
 		
@@ -107,7 +106,7 @@ namespace ya
 	}
 	Vector3 CameraScript::CameraStrongShakeeffect(Vector3 pos)
 	{
-		float shakeAmount = 0.1f; // Change this value to adjust the camera shake intensity
+		float shakeAmount = 0.01f; // Change this value to adjust the camera shake intensity
 		Vector3 shakeOffset = Vector3(RandomRange(-shakeAmount, shakeAmount), RandomRange(-shakeAmount, shakeAmount), 0.0f);
 		return pos += shakeOffset;
 	}

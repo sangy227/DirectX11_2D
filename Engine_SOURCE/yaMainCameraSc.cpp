@@ -50,19 +50,60 @@ namespace ya {
 			}
 		}
 
-		if (Input::GetKeyState(eKeyCode::ENTER) == eKeyState::DOWN)
+		//카메라 흔들기 부분
 		{
-			if (mMaincameraState == eMainCameraState::IDLE)
-				mMaincameraState = eMainCameraState::MOVE;
-			else if(mMaincameraState == eMainCameraState::MOVE)
-				mMaincameraState = eMainCameraState::IDLE;
+			if (mCameraState == eCameraState::SMALL_SHAKE)
+				pos = CameraWeakShakeeffect(pos);
+
+			if (mCameraState == eCameraState::BIG_SHAKE)
+				pos = CameraStrongShakeeffect(pos);
+
+			if (mCameraState == eCameraState::IDLE) {
+				pos = Vector3(1.0f, 1.0f, -3.0f); // 여기서 계속 카메라 트랜스폼 갱신중
+				//pos += (4.0f * -tr->Foward());
+				mCameraState = eCameraState::IDLE_LE;
+			}
+
+
+
+
+			if (Input::GetKey(eKeyCode::Q))
+			{
+				//pos = CameraWeakShakeeffect(pos);
+				mCameraState = eCameraState::SMALL_SHAKE;
+			}
+			if (Input::GetKeyUp(eKeyCode::Q))
+			{
+				//pos = Vector3::One;
+				//pos += (4.0f * -tr->Foward());
+				mCameraState = eCameraState::IDLE;
+			}
+			if (Input::GetKey(eKeyCode::W))
+			{
+				pos = CameraStrongShakeeffect(pos);
+			}
+			if (Input::GetKeyUp(eKeyCode::W))
+			{
+				mCameraState = eCameraState::IDLE;
+			}
 		}
 
-		if (mMaincameraState == eMainCameraState::MOVE)
+
+		//카메라 오른쪽 으로 무빙
 		{
-			pos += 10.0f * tr->Right() * Time::DeltaTime();
+			if (Input::GetKeyState(eKeyCode::ENTER) == eKeyState::DOWN)
+			{
+				if (mMaincameraState == eMainCameraState::IDLE)
+					mMaincameraState = eMainCameraState::MOVE;
+				else if (mMaincameraState == eMainCameraState::MOVE)
+					mMaincameraState = eMainCameraState::IDLE;
+			}
+
+			if (mMaincameraState == eMainCameraState::MOVE)
+			{
+				pos += 10.0f * tr->Right() * Time::DeltaTime();
+			}
 		}
-		
 
 
 		tr->SetPosition(pos);
@@ -72,10 +113,14 @@ namespace ya {
 	}
 	Vector3 MainCameraSc::CameraWeakShakeeffect(Vector3 pos)
 	{
-		return Vector3();
+		float shakeAmount = 0.003f; // Change this value to adjust the camera shake intensity
+		Vector3 shakeOffset = Vector3(RandomRange(-shakeAmount, shakeAmount), RandomRange(-shakeAmount, shakeAmount), 0.0f);
+		return pos += shakeOffset;
 	}
 	Vector3 MainCameraSc::CameraStrongShakeeffect(Vector3 pos)
 	{
-		return Vector3();
+		float shakeAmount = 0.01f; // Change this value to adjust the camera shake intensity
+		Vector3 shakeOffset = Vector3(RandomRange(-shakeAmount, shakeAmount), RandomRange(-shakeAmount, shakeAmount), 0.0f);
+		return pos += shakeOffset;
 	}
 }

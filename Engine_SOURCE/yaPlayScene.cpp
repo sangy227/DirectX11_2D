@@ -242,6 +242,7 @@ namespace ya
 			object::DontDestroyOnLoad(gameplayer);
 
 		}
+		
 
 		
 		//Boss_Wanda
