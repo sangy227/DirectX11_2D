@@ -46,12 +46,12 @@ namespace ya
 		void Wanda_Skill_Aoe();
 		void Wanda_Skill_Garden();
 
-		void setPlayerObject(GameObject* obj) { mPlayer = obj; }
-		GameObject* GetPlayerObject() { return mPlayer; }
+		void setmGameObject(GameObject* obj) { mGameObject = obj; }
+		GameObject* GetmGameObject() { return mGameObject; }
 		
 	private:
 		eState mState;
-		GameObject* mPlayer;
+		GameObject* mGameObject;
 		UINT Skill_index;
 	};
 }

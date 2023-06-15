@@ -40,7 +40,7 @@ namespace ya {
 		{
 			{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
 				Transform* wanda_tr = GetOwner()->GetComponent<Transform>();
-				Transform* player_tr = mPlayer->GetComponent<Transform>();
+				Transform* player_tr = mGameObject->GetComponent<Transform>();
 				Vector3 firsttr = wanda_tr->GetPosition();
 				Vector3 secondtr = player_tr->GetPosition();
 				if (firsttr.x - secondtr.x > 0.0f)

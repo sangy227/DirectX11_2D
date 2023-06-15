@@ -299,7 +299,7 @@ namespace ya
 			wanda_sr->SetMesh(wanda_mesh);
 			wanda_sr->SetMaterial(wanda_mt);
 			BossWandaScript* wandaSc = wanda_obj->AddComponent<BossWandaScript>();
-			wandaSc->setPlayerObject(gameplayer);
+			wandaSc->setmGameObject(gameplayer);
 			//wanda_obj->AddComponent<BossWandaScript>();
 			//object::DontDestroyOnLoad(wanda_obj);
 		}

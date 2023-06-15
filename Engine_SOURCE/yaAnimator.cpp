@@ -62,7 +62,7 @@ namespace ya
 
 	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas
 						, Vector2 leftTop, Vector2 size, Vector2 offset
-						, UINT spriteLegth, UINT spriteHeight, UINT spritecount, float duration , UINT top_margin)
+						, UINT spriteLegth, UINT spriteHeight, UINT spritecount, float duration , UINT top_margin) //duration == 애니메이션 속도
 	{
 		if (atlas == nullptr)
 			return false;

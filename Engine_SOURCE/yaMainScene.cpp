@@ -25,6 +25,7 @@
 #include "yaRigidbody.h"
 #include "yaMainCameraSc.h"
 #include "yaPlayerScMainScene.h"
+#include "yaGrandPaScript.h"
 namespace ya {
 	MainScene::MainScene()
 		: Scene(eSceneType::Main)
@@ -71,6 +72,7 @@ namespace ya {
 		Transform* cameratr = cameraObj->GetComponent<Transform>();
 
 		cameratr->SetPosition(Vector3(1.0f, 1.0f, -3.0f));
+		
 
 
 
@@ -117,7 +119,8 @@ namespace ya {
 		}
 
 
-		//Game_Main_Player
+
+		//Game_Main_Player = 플레이어
 		{
 			gameplayer = object::Instantiate<Player>(eLayerType::Player);
 			gameplayer->SetName(L"GamePlayer");
@@ -127,7 +130,7 @@ namespace ya {
 
 			Light* gameplayer_light = gameplayer->AddComponent<Light>();
 			gameplayer_light->SetType(eLightType::Directional);
-			gameplayer_light->SetDiffuse(Vector4(0.5f, 0.5f, 0.5f, 0.0f));
+			gameplayer_light->SetDiffuse(Vector4(0.2f, 0.2f, 0.2f, 0.0f));
 
 			Rigidbody* gameplayer_rigid = gameplayer->AddComponent<Rigidbody>();
 
@@ -184,48 +187,53 @@ namespace ya {
 
 
 
+		//할배 몬스터
+		{
+			Monster* grandpa_obj = object::Instantiate<Monster>(eLayerType::Monster);
+			grandpa_obj->SetName(L"Grandpa");
 
-		////할배 몬스터
-		//{
-		//	Monster* wanda_obj = object::Instantiate<Monster>(eLayerType::Monster);
-		//	wanda_obj->SetName(L"Boss_Wanda");
+			Transform* grandpa_tr = grandpa_obj->GetComponent<Transform>();
+			grandpa_tr->SetPosition(Vector3(17.5f, -1.0f, 5.0f));
+			grandpa_tr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
+			{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
+				Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
+				Vector3 firsttr = grandpa_tr->GetPosition();
+				Vector3 secondtr = gameplayer_tr->GetPosition();
+				if (firsttr.x - secondtr.x > 0.0f)
+					grandpa_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f)); //왼쪽 바라보기
+				else
+					grandpa_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
+			}
 
-		//	Transform* wanda_tr = wanda_obj->GetComponent<Transform>();
-		//	wanda_tr->SetPosition(Vector3(2.5f, -0.1f, 5.0f));
-		//	wanda_tr->SetScale(Vector3(13.0f, 13.0f, 1.0f));
-		//	{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
-		//		Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
-		//		Vector3 firsttr = wanda_tr->GetPosition();
-		//		Vector3 secondtr = gameplayer_tr->GetPosition();
-		//		if (firsttr.x - secondtr.x > 0.0f)
-		//			wanda_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f)); //왼쪽 바라보기
-		//		else
-		//			wanda_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
-		//	}
+			/*Light* lightComp = wanda_obj->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 0.1f));*/
 
-		//	/*Light* lightComp = wanda_obj->AddComponent<Light>();
-		//	lightComp->SetType(eLightType::Directional);
-		//	lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 0.1f));*/
+			Animator* grandpa_Animator = grandpa_obj->AddComponent<Animator>();
+			std::shared_ptr<Texture> grandpa_idle = Resources::Load<Texture>(L"grandpa", L"GrandPa\\T_NPC_FirstOne_Idle.png");
+			std::shared_ptr<Texture> grandpa_attack = Resources::Load<Texture>(L"grandpa_attack", L"GrandPa\\T_NPC_FirstOne_Heal.png");
+			std::shared_ptr<Texture> grandpa_die = Resources::Load<Texture>(L"grandpa_die", L"GrandPa\\T_NPC_FirstOne_Death.png");
+			
 
-		//	Animator* BossWanda_Animator = wanda_obj->AddComponent<Animator>();
-		//	//std::shared_ptr<Texture> wanda_idle = Resources::Load<Texture>(L"wanda", L"Boss\\T_Boss_Wanda_S1_Idle.png");
-		//	
-
-		//	//BossWanda_Animator->Create(L"wanda_idle", wanda_idle, Vector2(0.0f, 0.0f), Vector2(96.0f, 106.0f), Vector2::Zero, 4, 4, 13, 0.10f);
-		//	
-
-		//	BossWanda_Animator->Play(L"wanda_idle", true);
+			grandpa_Animator->Create(L"grandpa_idle", grandpa_idle, Vector2(0.0f, 0.0f), Vector2(36.0f, 69.0f), Vector2(-0.07f,0.05f), 4, 2, 8, 0.13f);
+			grandpa_Animator->Create(L"grandpa_attack_1", grandpa_attack, Vector2(0.0f, 0.0f), Vector2(55.0f, 83.0f), Vector2::Zero, 6, 3, 10, 0.13f);
+			grandpa_Animator->Create(L"grandpa_attack_2", grandpa_attack, Vector2(165.0f, 83.0f), Vector2(55.0f, 83.0f), Vector2::Zero, 3, 1, 3, 0.13f);
+			grandpa_Animator->Create(L"grandpa_attack_3", grandpa_attack, Vector2(0.0f, 166.0f), Vector2(55.0f, 83.0f), Vector2::Zero, 6, 1, 6, 0.13f);
+			grandpa_Animator->Create(L"grandpa_die", grandpa_die, Vector2(0.0f, 0.0f), Vector2(86.0f, 69.0f), Vector2(0.055f, 0.015f), 3, 6, 17, 0.15f);
 
 
-		//	SpriteRenderer* wanda_sr = wanda_obj->AddComponent<SpriteRenderer>();
-		//	std::shared_ptr<Mesh> wanda_mesh = Resources::Find<Mesh>(L"RectMesh");
-		//	std::shared_ptr<Material> wanda_mt = Resources::Find<Material>(L"SpriteMaterial");
-		//	wanda_sr->SetMesh(wanda_mesh);
-		//	wanda_sr->SetMaterial(wanda_mt);
-		//	BossWandaScript* wandaSc = wanda_obj->AddComponent<BossWandaScript>(); //바꿔야딤
-		//	wandaSc->setPlayerObject(gameplayer);
-		//	//object::DontDestroyOnLoad(wanda_obj);
-		//}
+			grandpa_Animator->Play(L"grandpa_idle", true);
+
+
+			SpriteRenderer* grandpa_sr = grandpa_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> grandpa_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> grandpa_mt = Resources::Find<Material>(L"SpriteMaterial");
+			grandpa_sr->SetMesh(grandpa_mesh);
+			grandpa_sr->SetMaterial(grandpa_mt);
+			GrandPaScript* grandpaSc = grandpa_obj->AddComponent<GrandPaScript>();
+			grandpaSc->setmGameObject(gameplayer);
+			//object::DontDestroyOnLoad(wanda_obj);
+		}
 
 
 

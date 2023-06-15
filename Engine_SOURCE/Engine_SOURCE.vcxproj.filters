@@ -271,6 +271,12 @@
     <ClCompile Include="yaPlayerScMainScene.cpp">
       <Filter>Component\Script\Contents\Player</Filter>
     </ClCompile>
+    <ClCompile Include="yaGrandPaScript.cpp">
+      <Filter>Component\Script\Contents\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaNeedle_Sc_FX.cpp">
+      <Filter>Component\Script\Contents\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -438,6 +444,12 @@
     </ClInclude>
     <ClInclude Include="yaPlayerScMainScene.h">
       <Filter>Component\Script\Contents\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="yaGrandPaScript.h">
+      <Filter>Component\Script\Contents\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaNeedle_Sc_FX.h">
+      <Filter>Component\Script\Contents\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
