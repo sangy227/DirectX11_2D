@@ -454,6 +454,9 @@ namespace ya::renderer
 		//MainScene
 		Resources::Load<Texture>(L"MainBG_Leyer01", L"MainBG01.png");
 		Resources::Load<Texture>(L"MainBG_Leyer02", L"MainBG02.png");
+
+		Resources::Load<Texture>(L"RedQuene_Chair", L"T_NPC_Yadviga_throne_normal.png");
+
 #pragma endregion
 
 	}
@@ -478,6 +481,7 @@ namespace ya::renderer
 			titleLogoMaterial->SetShader(titleLogoShader);
 			Resources::Insert<Material>(L"TitleLogoMaterial", titleLogoMaterial);
 		}
+
 		//PlaySceen
 		{
 			//PlayBG
@@ -525,6 +529,14 @@ namespace ya::renderer
 			mainBGMaterial02->SetTexture(eTextureSlot::T0, mainBGTexture02);
 			mainBGMaterial02->SetShader(mainBGShader02);
 			Resources::Insert<Material>(L"mainBGMaterial02", mainBGMaterial02);
+
+			std::shared_ptr <Texture>  chairTexture = Resources::Find<Texture>(L"RedQuene_Chair");
+			std::shared_ptr<Shader> chairShader = Resources::Find<Shader>(L"SpriteShader");
+			std::shared_ptr<Material> chairMaterial = std::make_shared<Material>();
+			chairMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			chairMaterial->SetTexture(eTextureSlot::T0, chairTexture);
+			chairMaterial->SetShader(chairShader);
+			Resources::Insert<Material>(L"chairMaterial", chairMaterial);
 		}
 
 

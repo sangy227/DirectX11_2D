@@ -196,6 +196,7 @@
     <ClInclude Include="yaPlayerScript.h" />
     <ClInclude Include="yaPlayScene.h" />
     <ClInclude Include="yaPrefab.h" />
+    <ClInclude Include="yaRedQueenScript.h" />
     <ClInclude Include="yaRenderer.h" />
     <ClInclude Include="yaResource.h" />
     <ClInclude Include="yaResources.h" />
@@ -203,6 +204,7 @@
     <ClInclude Include="yaScene.h" />
     <ClInclude Include="yaSceneManager.h" />
     <ClInclude Include="yaScript.h" />
+    <ClInclude Include="yaSculptorScript.h" />
     <ClInclude Include="yaShader.h" />
     <ClInclude Include="yaSkillEffect.h" />
     <ClInclude Include="yaSkillEffectScript.h" />
@@ -251,6 +253,7 @@
     <ClCompile Include="yaPlayerScript.cpp" />
     <ClCompile Include="yaPlayScene.cpp" />
     <ClCompile Include="yaPrefab.cpp" />
+    <ClCompile Include="yaRedQueenScript.cpp" />
     <ClCompile Include="yaRenderer.cpp" />
     <ClCompile Include="yaResource.cpp" />
     <ClCompile Include="yaResources.cpp" />
@@ -258,6 +261,7 @@
     <ClCompile Include="yaScene.cpp" />
     <ClCompile Include="yaSceneManager.cpp" />
     <ClCompile Include="yaScript.cpp" />
+    <ClCompile Include="yaSculptorScript.cpp" />
     <ClCompile Include="yaShader.cpp" />
     <ClCompile Include="yaSkillEffect.cpp" />
     <ClCompile Include="yaSkillEffectScript.cpp" />

@@ -277,6 +277,12 @@
     <ClCompile Include="yaNeedle_Sc_FX.cpp">
       <Filter>Component\Script\Contents\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="yaRedQueenScript.cpp">
+      <Filter>Component\Script\Contents\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSculptorScript.cpp">
+      <Filter>Component\Script\Contents\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -449,6 +455,12 @@
       <Filter>Component\Script\Contents\Monster</Filter>
     </ClInclude>
     <ClInclude Include="yaNeedle_Sc_FX.h">
+      <Filter>Component\Script\Contents\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaRedQueenScript.h">
+      <Filter>Component\Script\Contents\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSculptorScript.h">
       <Filter>Component\Script\Contents\Monster</Filter>
     </ClInclude>
   </ItemGroup>

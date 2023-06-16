@@ -98,14 +98,22 @@ namespace ya {
 		Transform* ownertr = GetOwner()->GetComponent<Transform>();
 		Transform* playertr = mGameObject->GetComponent<Transform>();
 
+		Vector3 ow_tr = ownertr->GetPosition();
 		Vector3 tr = playertr->GetPosition(); // 플레이어꺼
-		tr += 5.6f * playertr->Up();
-		//tr += 5.4f * -playertr->Up();
-		ownertr->SetPosition(tr);
-		ownertr->SetScale(Vector3(10.f, 10.f, 1.f));
 
-		animator->GetCompleteEvent(L"needle_idle") = std::bind(&Needle_Sc_FX::Action, this);
-		animator->Play(L"needle_idle", false); //루프 안돌림 
+		//여기는 반복으로 계속 나타나게 하는것
+		{
+			//tr += 5.6f * playertr->Up();
+			////tr += 5.4f * -playertr->Up();
+			//ownertr->SetPosition(tr);
+			//ownertr->SetScale(Vector3(10.f, 10.f, 1.f));
+
+			//animator->GetCompleteEvent(L"needle_idle") = std::bind(&Needle_Sc_FX::Action, this);
+			//animator->Play(L"needle_idle", false); //루프 안돌림 
+		}
+
+		ow_tr += (-(10.6f) * ownertr->Up());
+		ownertr->SetPosition(ow_tr);
 
 		
 	}

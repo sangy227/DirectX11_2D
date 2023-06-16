@@ -26,11 +26,11 @@ namespace ya {
 			//카메라 기본 무빙
 			if (Input::GetKeyState(eKeyCode::L) == eKeyState::PRESSED)
 			{
-				pos += 50.0f * tr->Right() * Time::DeltaTime();
+				pos += 30.0f * tr->Right() * Time::DeltaTime();
 			}
 			else if (Input::GetKeyState(eKeyCode::J) == eKeyState::PRESSED)
 			{
-				pos += 50.0f * -tr->Right() * Time::DeltaTime();
+				pos += 30.0f * -tr->Right() * Time::DeltaTime();
 			}
 			else if (Input::GetKeyState(eKeyCode::O) == eKeyState::PRESSED)
 			{
@@ -114,7 +114,7 @@ namespace ya {
 	}
 	Vector3 MainCameraSc::CameraWeakShakeeffect(Vector3 pos)
 	{
-		float shakeAmount = 0.003f; // Change this value to adjust the camera shake intensity
+		float shakeAmount = 0.004f; // Change this value to adjust the camera shake intensity
 		Vector3 shakeOffset = Vector3(RandomRange(-shakeAmount, shakeAmount), RandomRange(-shakeAmount, shakeAmount), 0.0f);
 		return pos += shakeOffset;
 	}

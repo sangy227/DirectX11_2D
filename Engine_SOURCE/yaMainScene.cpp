@@ -26,6 +26,9 @@
 #include "yaMainCameraSc.h"
 #include "yaPlayerScMainScene.h"
 #include "yaGrandPaScript.h"
+#include "yaRedQueenScript.h"
+#include "yaSculptorScript.h"
+
 namespace ya {
 	MainScene::MainScene()
 		: Scene(eSceneType::Main)
@@ -181,7 +184,7 @@ namespace ya {
 			PlayerScMainScene* camsc = gameplayer->AddComponent<PlayerScMainScene>();
 			camsc->setCameraScript(bcs);
 			//gameplayer->AddComponent<PlayerScript>();
-			object::DontDestroyOnLoad(gameplayer);
+			//object::DontDestroyOnLoad(gameplayer);
 
 		}
 
@@ -236,7 +239,142 @@ namespace ya {
 		}
 
 
+		
+		//빨간 의자
+		{
+				GameObject* chair_obj = object::Instantiate<GameObject>(eLayerType::BackGround);
+				chair_obj->SetName(L"chair");
 
+				Transform* chair_tr = chair_obj->GetComponent<Transform>();
+				chair_tr->SetPosition(Vector3(34.0f, -1.0f, 5.01f));
+				chair_tr->SetScale(Vector3(1.0f, 2.0f, 1.0f));
+
+				SpriteRenderer* chair_sr = chair_obj->AddComponent<SpriteRenderer>();
+				std::shared_ptr<Mesh> chair_mesh = Resources::Find<Mesh>(L"RectMesh");
+				std::shared_ptr<Material> chair_material = Resources::Find<Material>(L"chairMaterial");
+				chair_sr->SetMaterial(chair_material);
+				chair_sr->SetMesh(chair_mesh);
+			}
+
+		//빨간 의자 앉아있는 여자
+		{
+				Monster* redqueen_obj = object::Instantiate<Monster>(eLayerType::Monster);
+				redqueen_obj->SetName(L"redqueen");
+
+				Transform* redqueen_tr = redqueen_obj->GetComponent<Transform>();
+				redqueen_tr->SetPosition(Vector3(34.0f, -1.0f, 5.0f));
+				redqueen_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+				{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
+					Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
+					Vector3 firsttr = redqueen_tr->GetPosition();
+					Vector3 secondtr = gameplayer_tr->GetPosition();
+					if (firsttr.x - secondtr.x > 0.0f)
+						redqueen_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f)); //왼쪽 바라보기
+					else
+						redqueen_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
+				}
+
+
+
+				Animator* redqueen_Animator = redqueen_obj->AddComponent<Animator>();
+				std::shared_ptr<Texture> redqueen_idle = Resources::Load<Texture>(L"redqueen", L"RedQueen\\T_NPC_Yadwiga_Idle.png");
+
+
+
+				redqueen_Animator->Create(L"redqueen_idle", redqueen_idle, Vector2(0.0f, 0.0f), Vector2(99.0f, 72.0f), Vector2(0.0f, 0.0f), 5, 11, 55, 0.10f);
+
+
+
+				redqueen_Animator->Play(L"redqueen_idle", true);
+
+
+				SpriteRenderer* redqueen_sr = redqueen_obj->AddComponent<SpriteRenderer>();
+				std::shared_ptr<Mesh> redqueen_mesh = Resources::Find<Mesh>(L"RectMesh");
+				std::shared_ptr<Material> redqueen_mt = Resources::Find<Material>(L"SpriteMaterial");
+				redqueen_sr->SetMesh(redqueen_mesh);
+				redqueen_sr->SetMaterial(redqueen_mt);
+				RedQueenScript* redqueenSc = redqueen_obj->AddComponent<RedQueenScript>();
+				redqueenSc->setmGameObject(gameplayer);
+				//object::DontDestroyOnLoad(wanda_obj);
+			}
+
+		//빨간 여자 옆에 고양이
+		{
+				Monster* cat_obj = object::Instantiate<Monster>(eLayerType::Monster);
+				cat_obj->SetName(L"cat");
+
+				Transform* cat_tr = cat_obj->GetComponent<Transform>();
+				cat_tr->SetPosition(Vector3(36.f, -1.7f, 5.0f));
+				cat_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+				{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
+					Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
+					Vector3 firsttr = cat_tr->GetPosition();
+					Vector3 secondtr = gameplayer_tr->GetPosition();
+					if (firsttr.x - secondtr.x > 0.0f)
+						cat_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f)); //왼쪽 바라보기
+					else
+						cat_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
+				}
+
+				Animator* cat_Animator = cat_obj->AddComponent<Animator>();
+				std::shared_ptr<Texture> cat_idle = Resources::Load<Texture>(L"cat", L"npc_etalag_idle.png");
+
+				cat_Animator->Create(L"cat_idle", cat_idle, Vector2(0.0f, 0.0f), Vector2(97.f, 43.f), Vector2(0.0f, 0.0f), 5, 6, 23, 0.10f);
+
+				cat_Animator->Play(L"cat_idle", true);
+
+
+				SpriteRenderer* cat_sr = cat_obj->AddComponent<SpriteRenderer>();
+				std::shared_ptr<Mesh> cat_mesh = Resources::Find<Mesh>(L"RectMesh");
+				std::shared_ptr<Material> cat_mt = Resources::Find<Material>(L"SpriteMaterial");
+				cat_sr->SetMesh(cat_mesh);
+				cat_sr->SetMaterial(cat_mt);
+			}
+		
+
+		//날아다니는 할배
+		{
+			Monster* sculptor_obj = object::Instantiate<Monster>(eLayerType::Monster);
+			sculptor_obj->SetName(L"sculptor");
+
+			Transform* sculptor_tr = sculptor_obj->GetComponent<Transform>();
+			sculptor_tr->SetPosition(Vector3(52.0f, -0.7f, 5.0f));
+			sculptor_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+			{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
+				Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
+				Vector3 firsttr = sculptor_tr->GetPosition();
+				Vector3 secondtr = gameplayer_tr->GetPosition();
+				if (firsttr.x - secondtr.x > 0.0f)
+					sculptor_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f)); //왼쪽 바라보기
+				else
+					sculptor_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
+			}
+
+
+
+			Animator* sculptor_Animator = sculptor_obj->AddComponent<Animator>();
+			std::shared_ptr<Texture> sculptor_idle = Resources::Load<Texture>(L"sculptor", L"BossSculptor\\T_BossSculptor_Idle.png");
+			std::shared_ptr<Texture> sculptor_attack = Resources::Load<Texture>(L"sculptor_attack", L"BossSculptor\\T_BossSculptor_Cast.png");
+			std::shared_ptr<Texture> sculptor_die = Resources::Load<Texture>(L"sculptor_die", L"BossSculptor\\T_BossSculptor_DeathBody.png");
+
+
+			sculptor_Animator->Create(L"sculptor_idle", sculptor_idle, Vector2(0.0f, 0.0f), Vector2(194.0f, 139.0f), Vector2(0.0f, 0.0f), 3, 4, 12, 0.12f);
+			sculptor_Animator->Create(L"sculptor_attack", sculptor_attack, Vector2(0.0f, 0.0f), Vector2(202.0f, 189.0f), Vector2(0.0f, 0.0f), 3, 5, 13, 0.12f);
+			sculptor_Animator->Create(L"sculptor_die", sculptor_die, Vector2(0.0f, 0.0f), Vector2(102.0f, 135.0f), Vector2(0.0f, 0.0f), 7, 5, 35, 0.10f);
+
+
+			sculptor_Animator->Play(L"sculptor_idle", true);
+
+
+			SpriteRenderer* sculptor_sr = sculptor_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> sculptor_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> sculptor_mt = Resources::Find<Material>(L"SpriteMaterial");
+			sculptor_sr->SetMesh(sculptor_mesh);
+			sculptor_sr->SetMaterial(sculptor_mt);
+			SculptorScript* SculptorSc = sculptor_obj->AddComponent<SculptorScript>(); 
+			SculptorSc->setmGameObject(gameplayer);
+			
+		}
 
 	}
 	void MainScene::OnExit()
