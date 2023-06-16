@@ -11,8 +11,7 @@ namespace ya
 		{
 			IDLE,
 			ATTACK1,
-			ATTACK2,
-			ATTACK3,
+			IDLE_TO_DIE,
 			DIE,
 		};
 
@@ -35,11 +34,13 @@ namespace ya
 
 
 		void Sculptor_IDLE();
+		void Sculptor_IDLE2();
+		void Sculptor_IDLE3();
 		void Sculptor_ATTACK1();
-		void Sculptor_ATTACK2();
+		void Sculptor_IDLE_TO_DIE();
 		void Sculptor_DIE();
 
-
+		void Sculptor_Needle();
 
 		void setmGameObject(GameObject* obj) { mGameObject = obj; }
 		GameObject* GetmGameObject() { return mGameObject; }

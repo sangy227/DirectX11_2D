@@ -338,7 +338,7 @@ namespace ya {
 			sculptor_obj->SetName(L"sculptor");
 
 			Transform* sculptor_tr = sculptor_obj->GetComponent<Transform>();
-			sculptor_tr->SetPosition(Vector3(52.0f, -0.7f, 5.0f));
+			sculptor_tr->SetPosition(Vector3(51.5f, -0.7f, 5.0f));
 			sculptor_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 			{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
 				Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();

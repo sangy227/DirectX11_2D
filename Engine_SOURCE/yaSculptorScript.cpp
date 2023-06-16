@@ -31,6 +31,7 @@
 namespace ya {
 	SculptorScript::SculptorScript()
 		: Script()
+		, mSculptorState(eSculptorState::IDLE)
 	{
 	}
 	SculptorScript::~SculptorScript()
@@ -44,6 +45,27 @@ namespace ya {
 		Transform* obj_tr = GetOwner()->GetComponent<Transform>();
 		Transform* player_tr = mGameObject->GetComponent<Transform>();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
+
+
+		if (mSculptorState == eSculptorState::IDLE) {
+			
+		}
+		if (mSculptorState == eSculptorState::ATTACK1) {
+
+		}
+		if (mSculptorState == eSculptorState::IDLE_TO_DIE) {
+
+		}
+		if (mSculptorState == eSculptorState::DIE) {
+
+		}
+
+
+		if (Input::GetKeyDown(eKeyCode::T)) //여긴 콜라이더 설정
+		{
+			animator->GetCompleteEvent(L"sculptor_idle") = std::bind(&SculptorScript::Sculptor_IDLE, this);
+			animator->Play(L"sculptor_idle");
+		}
 
 
 	}
@@ -79,14 +101,59 @@ namespace ya {
 
 	void SculptorScript::Sculptor_IDLE()
 	{
+		mSculptorState = eSculptorState::IDLE;
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"sculptor_idle") = std::bind(&SculptorScript::Sculptor_IDLE2, this);
+		animator->Play(L"sculptor_idle");
+
+	}
+	void SculptorScript::Sculptor_IDLE2()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"sculptor_idle") = std::bind(&SculptorScript::Sculptor_IDLE3, this);
+		animator->Play(L"sculptor_idle");
+
+	}
+	void SculptorScript::Sculptor_IDLE3()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"sculptor_idle") = std::bind(&SculptorScript::Sculptor_ATTACK1, this);
+		animator->Play(L"sculptor_idle");
 	}
 	void SculptorScript::Sculptor_ATTACK1()
 	{
+		mSculptorState = eSculptorState::ATTACK1;
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"sculptor_attack") = std::bind(&SculptorScript::Sculptor_IDLE, this);
+
+		animator->Play(L"sculptor_attack");
 	}
-	void SculptorScript::Sculptor_ATTACK2()
+	void SculptorScript::Sculptor_IDLE_TO_DIE()
 	{
+		mSculptorState = eSculptorState::IDLE;
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"sculptor_idle") = std::bind(&SculptorScript::Sculptor_DIE, this);
+		animator->Play(L"sculptor_idle");
 	}
 	void SculptorScript::Sculptor_DIE()
 	{
+		mSculptorState = eSculptorState::IDLE;
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		
+		animator->Play(L"sculptor_die",false);
+	}
+	void SculptorScript::Sculptor_Needle()
+	{
+
+
+
+
+
+
+
 	}
 }
