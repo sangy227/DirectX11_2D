@@ -46,6 +46,7 @@ namespace ya {
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
+		Collider2D* collider = GetOwner()->GetComponent<Collider2D>();
 
 		//상태바
 		if (mGrandpaState == eGrandPaState::IDLE)
@@ -109,6 +110,7 @@ namespace ya {
 
 	void GrandPaScript::OnCollisionEnter(Collider2D* collider)
 	{
+		int a = 0;
 	}
 	void GrandPaScript::OnCollisionStay(Collider2D* collider)
 	{
@@ -195,6 +197,7 @@ namespace ya {
 			needleeffect->SetName(L"GrandPa_Needle_01");
 
 			Transform* needleeffect_tr = needleeffect->GetComponent<Transform>();
+
 			Transform* needleeffect_getobject_tr = GetOwner()->GetComponent<Transform>(); // 이건 할배꺼 
 			Transform* player_tr = mGameObject->GetComponent<Transform>(); // 이건 플레이어꺼
 

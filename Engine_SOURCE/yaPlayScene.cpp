@@ -183,7 +183,7 @@ namespace ya
 			gameplayer = object::Instantiate<Player>(eLayerType::Player);
 			gameplayer->SetName(L"GamePlayer");
 			Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
-			gameplayer_tr->SetPosition(Vector3(-0.7f, -0.7f, 5.0f));
+			gameplayer_tr->SetPosition(Vector3(-3.7f, -0.7f, 5.0f));
 			gameplayer_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 			
 			Light* gameplayer_light = gameplayer->AddComponent<Light>();
@@ -195,7 +195,9 @@ namespace ya
 			//실행되는거 확인완료
 			Collider2D* gameplayer_col = gameplayer->AddComponent<Collider2D>();
 			gameplayer_col->SetType(eColliderType::Rect);
-			gameplayer_col->SetSize(Vector2(0.12f, 0.11f));
+			gameplayer_col->SetSize(Vector2(0.03f, 0.11f));
+			gameplayer_col->SetCenter(Vector2(0.2f, 0.0f));
+
 			
 #pragma region Animator
 			Animator* gameplayer_animator = gameplayer->AddComponent<Animator>();
@@ -251,7 +253,7 @@ namespace ya
 			wanda_obj->SetName(L"Boss_Wanda");
 
 			Transform* wanda_tr = wanda_obj->GetComponent<Transform>();
-			wanda_tr->SetPosition(Vector3(2.5f, -0.1f, 5.0f));
+			wanda_tr->SetPosition(Vector3(1.5f, -0.1f, 5.0f));
 			wanda_tr->SetScale(Vector3(13.0f, 13.0f, 1.0f));
 			{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
 				Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
@@ -266,6 +268,12 @@ namespace ya
 			/*Light* lightComp = wanda_obj->AddComponent<Light>();
 			lightComp->SetType(eLightType::Directional);
 			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 0.1f));*/
+
+			Collider2D* wanda_col = wanda_obj->AddComponent<Collider2D>();
+			wanda_col->SetType(eColliderType::Rect);
+			wanda_col->SetSize(Vector2(0.1f, 0.25f));
+			wanda_col->SetCenter(Vector2(-0.1f, 0.0f));
+
 
 			Animator* BossWanda_Animator = wanda_obj->AddComponent<Animator>();
 			std::shared_ptr<Texture> wanda_idle = Resources::Load<Texture>(L"wanda", L"Boss\\T_Boss_Wanda_S1_Idle.png");
@@ -327,12 +335,12 @@ namespace ya
 		//	object::DontDestroyOnLoad(obj);
 		}
 		
-		
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 	}
 
 	void PlayScene::OnExit()
 	{
-
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, false);
 	}
 
 }

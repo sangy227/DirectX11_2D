@@ -45,6 +45,7 @@ namespace ya {
 		//rot.z += 10.0f * Time::DeltaTime();
 		//tr->SetRotation(rot);
 		Animator* animator = GetOwner()->GetComponent<Animator>();
+		Collider2D* collider = GetOwner()->GetComponent<Collider2D>();
 
 
 

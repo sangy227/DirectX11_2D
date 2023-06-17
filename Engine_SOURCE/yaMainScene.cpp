@@ -36,6 +36,8 @@ namespace ya {
 		//키보드 목록
 		//ENTER 카메라 무브및 멈춤
 		//UIOJKL 카메라 이동
+		//ER 할배 키목록
+		//TY 조각가할배 키 목록
  	}
 	MainScene::~MainScene()
 	{
@@ -140,7 +142,8 @@ namespace ya {
 			//실행되는거 확인완료
 			Collider2D* gameplayer_col = gameplayer->AddComponent<Collider2D>();
 			gameplayer_col->SetType(eColliderType::Rect);
-			gameplayer_col->SetSize(Vector2(0.12f, 0.11f));
+			gameplayer_col->SetSize(Vector2(0.03f, 0.11f));
+			gameplayer_col->SetCenter(Vector2(0.2f, 0.0f));
 
 #pragma region Animator
 			Animator* gameplayer_animator = gameplayer->AddComponent<Animator>();
@@ -212,6 +215,13 @@ namespace ya {
 			lightComp->SetType(eLightType::Directional);
 			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 0.1f));*/
 
+			Collider2D* grandpa_col = grandpa_obj->AddComponent<Collider2D>();
+			grandpa_col->SetType(eColliderType::Rect);
+			grandpa_col->SetSize(Vector2(0.07f, 0.11f));
+			grandpa_col->SetCenter(Vector2(0.3f, 0.0f));
+			grandpa_col->IsTriiger();
+
+
 			Animator* grandpa_Animator = grandpa_obj->AddComponent<Animator>();
 			std::shared_ptr<Texture> grandpa_idle = Resources::Load<Texture>(L"grandpa", L"GrandPa\\T_NPC_FirstOne_Idle.png");
 			std::shared_ptr<Texture> grandpa_attack = Resources::Load<Texture>(L"grandpa_attack", L"GrandPa\\T_NPC_FirstOne_Heal.png");
@@ -274,6 +284,11 @@ namespace ya {
 						redqueen_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
 				}
 
+
+				Collider2D* redqueen_col = redqueen_obj->AddComponent<Collider2D>();
+				redqueen_col->SetType(eColliderType::Rect);
+				redqueen_col->SetSize(Vector2(0.35f, 0.2f));
+				redqueen_col->SetCenter(Vector2(0.7f, 0.0f));
 
 
 				Animator* redqueen_Animator = redqueen_obj->AddComponent<Animator>();
@@ -350,6 +365,11 @@ namespace ya {
 					sculptor_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
 			}
 
+			Collider2D* sculptor_col = sculptor_obj->AddComponent<Collider2D>();
+			sculptor_col->SetType(eColliderType::Rect);
+			sculptor_col->SetSize(Vector2(0.1f, 0.25f));
+			sculptor_col->SetCenter(Vector2(0.0f, 0.0f));
+
 
 
 			Animator* sculptor_Animator = sculptor_obj->AddComponent<Animator>();
@@ -376,8 +396,13 @@ namespace ya {
 			
 		}
 
+
+
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
+
 	}
 	void MainScene::OnExit()
 	{
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, false);
 	}
 }

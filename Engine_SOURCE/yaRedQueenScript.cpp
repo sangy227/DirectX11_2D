@@ -45,6 +45,7 @@ namespace ya {
 		Transform* obj_tr = GetOwner()->GetComponent<Transform>();
 		Transform* player_tr = mGameObject->GetComponent<Transform>();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
+		Collider2D* collider = GetOwner()->GetComponent<Collider2D>();
 
 		{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
 			
