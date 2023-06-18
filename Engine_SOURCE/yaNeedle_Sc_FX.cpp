@@ -32,6 +32,7 @@
 namespace ya {
 	Needle_Sc_FX::Needle_Sc_FX()
 		: Script()
+		, trigger(false)
 	{
 
 	}
@@ -49,11 +50,13 @@ namespace ya {
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>();
 		
-		animator->GetCompleteEvent(L"needle_idle") = std::bind(&Needle_Sc_FX::Action, this);
+		animator->GetCompleteEvent(L"needle_idle") = std::bind(&Needle_Sc_FX::Start, this);
 		
-
-
-
+		if (trigger) {
+			Vector3 pos = tr->GetPosition();
+			pos += 2.4f * tr->Up() * Time::DeltaTime();
+			tr->SetPosition(pos);
+		}
 
 
 	}
@@ -80,9 +83,15 @@ namespace ya {
 
 	void Needle_Sc_FX::Start()
 	{
+		trigger = true; //아래로 내리게하는 작동 트리거
+
+		Animator* animator = GetOwner()->GetComponent<Animator>(); 
+		animator->GetCompleteEvent(L"needle_idle2") = std::bind(&Needle_Sc_FX::Action, this);
+		animator->Play(L"needle_idle2"); 
 	}
 	void Needle_Sc_FX::Action()
 	{
+		trigger = false;
 		Transform* ownertr = GetOwner()->GetComponent<Transform>();
 		ownertr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
 
@@ -93,6 +102,7 @@ namespace ya {
 	}
 	void Needle_Sc_FX::End()
 	{
+		
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		Transform* ownertr = GetOwner()->GetComponent<Transform>();

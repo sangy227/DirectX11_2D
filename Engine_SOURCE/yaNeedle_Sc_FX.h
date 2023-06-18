@@ -31,7 +31,7 @@ namespace ya
 
 	private:
 		GameObject* mGameObject;
-	
+		bool trigger;
 
 	private:
 		
