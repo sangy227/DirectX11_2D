@@ -37,6 +37,9 @@
 #include "yathirdCameraMoveLine_Script.h"
 #include "yaevent_Line3_Sc.h"
 #include "yathirdCameraStopLine_Script.h"
+#include "yafourthCameraMoveLine_Script.h"
+#include "yaevent_Line4_Sc.h"
+#include "yafourthCameraStopLine_Script.h"
 
 namespace ya {
 	MainScene::MainScene()
@@ -86,7 +89,7 @@ namespace ya {
 		Transform* cameratr = cameraObj->GetComponent<Transform>();
 
 		cameratr->SetPosition(Vector3(1.0f, 1.0f, -3.0f));
-		
+
 
 
 
@@ -197,158 +200,157 @@ namespace ya {
 			//object::DontDestroyOnLoad(gameplayer);
 
 		}
-
+#pragma region 할배 몬스터
 		//할배 몬스터
-		{
-			Monster* grandpa_obj = object::Instantiate<Monster>(eLayerType::Monster);
-			grandpa_obj->SetName(L"Grandpa");
+		
+		Monster* grandpa_obj = object::Instantiate<Monster>(eLayerType::Monster);
+		grandpa_obj->SetName(L"Grandpa");
 
-			Transform* grandpa_tr = grandpa_obj->GetComponent<Transform>();
-			grandpa_tr->SetPosition(Vector3(17.5f, -1.0f, 5.0f));
-			grandpa_tr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
-			{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
-				Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
-				Vector3 firsttr = grandpa_tr->GetPosition();
-				Vector3 secondtr = gameplayer_tr->GetPosition();
-				if (firsttr.x - secondtr.x > 0.0f)
-					grandpa_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f)); //왼쪽 바라보기
-				else
-					grandpa_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
-			}
-
-			/*Light* lightComp = wanda_obj->AddComponent<Light>();
-			lightComp->SetType(eLightType::Directional);
-			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 0.1f));*/
-
-			Collider2D* grandpa_col = grandpa_obj->AddComponent<Collider2D>();
-			grandpa_col->SetType(eColliderType::Rect);
-			grandpa_col->SetSize(Vector2(0.07f, 0.11f));
-			grandpa_col->SetCenter(Vector2(0.3f, 0.0f));
-			grandpa_col->IsTriiger();
-
-
-			Animator* grandpa_Animator = grandpa_obj->AddComponent<Animator>();
-			std::shared_ptr<Texture> grandpa_idle = Resources::Load<Texture>(L"grandpa", L"GrandPa\\T_NPC_FirstOne_Idle.png");
-			std::shared_ptr<Texture> grandpa_attack = Resources::Load<Texture>(L"grandpa_attack", L"GrandPa\\T_NPC_FirstOne_Heal.png");
-			std::shared_ptr<Texture> grandpa_die = Resources::Load<Texture>(L"grandpa_die", L"GrandPa\\T_NPC_FirstOne_Death.png");
-			
-
-			grandpa_Animator->Create(L"grandpa_idle", grandpa_idle, Vector2(0.0f, 0.0f), Vector2(36.0f, 69.0f), Vector2(-0.07f,0.05f), 4, 2, 8, 0.13f);
-			grandpa_Animator->Create(L"grandpa_attack_1", grandpa_attack, Vector2(0.0f, 0.0f), Vector2(55.0f, 83.0f), Vector2::Zero, 6, 3, 10, 0.13f);
-			grandpa_Animator->Create(L"grandpa_attack_2", grandpa_attack, Vector2(165.0f, 83.0f), Vector2(55.0f, 83.0f), Vector2::Zero, 3, 1, 3, 0.13f);
-			grandpa_Animator->Create(L"grandpa_attack_3", grandpa_attack, Vector2(0.0f, 166.0f), Vector2(55.0f, 83.0f), Vector2::Zero, 6, 1, 6, 0.13f);
-			grandpa_Animator->Create(L"grandpa_die", grandpa_die, Vector2(0.0f, 0.0f), Vector2(86.0f, 69.0f), Vector2(0.055f, 0.015f), 3, 6, 17, 0.15f);
-
-
-			grandpa_Animator->Play(L"grandpa_idle", true);
-
-
-			SpriteRenderer* grandpa_sr = grandpa_obj->AddComponent<SpriteRenderer>();
-			std::shared_ptr<Mesh> grandpa_mesh = Resources::Find<Mesh>(L"RectMesh");
-			std::shared_ptr<Material> grandpa_mt = Resources::Find<Material>(L"SpriteMaterial");
-			grandpa_sr->SetMesh(grandpa_mesh);
-			grandpa_sr->SetMaterial(grandpa_mt);
-			GrandPaScript* grandpaSc = grandpa_obj->AddComponent<GrandPaScript>();
-			grandpaSc->setmGameObject(gameplayer);
-			//object::DontDestroyOnLoad(wanda_obj);
+		Transform* grandpa_tr = grandpa_obj->GetComponent<Transform>();
+		grandpa_tr->SetPosition(Vector3(17.5f, -1.0f, 5.0f));
+		grandpa_tr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
+		{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
+			Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
+			Vector3 firsttr = grandpa_tr->GetPosition();
+			Vector3 secondtr = gameplayer_tr->GetPosition();
+			if (firsttr.x - secondtr.x > 0.0f)
+				grandpa_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f)); //왼쪽 바라보기
+			else
+				grandpa_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
 		}
+
+		/*Light* lightComp = wanda_obj->AddComponent<Light>();
+		lightComp->SetType(eLightType::Directional);
+		lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 0.1f));*/
+
+		Collider2D* grandpa_col = grandpa_obj->AddComponent<Collider2D>();
+		grandpa_col->SetType(eColliderType::Rect);
+		grandpa_col->SetSize(Vector2(0.07f, 0.11f));
+		grandpa_col->SetCenter(Vector2(0.3f, 0.0f));
+		grandpa_col->IsTriiger();
+
+
+		Animator* grandpa_Animator = grandpa_obj->AddComponent<Animator>();
+		std::shared_ptr<Texture> grandpa_idle = Resources::Load<Texture>(L"grandpa", L"GrandPa\\T_NPC_FirstOne_Idle.png");
+		std::shared_ptr<Texture> grandpa_attack = Resources::Load<Texture>(L"grandpa_attack", L"GrandPa\\T_NPC_FirstOne_Heal.png");
+		std::shared_ptr<Texture> grandpa_die = Resources::Load<Texture>(L"grandpa_die", L"GrandPa\\T_NPC_FirstOne_Death.png");
+
+
+		grandpa_Animator->Create(L"grandpa_idle", grandpa_idle, Vector2(0.0f, 0.0f), Vector2(36.0f, 69.0f), Vector2(-0.07f, 0.05f), 4, 2, 8, 0.13f);
+		grandpa_Animator->Create(L"grandpa_attack_1", grandpa_attack, Vector2(0.0f, 0.0f), Vector2(55.0f, 83.0f), Vector2::Zero, 6, 3, 10, 0.13f);
+		grandpa_Animator->Create(L"grandpa_attack_2", grandpa_attack, Vector2(165.0f, 83.0f), Vector2(55.0f, 83.0f), Vector2::Zero, 3, 1, 3, 0.13f);
+		grandpa_Animator->Create(L"grandpa_attack_3", grandpa_attack, Vector2(0.0f, 166.0f), Vector2(55.0f, 83.0f), Vector2::Zero, 6, 1, 6, 0.13f);
+		grandpa_Animator->Create(L"grandpa_die", grandpa_die, Vector2(0.0f, 0.0f), Vector2(86.0f, 69.0f), Vector2(0.055f, 0.015f), 3, 6, 17, 0.15f);
+
+
+		grandpa_Animator->Play(L"grandpa_idle", true);
+
+		SpriteRenderer* grandpa_sr = grandpa_obj->AddComponent<SpriteRenderer>();
+		std::shared_ptr<Mesh> grandpa_mesh = Resources::Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> grandpa_mt = Resources::Find<Material>(L"SpriteMaterial");
+		grandpa_sr->SetMesh(grandpa_mesh);
+		grandpa_sr->SetMaterial(grandpa_mt);
+		GrandPaScript* grandpaSc = grandpa_obj->AddComponent<GrandPaScript>();
+		grandpaSc->setmGameObject(gameplayer);
+		//object::DontDestroyOnLoad(wanda_obj);
+#pragma endregion
 
 		//빨간 의자
 		{
-				GameObject* chair_obj = object::Instantiate<GameObject>(eLayerType::BackGround);
-				chair_obj->SetName(L"chair");
+			GameObject* chair_obj = object::Instantiate<GameObject>(eLayerType::BackGround);
+			chair_obj->SetName(L"chair");
 
-				Transform* chair_tr = chair_obj->GetComponent<Transform>();
-				chair_tr->SetPosition(Vector3(34.0f, -1.0f, 5.01f));
-				chair_tr->SetScale(Vector3(1.0f, 2.0f, 1.0f));
+			Transform* chair_tr = chair_obj->GetComponent<Transform>();
+			chair_tr->SetPosition(Vector3(34.0f, -1.0f, 5.01f));
+			chair_tr->SetScale(Vector3(1.0f, 2.0f, 1.0f));
 
-				SpriteRenderer* chair_sr = chair_obj->AddComponent<SpriteRenderer>();
-				std::shared_ptr<Mesh> chair_mesh = Resources::Find<Mesh>(L"RectMesh");
-				std::shared_ptr<Material> chair_material = Resources::Find<Material>(L"chairMaterial");
-				chair_sr->SetMaterial(chair_material);
-				chair_sr->SetMesh(chair_mesh);
-			}
+			SpriteRenderer* chair_sr = chair_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> chair_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> chair_material = Resources::Find<Material>(L"chairMaterial");
+			chair_sr->SetMaterial(chair_material);
+			chair_sr->SetMesh(chair_mesh);
+		}
 
 		//빨간 의자 앉아있는 여자
 		{
-				Monster* redqueen_obj = object::Instantiate<Monster>(eLayerType::Monster);
-				redqueen_obj->SetName(L"redqueen");
+			Monster* redqueen_obj = object::Instantiate<Monster>(eLayerType::Monster);
+			redqueen_obj->SetName(L"redqueen");
 
-				Transform* redqueen_tr = redqueen_obj->GetComponent<Transform>();
-				redqueen_tr->SetPosition(Vector3(34.0f, -1.0f, 5.0f));
-				redqueen_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
-				{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
-					Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
-					Vector3 firsttr = redqueen_tr->GetPosition();
-					Vector3 secondtr = gameplayer_tr->GetPosition();
-					if (firsttr.x - secondtr.x > 0.0f)
-						redqueen_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f)); //왼쪽 바라보기
-					else
-						redqueen_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
-				}
-
-
-				Collider2D* redqueen_col = redqueen_obj->AddComponent<Collider2D>();
-				redqueen_col->SetType(eColliderType::Rect);
-				redqueen_col->SetSize(Vector2(0.35f, 0.2f));
-				redqueen_col->SetCenter(Vector2(0.7f, 0.0f));
-
-
-				Animator* redqueen_Animator = redqueen_obj->AddComponent<Animator>();
-				std::shared_ptr<Texture> redqueen_idle = Resources::Load<Texture>(L"redqueen", L"RedQueen\\T_NPC_Yadwiga_Idle.png");
-
-
-
-				redqueen_Animator->Create(L"redqueen_idle", redqueen_idle, Vector2(0.0f, 0.0f), Vector2(99.0f, 72.0f), Vector2(0.0f, 0.0f), 5, 11, 55, 0.10f);
-
-
-
-				redqueen_Animator->Play(L"redqueen_idle", true);
-
-
-				SpriteRenderer* redqueen_sr = redqueen_obj->AddComponent<SpriteRenderer>();
-				std::shared_ptr<Mesh> redqueen_mesh = Resources::Find<Mesh>(L"RectMesh");
-				std::shared_ptr<Material> redqueen_mt = Resources::Find<Material>(L"SpriteMaterial");
-				redqueen_sr->SetMesh(redqueen_mesh);
-				redqueen_sr->SetMaterial(redqueen_mt);
-				RedQueenScript* redqueenSc = redqueen_obj->AddComponent<RedQueenScript>();
-				redqueenSc->setmGameObject(gameplayer);
-				//object::DontDestroyOnLoad(wanda_obj);
+			Transform* redqueen_tr = redqueen_obj->GetComponent<Transform>();
+			redqueen_tr->SetPosition(Vector3(34.0f, -1.0f, 5.0f));
+			redqueen_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+			{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
+				Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
+				Vector3 firsttr = redqueen_tr->GetPosition();
+				Vector3 secondtr = gameplayer_tr->GetPosition();
+				if (firsttr.x - secondtr.x > 0.0f)
+					redqueen_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f)); //왼쪽 바라보기
+				else
+					redqueen_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
 			}
+
+
+			Collider2D* redqueen_col = redqueen_obj->AddComponent<Collider2D>();
+			redqueen_col->SetType(eColliderType::Rect);
+			redqueen_col->SetSize(Vector2(0.35f, 0.2f));
+			redqueen_col->SetCenter(Vector2(0.7f, 0.0f));
+
+
+			Animator* redqueen_Animator = redqueen_obj->AddComponent<Animator>();
+			std::shared_ptr<Texture> redqueen_idle = Resources::Load<Texture>(L"redqueen", L"RedQueen\\T_NPC_Yadwiga_Idle.png");
+
+
+
+			redqueen_Animator->Create(L"redqueen_idle", redqueen_idle, Vector2(0.0f, 0.0f), Vector2(99.0f, 72.0f), Vector2(0.0f, 0.0f), 5, 11, 55, 0.10f);
+
+
+
+			redqueen_Animator->Play(L"redqueen_idle", true);
+
+
+			SpriteRenderer* redqueen_sr = redqueen_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> redqueen_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> redqueen_mt = Resources::Find<Material>(L"SpriteMaterial");
+			redqueen_sr->SetMesh(redqueen_mesh);
+			redqueen_sr->SetMaterial(redqueen_mt);
+			RedQueenScript* redqueenSc = redqueen_obj->AddComponent<RedQueenScript>();
+			redqueenSc->setmGameObject(gameplayer);
+			//object::DontDestroyOnLoad(wanda_obj);
+		}
 
 		//빨간 여자 옆에 고양이
 		{
-				Monster* cat_obj = object::Instantiate<Monster>(eLayerType::Monster);
-				cat_obj->SetName(L"cat");
+			Monster* cat_obj = object::Instantiate<Monster>(eLayerType::Monster);
+			cat_obj->SetName(L"cat");
 
-				Transform* cat_tr = cat_obj->GetComponent<Transform>();
-				cat_tr->SetPosition(Vector3(36.f, -1.7f, 5.0f));
-				cat_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
-				{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
-					Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
-					Vector3 firsttr = cat_tr->GetPosition();
-					Vector3 secondtr = gameplayer_tr->GetPosition();
-					if (firsttr.x - secondtr.x > 0.0f)
-						cat_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f)); //왼쪽 바라보기
-					else
-						cat_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
-				}
-
-				Animator* cat_Animator = cat_obj->AddComponent<Animator>();
-				std::shared_ptr<Texture> cat_idle = Resources::Load<Texture>(L"cat", L"npc_etalag_idle.png");
-
-				cat_Animator->Create(L"cat_idle", cat_idle, Vector2(0.0f, 0.0f), Vector2(97.f, 43.f), Vector2(0.0f, 0.0f), 5, 6, 23, 0.10f);
-
-				cat_Animator->Play(L"cat_idle", true);
-
-
-				SpriteRenderer* cat_sr = cat_obj->AddComponent<SpriteRenderer>();
-				std::shared_ptr<Mesh> cat_mesh = Resources::Find<Mesh>(L"RectMesh");
-				std::shared_ptr<Material> cat_mt = Resources::Find<Material>(L"SpriteMaterial");
-				cat_sr->SetMesh(cat_mesh);
-				cat_sr->SetMaterial(cat_mt);
+			Transform* cat_tr = cat_obj->GetComponent<Transform>();
+			cat_tr->SetPosition(Vector3(36.f, -1.7f, 5.0f));
+			cat_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+			{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
+				Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
+				Vector3 firsttr = cat_tr->GetPosition();
+				Vector3 secondtr = gameplayer_tr->GetPosition();
+				if (firsttr.x - secondtr.x > 0.0f)
+					cat_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f)); //왼쪽 바라보기
+				else
+					cat_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
 			}
-		
+
+			Animator* cat_Animator = cat_obj->AddComponent<Animator>();
+			std::shared_ptr<Texture> cat_idle = Resources::Load<Texture>(L"cat", L"npc_etalag_idle.png");
+
+			cat_Animator->Create(L"cat_idle", cat_idle, Vector2(0.0f, 0.0f), Vector2(97.f, 43.f), Vector2(0.0f, 0.0f), 5, 6, 23, 0.10f);
+
+			cat_Animator->Play(L"cat_idle", true);
+
+
+			SpriteRenderer* cat_sr = cat_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> cat_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> cat_mt = Resources::Find<Material>(L"SpriteMaterial");
+			cat_sr->SetMesh(cat_mesh);
+			cat_sr->SetMaterial(cat_mt);
+		}
+
 		//날아다니는 할배 == 조각가보스
 		{
 			Monster* sculptor_obj = object::Instantiate<Monster>(eLayerType::Monster);
@@ -393,9 +395,9 @@ namespace ya {
 			std::shared_ptr<Material> sculptor_mt = Resources::Find<Material>(L"SpriteMaterial");
 			sculptor_sr->SetMesh(sculptor_mesh);
 			sculptor_sr->SetMaterial(sculptor_mt);
-			SculptorScript* SculptorSc = sculptor_obj->AddComponent<SculptorScript>(); 
+			SculptorScript* SculptorSc = sculptor_obj->AddComponent<SculptorScript>();
 			SculptorSc->setmGameObject(gameplayer);
-			
+
 		}
 
 #pragma region 이벤트 콜라이더 설정 모음
@@ -414,7 +416,7 @@ namespace ya {
 
 		event_Line_Sc* event_line_Sc = event_line->AddComponent<event_Line_Sc>();
 		//event_line_Sc->setmGameObject(cameraObj);
-		
+
 		//첫번째카메라 무빙하기위한 콜라이더
 		GameObject* firstCameraMoveLine = object::Instantiate<GameObject>(eLayerType::EventObjectStart);
 		firstCameraMoveLine->SetName(L"firstCameraMoveLine");
@@ -433,11 +435,11 @@ namespace ya {
 
 		//첫번째카메라 멈추기 위한 콜라이더
 		GameObject* firstCameraStopLine = object::Instantiate<GameObject>(eLayerType::EventObjectStop);
-		firstCameraStopLine->SetName(L"firstCameraMoveLine");
+		firstCameraStopLine->SetName(L"firstCameraStopLine");
 
 		Transform* firstCameraStopLine_tr = firstCameraStopLine->GetComponent<Transform>();
 		firstCameraStopLine_tr->SetPosition(Vector3(23.5f, 1.0f, 5.0f));
-	
+
 		Collider2D* firstCameraStopLine_col = firstCameraStopLine->AddComponent<Collider2D>();
 		firstCameraStopLine_col->SetType(eColliderType::Rect);
 		firstCameraStopLine_col->SetSize(Vector2(0.005f, 7.0f));
@@ -445,6 +447,7 @@ namespace ya {
 
 		firstCameraStopLine_Script* firstCameraStopLineSc = firstCameraStopLine->AddComponent<firstCameraStopLine_Script>();
 		firstCameraStopLineSc->SetCamera_Sc(firstCameraMoveLineSc);
+		firstCameraStopLineSc->SetGrandPa_Sc(grandpaSc);
 
 
 
@@ -483,7 +486,7 @@ namespace ya {
 
 		//두번째카메라 멈추기 위한 콜라이더
 		GameObject* secondCameraStopLine = object::Instantiate<GameObject>(eLayerType::EventObjectStop);
-		secondCameraStopLine->SetName(L"secondCameraMoveLine");
+		secondCameraStopLine->SetName(L"secondCameraStopLine");
 
 		Transform* secondCameraStopLine_tr = secondCameraStopLine->GetComponent<Transform>();
 		secondCameraStopLine_tr->SetPosition(Vector3(40.5f, 1.0f, 5.0f));
@@ -495,9 +498,9 @@ namespace ya {
 
 		secondCameraStopLine_Script* secondCameraStopLineSc = secondCameraStopLine->AddComponent<secondCameraStopLine_Script>();
 		secondCameraStopLineSc->SetCamera_Sc(secondCameraMoveLineSc);
-		
 
-		
+
+
 		//세번째 이벤트 수직 선
 		GameObject* event_line3 = object::Instantiate<GameObject>(eLayerType::EventObjectLine);
 		event_line3->SetName(L"event_Line3");
@@ -531,10 +534,10 @@ namespace ya {
 
 		//세번째카메라 멈추기 위한 콜라이더
 		GameObject* thirdCameraStopLine = object::Instantiate<GameObject>(eLayerType::EventObjectStop);
-		thirdCameraStopLine->SetName(L"thirdCameraMoveLine");
+		thirdCameraStopLine->SetName(L"thirdCameraStopLine");
 
 		Transform* thirdCameraStopLine_tr = thirdCameraStopLine->GetComponent<Transform>();
-		thirdCameraStopLine_tr->SetPosition(Vector3(58.f, 1.0f, 5.0f));
+		thirdCameraStopLine_tr->SetPosition(Vector3(58.0f, 1.0f, 5.0f));
 
 		Collider2D* thirdCameraStopLine_col = thirdCameraStopLine->AddComponent<Collider2D>();
 		thirdCameraStopLine_col->SetType(eColliderType::Rect);
@@ -543,6 +546,54 @@ namespace ya {
 
 		thirdCameraStopLine_Script* thirdCameraStopLineSc = thirdCameraStopLine->AddComponent<thirdCameraStopLine_Script>();
 		thirdCameraStopLineSc->SetCamera_Sc(thirdCameraMoveLineSc);
+
+		
+		//네번째 이벤트 수직 선
+		GameObject* event_line4 = object::Instantiate<GameObject>(eLayerType::EventObjectLine);
+		event_line4->SetName(L"event_line4");
+
+		Transform* event_Line_tr4 = event_line4->GetComponent<Transform>();
+		event_Line_tr4->SetPosition(Vector3(58.1f, 1.0f, 5.0f));
+
+		Collider2D* event_Line_col4 = event_line4->AddComponent<Collider2D>();
+		event_Line_col4->SetType(eColliderType::Rect);
+		event_Line_col4->SetSize(Vector2(0.01f, 7.f));
+		event_Line_col4->SetCenter(Vector2(0.7f, 0.0f));
+
+		yaevent_Line4_Sc* event_line_Sc4 = event_line4->AddComponent<yaevent_Line4_Sc>();
+
+
+		//네번째카메라 무빙하기위한 콜라이더
+		GameObject* fourthCameraMoveLine = object::Instantiate<GameObject>(eLayerType::EventObjectStart);
+		fourthCameraMoveLine->SetName(L"fourthCameraMoveLine");
+
+		Transform* fourthCameraMoveLine_tr = fourthCameraMoveLine->GetComponent<Transform>();
+		fourthCameraMoveLine_tr->SetPosition(Vector3(58.2f, 1.0f, 5.0f));
+
+		Collider2D* fourthCameraMoveLine_col = fourthCameraMoveLine->AddComponent<Collider2D>();
+		fourthCameraMoveLine_col->SetType(eColliderType::Rect);
+		fourthCameraMoveLine_col->SetSize(Vector2(0.005f, 7.0f));
+		fourthCameraMoveLine_col->SetCenter(Vector2(0.7f, 0.0f));
+
+		fourthCameraMoveLine_Script* fourthCameraMoveLineSc = fourthCameraMoveLine->AddComponent<fourthCameraMoveLine_Script>();
+		fourthCameraMoveLineSc->setmGameObject(cameraObj);
+
+
+		//네번째카메라 멈추기 위한 콜라이더
+		GameObject* fourthCameraStopLine = object::Instantiate<GameObject>(eLayerType::EventObjectStop);
+		fourthCameraStopLine->SetName(L"fourthCameraStopLine");
+
+		Transform* fourthCameraStopLine_tr = fourthCameraStopLine->GetComponent<Transform>();
+		fourthCameraStopLine_tr->SetPosition(Vector3(74.0f, 1.0f, 5.0f));
+
+		Collider2D* fourthCameraStopLine_col = fourthCameraStopLine->AddComponent<Collider2D>();
+		fourthCameraStopLine_col->SetType(eColliderType::Rect);
+		fourthCameraStopLine_col->SetSize(Vector2(0.005f, 7.0f));
+		fourthCameraStopLine_col->SetCenter(Vector2(0.7f, 0.0f));
+
+		fourthCameraStopLine_Script* fourthCameraStopLineSc = fourthCameraStopLine->AddComponent<fourthCameraStopLine_Script>();
+		fourthCameraStopLineSc->SetCamera_Sc(fourthCameraMoveLineSc);
+		
 		
 		
 		

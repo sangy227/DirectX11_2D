@@ -47,6 +47,8 @@ namespace ya {
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		Collider2D* collider = GetOwner()->GetComponent<Collider2D>();
+		Transform* player_tr = mGameObject->GetComponent<Transform>();
+
 
 		//상태바
 		if (mGrandpaState == eGrandPaState::IDLE)
@@ -85,7 +87,8 @@ namespace ya {
 
 		if (Input::GetKeyDown(eKeyCode::E)) //여긴 콜라이더 설정
 		{
-			mGrandpaState = eGrandPaState::ATTACK1;
+			//mGrandpaState = eGrandPaState::ATTACK1;
+			Attack_index_PLUS();
 		}
 
 		if (Input::GetKeyDown(eKeyCode::R)) //여긴 콜라이더 설정
@@ -135,8 +138,12 @@ namespace ya {
 
 	void GrandPaScript::Attack_index_PLUS()
 	{
-		mGrandpaState = eGrandPaState::ATTACK1;
+		//mGrandpaState = eGrandPaState::ATTACK1;
 
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"grandpa_idle") = std::bind(&GrandPaScript::Grandpa_IDLE, this);
+
+		animator->Play(L"grandpa_idle");
 	}
 
 
@@ -150,32 +157,47 @@ namespace ya {
 		mGrandpaState = eGrandPaState::IDLE;
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-
+		animator->GetCompleteEvent(L"grandpa_idle") = std::bind(&GrandPaScript::Grandpa_IDLE2, this);
 		animator->Play(L"grandpa_idle");
 		
 	}
 
+	void GrandPaScript::Grandpa_IDLE2()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"grandpa_idle") = std::bind(&GrandPaScript::Grandpa_IDLE3, this);
+		animator->Play(L"grandpa_idle");
+	}
+
+	void GrandPaScript::Grandpa_IDLE3()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"grandpa_idle") = std::bind(&GrandPaScript::Grandpa_ATTACK1, this);
+		animator->Play(L"grandpa_idle");
+	}
+
 	void GrandPaScript::Grandpa_ATTACK1()
 	{
-		mGrandpaState = eGrandPaState::ATTACK3;
+		//mGrandpaState = eGrandPaState::ATTACK3;
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-		animator->GetCompleteEvent(L"grandpa_attack_1") = std::bind(&GrandPaScript::Attack_index_PLUS, this);
+		animator->GetCompleteEvent(L"grandpa_attack_1") = std::bind(&GrandPaScript::Grandpa_ATTACK2, this);
 		animator->Play(L"grandpa_attack_1");
 	}
 
 	void GrandPaScript::Grandpa_ATTACK2()
 	{
-		mGrandpaState = eGrandPaState::ATTACK3;
-
+		//mGrandpaState = eGrandPaState::ATTACK3;
+		Needle_FX();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-		
+		animator->GetCompleteEvent(L"grandpa_attack_2") = std::bind(&GrandPaScript::Grandpa_ATTACK3, this);
+
 		animator->Play(L"grandpa_attack_2");
 	}
 
 	void GrandPaScript::Grandpa_ATTACK3()
 	{
-		mGrandpaState = eGrandPaState::ATTACK3;
+		//mGrandpaState = eGrandPaState::ATTACK3;
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"grandpa_attack_3") = std::bind(&GrandPaScript::Grandpa_IDLE, this);

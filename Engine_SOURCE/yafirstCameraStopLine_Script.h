@@ -2,6 +2,7 @@
 #pragma once
 #include "yaScript.h"
 #include "yafirstCameraMoveLine_Script.h"
+#include "yaGrandPaScript.h"
 
 namespace ya
 {
@@ -31,9 +32,12 @@ namespace ya
 		void SetCamera_Sc(firstCameraMoveLine_Script* obj) { mGameObject = obj; }
 		firstCameraMoveLine_Script* GetCamera_Sc() { return mGameObject; }
 
+		void SetGrandPa_Sc(GrandPaScript* obj) { mGrandpa_Obj = obj; }
+
 
 	private:
 		firstCameraMoveLine_Script* mGameObject;
+		GrandPaScript* mGrandpa_Obj;
 
 	private:
 

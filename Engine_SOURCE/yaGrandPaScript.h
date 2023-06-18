@@ -36,6 +36,8 @@ namespace ya
 		void Attack_index_PLUS();
 
 		void Grandpa_IDLE();
+		void Grandpa_IDLE2();
+		void Grandpa_IDLE3();
 		void Grandpa_ATTACK1();
 		void Grandpa_ATTACK2();
 		void Grandpa_ATTACK3();

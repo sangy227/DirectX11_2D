@@ -121,14 +121,20 @@
     <Filter Include="Component\Script\Contents\EventCollider">
       <UniqueIdentifier>{7bdfbc2e-1c3e-494a-8fd4-fba6a93d0be0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\Contents\EventCollider\Line1">
+    <Filter Include="Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine">
+      <UniqueIdentifier>{0731cc13-274a-43f8-bb48-c489f7ffc549}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line1">
       <UniqueIdentifier>{a8814fa4-d182-453d-9b27-65fa916a2ed2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\Contents\EventCollider\Line2">
+    <Filter Include="Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line2">
       <UniqueIdentifier>{0bffa2e2-9707-4be8-82a7-47b890ab593d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\Contents\EventCollider\Line3">
+    <Filter Include="Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line3">
       <UniqueIdentifier>{060f8f41-1dff-4b84-938d-2a8a3bf47757}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line4">
+      <UniqueIdentifier>{134f9f27-276e-45ea-b2c3-22672dc65f72}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -299,31 +305,40 @@
       <Filter>Component\Script\Contents\Monster</Filter>
     </ClCompile>
     <ClCompile Include="yaevent_Line_Sc.cpp">
-      <Filter>Component\Script\Contents\EventCollider\Line1</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line1</Filter>
     </ClCompile>
     <ClCompile Include="yafirstCameraMoveLine_Script.cpp">
-      <Filter>Component\Script\Contents\EventCollider\Line1</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line1</Filter>
     </ClCompile>
     <ClCompile Include="yafirstCameraStopLine_Script.cpp">
-      <Filter>Component\Script\Contents\EventCollider\Line1</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line1</Filter>
     </ClCompile>
     <ClCompile Include="yaevent_Line2_Sc.cpp">
-      <Filter>Component\Script\Contents\EventCollider\Line2</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line2</Filter>
     </ClCompile>
     <ClCompile Include="yasecondCameraMoveLine_Script.cpp">
-      <Filter>Component\Script\Contents\EventCollider\Line2</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line2</Filter>
     </ClCompile>
     <ClCompile Include="yasecondCameraStopLine_Script.cpp">
-      <Filter>Component\Script\Contents\EventCollider\Line2</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line2</Filter>
     </ClCompile>
     <ClCompile Include="yaevent_Line3_Sc.cpp">
-      <Filter>Component\Script\Contents\EventCollider\Line3</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line3</Filter>
     </ClCompile>
     <ClCompile Include="yathirdCameraMoveLine_Script.cpp">
-      <Filter>Component\Script\Contents\EventCollider\Line3</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line3</Filter>
     </ClCompile>
     <ClCompile Include="yathirdCameraStopLine_Script.cpp">
-      <Filter>Component\Script\Contents\EventCollider\Line3</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line3</Filter>
+    </ClCompile>
+    <ClCompile Include="yaevent_Line4_Sc.cpp">
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line4</Filter>
+    </ClCompile>
+    <ClCompile Include="yafourthCameraMoveLine_Script.cpp">
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line4</Filter>
+    </ClCompile>
+    <ClCompile Include="yafourthCameraStopLine_Script.cpp">
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line4</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -509,31 +524,40 @@
       <Filter>Component\Script\Contents\Monster</Filter>
     </ClInclude>
     <ClInclude Include="yaevent_Line_Sc.h">
-      <Filter>Component\Script\Contents\EventCollider\Line1</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line1</Filter>
     </ClInclude>
     <ClInclude Include="yafirstCameraMoveLine_Script.h">
-      <Filter>Component\Script\Contents\EventCollider\Line1</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line1</Filter>
     </ClInclude>
     <ClInclude Include="yafirstCameraStopLine_Script.h">
-      <Filter>Component\Script\Contents\EventCollider\Line1</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line1</Filter>
     </ClInclude>
     <ClInclude Include="yaevent_Line2_Sc.h">
-      <Filter>Component\Script\Contents\EventCollider\Line2</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line2</Filter>
     </ClInclude>
     <ClInclude Include="yasecondCameraMoveLine_Script.h">
-      <Filter>Component\Script\Contents\EventCollider\Line2</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line2</Filter>
     </ClInclude>
     <ClInclude Include="yasecondCameraStopLine_Script.h">
-      <Filter>Component\Script\Contents\EventCollider\Line2</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line2</Filter>
     </ClInclude>
     <ClInclude Include="yaevent_Line3_Sc.h">
-      <Filter>Component\Script\Contents\EventCollider\Line3</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line3</Filter>
     </ClInclude>
     <ClInclude Include="yathirdCameraMoveLine_Script.h">
-      <Filter>Component\Script\Contents\EventCollider\Line3</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line3</Filter>
     </ClInclude>
     <ClInclude Include="yathirdCameraStopLine_Script.h">
-      <Filter>Component\Script\Contents\EventCollider\Line3</Filter>
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line3</Filter>
+    </ClInclude>
+    <ClInclude Include="yaevent_Line4_Sc.h">
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line4</Filter>
+    </ClInclude>
+    <ClInclude Include="yafourthCameraMoveLine_Script.h">
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line4</Filter>
+    </ClInclude>
+    <ClInclude Include="yafourthCameraStopLine_Script.h">
+      <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line4</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,7 @@ namespace ya {
 	void firstCameraStopLine_Script::OnCollisionEnter(Collider2D* collider)
 	{
 		mGameObject->StopMove();
+		mGrandpa_Obj->Attack_index_PLUS();
 	}
 	void firstCameraStopLine_Script::OnCollisionStay(Collider2D* collider)
 	{

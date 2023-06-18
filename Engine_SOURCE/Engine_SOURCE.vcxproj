@@ -174,9 +174,12 @@
     <ClInclude Include="yaEnums.h" />
     <ClInclude Include="yaevent_Line2_Sc.h" />
     <ClInclude Include="yaevent_Line3_Sc.h" />
+    <ClInclude Include="yaevent_Line4_Sc.h" />
     <ClInclude Include="yaevent_Line_Sc.h" />
     <ClInclude Include="yafirstCameraMoveLine_Script.h" />
     <ClInclude Include="yafirstCameraStopLine_Script.h" />
+    <ClInclude Include="yafourthCameraMoveLine_Script.h" />
+    <ClInclude Include="yafourthCameraStopLine_Script.h" />
     <ClInclude Include="yaGameObject.h" />
     <ClInclude Include="yaGrandPaScript.h" />
     <ClInclude Include="yaGraphicDevice_DX11.h" />
@@ -243,9 +246,12 @@
     <ClCompile Include="yaEntity.cpp" />
     <ClCompile Include="yaevent_Line2_Sc.cpp" />
     <ClCompile Include="yaevent_Line3_Sc.cpp" />
+    <ClCompile Include="yaevent_Line4_Sc.cpp" />
     <ClCompile Include="yaevent_Line_Sc.cpp" />
     <ClCompile Include="yafirstCameraMoveLine_Script.cpp" />
     <ClCompile Include="yafirstCameraStopLine_Script.cpp" />
+    <ClCompile Include="yafourthCameraMoveLine_Script.cpp" />
+    <ClCompile Include="yafourthCameraStopLine_Script.cpp" />
     <ClCompile Include="yaGameObject.cpp" />
     <ClCompile Include="yaGrandPaScript.cpp" />
     <ClCompile Include="yaGraphicDevice_DX11.cpp" />
