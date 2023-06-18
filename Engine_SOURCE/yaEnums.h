@@ -19,6 +19,9 @@ namespace ya::enums
 		Monster,
 		Player,
 		Skill_Effect,
+		EventObjectStart,
+		EventObjectLine,
+		EventObjectStop,
 
 		Particle,
 
@@ -100,6 +103,12 @@ namespace ya::enums
 		SMALL_SHAKE,
 		BIG_SHAKE,
 		END
+	};
+
+	enum class eMainCameraState {
+		IDLE,
+		MOVE,
+		STOP
 	};
 
 	enum class ePlayerState

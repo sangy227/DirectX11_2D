@@ -28,6 +28,15 @@
 #include "yaGrandPaScript.h"
 #include "yaRedQueenScript.h"
 #include "yaSculptorScript.h"
+#include "yafirstCameraMoveLine_Script.h"
+#include "yaevent_Line_Sc.h"
+#include "yafirstCameraStopLine_Script.h"
+#include "yasecondCameraMoveLine_Script.h"
+#include "yaevent_Line2_Sc.h"
+#include "yasecondCameraStopLine_Script.h"
+#include "yathirdCameraMoveLine_Script.h"
+#include "yaevent_Line3_Sc.h"
+#include "yathirdCameraStopLine_Script.h"
 
 namespace ya {
 	MainScene::MainScene()
@@ -123,8 +132,6 @@ namespace ya {
 			}
 		}
 
-
-
 		//Game_Main_Player = 플레이어
 		{
 			gameplayer = object::Instantiate<Player>(eLayerType::Player);
@@ -191,8 +198,6 @@ namespace ya {
 
 		}
 
-
-
 		//할배 몬스터
 		{
 			Monster* grandpa_obj = object::Instantiate<Monster>(eLayerType::Monster);
@@ -248,8 +253,6 @@ namespace ya {
 			//object::DontDestroyOnLoad(wanda_obj);
 		}
 
-
-		
 		//빨간 의자
 		{
 				GameObject* chair_obj = object::Instantiate<GameObject>(eLayerType::BackGround);
@@ -346,8 +349,7 @@ namespace ya {
 				cat_sr->SetMaterial(cat_mt);
 			}
 		
-
-		//날아다니는 할배
+		//날아다니는 할배 == 조각가보스
 		{
 			Monster* sculptor_obj = object::Instantiate<Monster>(eLayerType::Monster);
 			sculptor_obj->SetName(L"sculptor");
@@ -396,13 +398,168 @@ namespace ya {
 			
 		}
 
+#pragma region 이벤트 콜라이더 설정 모음
+		//이벤트 수직 선
+		GameObject* event_line = object::Instantiate<GameObject>(eLayerType::EventObjectLine);
+		event_line->SetName(L"event_Line");
+
+		Transform* event_Line_tr = event_line->GetComponent<Transform>();
+		event_Line_tr->SetPosition(Vector3(7.51f, 1.0f, 5.0f));
+
+
+		Collider2D* event_Line_col = event_line->AddComponent<Collider2D>();
+		event_Line_col->SetType(eColliderType::Rect);
+		event_Line_col->SetSize(Vector2(0.01f, 7.f));
+		event_Line_col->SetCenter(Vector2(0.7f, 0.0f));
+
+		event_Line_Sc* event_line_Sc = event_line->AddComponent<event_Line_Sc>();
+		//event_line_Sc->setmGameObject(cameraObj);
+		
+		//첫번째카메라 무빙하기위한 콜라이더
+		GameObject* firstCameraMoveLine = object::Instantiate<GameObject>(eLayerType::EventObjectStart);
+		firstCameraMoveLine->SetName(L"firstCameraMoveLine");
+
+		Transform* firstCameraMoveLine_tr = firstCameraMoveLine->GetComponent<Transform>();
+		firstCameraMoveLine_tr->SetPosition(Vector3(7.5f, 1.0f, 5.0f));
+
+		Collider2D* firstCameraMoveLine_col = firstCameraMoveLine->AddComponent<Collider2D>();
+		firstCameraMoveLine_col->SetType(eColliderType::Rect);
+		firstCameraMoveLine_col->SetSize(Vector2(0.005f, 7.0f));
+		firstCameraMoveLine_col->SetCenter(Vector2(0.7f, 0.0f));
+
+		firstCameraMoveLine_Script* firstCameraMoveLineSc = firstCameraMoveLine->AddComponent<firstCameraMoveLine_Script>();
+		firstCameraMoveLineSc->setmGameObject(cameraObj);
+
+
+		//첫번째카메라 멈추기 위한 콜라이더
+		GameObject* firstCameraStopLine = object::Instantiate<GameObject>(eLayerType::EventObjectStop);
+		firstCameraStopLine->SetName(L"firstCameraMoveLine");
+
+		Transform* firstCameraStopLine_tr = firstCameraStopLine->GetComponent<Transform>();
+		firstCameraStopLine_tr->SetPosition(Vector3(23.5f, 1.0f, 5.0f));
+	
+		Collider2D* firstCameraStopLine_col = firstCameraStopLine->AddComponent<Collider2D>();
+		firstCameraStopLine_col->SetType(eColliderType::Rect);
+		firstCameraStopLine_col->SetSize(Vector2(0.005f, 7.0f));
+		firstCameraStopLine_col->SetCenter(Vector2(0.7f, 0.0f));
+
+		firstCameraStopLine_Script* firstCameraStopLineSc = firstCameraStopLine->AddComponent<firstCameraStopLine_Script>();
+		firstCameraStopLineSc->SetCamera_Sc(firstCameraMoveLineSc);
+
+
+
+
+
+		//두번째 이벤트 수직 선
+		GameObject* event_line2 = object::Instantiate<GameObject>(eLayerType::EventObjectLine);
+		event_line2->SetName(L"event_Line2");
+
+		Transform* event_Line_tr2 = event_line2->GetComponent<Transform>();
+		event_Line_tr2->SetPosition(Vector3(23.6f, 1.0f, 5.0f));
+
+		Collider2D* event_Line_col2 = event_line2->AddComponent<Collider2D>();
+		event_Line_col2->SetType(eColliderType::Rect);
+		event_Line_col2->SetSize(Vector2(0.01f, 7.f));
+		event_Line_col2->SetCenter(Vector2(0.7f, 0.0f));
+
+		event_Line2_Sc* event_line_Sc2 = event_line2->AddComponent<event_Line2_Sc>();
+
+
+		//두번째카메라 무빙하기위한 콜라이더
+		GameObject* secondCameraMoveLine = object::Instantiate<GameObject>(eLayerType::EventObjectStart);
+		secondCameraMoveLine->SetName(L"secondCameraMoveLine");
+
+		Transform* secondCameraMoveLine_tr = secondCameraMoveLine->GetComponent<Transform>();
+		secondCameraMoveLine_tr->SetPosition(Vector3(23.7f, 1.0f, 5.0f));
+
+		Collider2D* secondCameraMoveLine_col = secondCameraMoveLine->AddComponent<Collider2D>();
+		secondCameraMoveLine_col->SetType(eColliderType::Rect);
+		secondCameraMoveLine_col->SetSize(Vector2(0.005f, 7.0f));
+		secondCameraMoveLine_col->SetCenter(Vector2(0.7f, 0.0f));
+
+		secondCameraMoveLine_Script* secondCameraMoveLineSc = secondCameraMoveLine->AddComponent<secondCameraMoveLine_Script>();
+		secondCameraMoveLineSc->setmGameObject(cameraObj);
+
+
+		//두번째카메라 멈추기 위한 콜라이더
+		GameObject* secondCameraStopLine = object::Instantiate<GameObject>(eLayerType::EventObjectStop);
+		secondCameraStopLine->SetName(L"secondCameraMoveLine");
+
+		Transform* secondCameraStopLine_tr = secondCameraStopLine->GetComponent<Transform>();
+		secondCameraStopLine_tr->SetPosition(Vector3(40.5f, 1.0f, 5.0f));
+
+		Collider2D* secondCameraStopLine_col = secondCameraStopLine->AddComponent<Collider2D>();
+		secondCameraStopLine_col->SetType(eColliderType::Rect);
+		secondCameraStopLine_col->SetSize(Vector2(0.005f, 7.0f));
+		secondCameraStopLine_col->SetCenter(Vector2(0.7f, 0.0f));
+
+		secondCameraStopLine_Script* secondCameraStopLineSc = secondCameraStopLine->AddComponent<secondCameraStopLine_Script>();
+		secondCameraStopLineSc->SetCamera_Sc(secondCameraMoveLineSc);
+		
+
+		
+		//세번째 이벤트 수직 선
+		GameObject* event_line3 = object::Instantiate<GameObject>(eLayerType::EventObjectLine);
+		event_line3->SetName(L"event_Line3");
+
+		Transform* event_Line_tr3 = event_line3->GetComponent<Transform>();
+		event_Line_tr3->SetPosition(Vector3(40.6f, 1.0f, 5.0f));
+
+		Collider2D* event_Line_col3 = event_line3->AddComponent<Collider2D>();
+		event_Line_col3->SetType(eColliderType::Rect);
+		event_Line_col3->SetSize(Vector2(0.01f, 7.f));
+		event_Line_col3->SetCenter(Vector2(0.7f, 0.0f));
+
+		event_Line3_Sc* event_line_Sc3 = event_line3->AddComponent<event_Line3_Sc>();
+
+
+		//세번째카메라 무빙하기위한 콜라이더
+		GameObject* thirdCameraMoveLine = object::Instantiate<GameObject>(eLayerType::EventObjectStart);
+		thirdCameraMoveLine->SetName(L"thirdCameraMoveLine");
+
+		Transform* thirdCameraMoveLine_tr = thirdCameraMoveLine->GetComponent<Transform>();
+		thirdCameraMoveLine_tr->SetPosition(Vector3(40.7f, 1.0f, 5.0f));
+
+		Collider2D* thirdCameraMoveLine_col = thirdCameraMoveLine->AddComponent<Collider2D>();
+		thirdCameraMoveLine_col->SetType(eColliderType::Rect);
+		thirdCameraMoveLine_col->SetSize(Vector2(0.005f, 7.0f));
+		thirdCameraMoveLine_col->SetCenter(Vector2(0.7f, 0.0f));
+
+		thirdCameraMoveLine_Script* thirdCameraMoveLineSc = thirdCameraMoveLine->AddComponent<thirdCameraMoveLine_Script>();
+		thirdCameraMoveLineSc->setmGameObject(cameraObj);
+
+
+		//세번째카메라 멈추기 위한 콜라이더
+		GameObject* thirdCameraStopLine = object::Instantiate<GameObject>(eLayerType::EventObjectStop);
+		thirdCameraStopLine->SetName(L"thirdCameraMoveLine");
+
+		Transform* thirdCameraStopLine_tr = thirdCameraStopLine->GetComponent<Transform>();
+		thirdCameraStopLine_tr->SetPosition(Vector3(58.f, 1.0f, 5.0f));
+
+		Collider2D* thirdCameraStopLine_col = thirdCameraStopLine->AddComponent<Collider2D>();
+		thirdCameraStopLine_col->SetType(eColliderType::Rect);
+		thirdCameraStopLine_col->SetSize(Vector2(0.005f, 7.0f));
+		thirdCameraStopLine_col->SetCenter(Vector2(0.7f, 0.0f));
+
+		thirdCameraStopLine_Script* thirdCameraStopLineSc = thirdCameraStopLine->AddComponent<thirdCameraStopLine_Script>();
+		thirdCameraStopLineSc->SetCamera_Sc(thirdCameraMoveLineSc);
+		
+		
+		
+		
+#pragma endregion
+
 
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectStart, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectLine, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::EventObjectStop, eLayerType::EventObjectLine, true);
 
 	}
 	void MainScene::OnExit()
 	{
-		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, false);
+		
+
 	}
 }

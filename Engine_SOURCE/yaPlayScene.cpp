@@ -241,7 +241,7 @@ namespace ya
 			PlayerScript* camsc = gameplayer->AddComponent<PlayerScript>();
 			camsc->setCameraScript(bcs);
 			//gameplayer->AddComponent<PlayerScript>();
-			object::DontDestroyOnLoad(gameplayer);
+			//object::DontDestroyOnLoad(gameplayer);
 
 		}
 		

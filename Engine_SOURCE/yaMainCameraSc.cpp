@@ -26,11 +26,11 @@ namespace ya {
 			//카메라 기본 무빙
 			if (Input::GetKeyState(eKeyCode::L) == eKeyState::PRESSED)
 			{
-				pos += 30.0f * tr->Right() * Time::DeltaTime();
+				pos += 10.0f * tr->Right() * Time::DeltaTime();
 			}
 			else if (Input::GetKeyState(eKeyCode::J) == eKeyState::PRESSED)
 			{
-				pos += 30.0f * -tr->Right() * Time::DeltaTime();
+				pos += 10.0f * -tr->Right() * Time::DeltaTime();
 			}
 			else if (Input::GetKeyState(eKeyCode::O) == eKeyState::PRESSED)
 			{
@@ -102,7 +102,7 @@ namespace ya {
 
 			if (mMaincameraState == eMainCameraState::MOVE)
 			{
-				pos += 10.0f * tr->Right() * Time::DeltaTime();
+				pos += 7.0f * tr->Right() * Time::DeltaTime();
 			}
 		}
 

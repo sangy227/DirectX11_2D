@@ -8,11 +8,7 @@ namespace ya
 	class MainCameraSc : public Script
 	{
 	public:
-		enum class eMainCameraState {
-			IDLE,
-			MOVE,
-			STOP
-		};
+		
 		MainCameraSc();
 		~MainCameraSc();
 
@@ -33,6 +29,10 @@ namespace ya
 		void SetCameraState_Small_Shake() { mCameraState = eCameraState::SMALL_SHAKE; }
 		void SetCameraState_Big_Shake() { mCameraState = eCameraState::BIG_SHAKE; }
 		void SetCameraState_Idle() { mCameraState = eCameraState::IDLE; }
+
+		void SetMainCameraState_Idle() { mMaincameraState = eMainCameraState::IDLE; }
+		void SetMainCameraState_Move() { mMaincameraState = eMainCameraState::MOVE; }
+		
 
 	private:
 
