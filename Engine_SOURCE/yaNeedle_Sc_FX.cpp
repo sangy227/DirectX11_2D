@@ -46,12 +46,12 @@ namespace ya {
 	}
 	void Needle_Sc_FX::Update()
 	{
-		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>();
 		
 		animator->GetCompleteEvent(L"needle_idle") = std::bind(&Needle_Sc_FX::Start, this);
 		
+		Transform* tr = GetOwner()->GetComponent<Transform>();
 		if (trigger) {
 			Vector3 pos = tr->GetPosition();
 			pos += 2.4f * tr->Up() * Time::DeltaTime();

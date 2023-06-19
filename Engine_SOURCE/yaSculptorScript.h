@@ -15,6 +15,15 @@ namespace ya
 			DIE,
 		};
 
+		enum eNeedleState
+		{
+			None,
+			IDLE_Needle,
+			Chenge,
+			Needle1,
+			Needle2,
+		};
+
 		SculptorScript();
 		virtual ~SculptorScript();
 
@@ -41,13 +50,15 @@ namespace ya
 		void Sculptor_DIE();
 
 		void Sculptor_Needle();
+		void Sculptor_Needle2();
 
 		void setmGameObject(GameObject* obj) { mGameObject = obj; }
 		GameObject* GetmGameObject() { return mGameObject; }
 
 	private:
 		eSculptorState mSculptorState;
-		GameObject* mGameObject;
+		eNeedleState mNeedleState;
+		GameObject* mGameObject; //플레이어꺼를 들고있음
 
 
 	};

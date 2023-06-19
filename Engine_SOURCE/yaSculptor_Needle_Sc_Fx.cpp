@@ -32,6 +32,7 @@
 namespace ya {
 	Sculptor_Needle_Sc_Fx::Sculptor_Needle_Sc_Fx()
 		: Script()
+		, trigger(false)
 	{
 	}
 	Sculptor_Needle_Sc_Fx::~Sculptor_Needle_Sc_Fx()
@@ -43,12 +44,17 @@ namespace ya {
 	void Sculptor_Needle_Sc_Fx::Update()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-		Animator* animator = GetOwner()->GetComponent<Animator>();
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>();
+		Animator* animator = GetOwner()->GetComponent<Animator>();
 
-		animator->GetCompleteEvent(L"sculptor_needle") = std::bind(&Sculptor_Needle_Sc_Fx::End, this);
+		animator->GetCompleteEvent(L"sculptor_needle") = std::bind(&Sculptor_Needle_Sc_Fx::IDLE1, this);
 
-
+		
+		if (trigger) {
+			Vector3 pos = tr->GetPosition();
+			pos += -5.0f * tr->Up() * Time::DeltaTime();
+			tr->SetPosition(pos);
+		}
 		
 	}
 	void Sculptor_Needle_Sc_Fx::FixedUpdate()
@@ -82,23 +88,40 @@ namespace ya {
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		Transform* ownertr = GetOwner()->GetComponent<Transform>();
-		Transform* playertr = mGameObject->GetComponent<Transform>();
+		//Transform* playertr = mGameObject->GetComponent<Transform>();
 
 		Vector3 ow_tr = ownertr->GetPosition();
-		Vector3 tr = playertr->GetPosition(); // 플레이어꺼
-
-		//여기는 반복으로 계속 나타나게 하는것
-		{
-			//tr += 5.6f * playertr->Up();
-			////tr += 5.4f * -playertr->Up();
-			//ownertr->SetPosition(tr);
-			//ownertr->SetScale(Vector3(10.f, 10.f, 1.f));
-
-			//animator->GetCompleteEvent(L"needle_idle") = std::bind(&Needle_Sc_FX::Action, this);
-			//animator->Play(L"needle_idle", false); //루프 안돌림 
-		}
+		//Vector3 tr = playertr->GetPosition(); // 할배꺼
 
 		ow_tr += (-(10.6f) * ownertr->Up());
 		ownertr->SetPosition(ow_tr);
+
+	
+		
+		
+
+	}
+
+
+
+
+	void Sculptor_Needle_Sc_Fx::IDLE1()
+	{
+		trigger = true;
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+
+		animator->GetCompleteEvent(L"sculptor_needle1") = std::bind(&Sculptor_Needle_Sc_Fx::IDLE2, this);
+		animator->Play(L"sculptor_needle1");
+	}
+	void Sculptor_Needle_Sc_Fx::IDLE2()
+	{
+		trigger = false;
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+
+		animator->GetCompleteEvent(L"sculptor_needle2") = std::bind(&Sculptor_Needle_Sc_Fx::End, this);
+		animator->Play(L"sculptor_needle2");
+	}
+	void Sculptor_Needle_Sc_Fx::IDLE3()
+	{
 	}
 }

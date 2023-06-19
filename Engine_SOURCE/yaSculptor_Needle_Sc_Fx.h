@@ -27,16 +27,18 @@ namespace ya
 		void Action();
 		void End();
 
+		void IDLE1();
+		void IDLE2();
+		void IDLE3();
+
 
 		void setmGameObject(GameObject* obj) { mGameObject = obj; }
+
 		GameObject* GetmGameObject() { return mGameObject; }
 
 	private:
-		GameObject* mGameObject;
-
-
-	private:
-
-
+		GameObject* mGameObject; //여기선 지금 할배꺼 obj들고있음
+		
+		bool trigger;
 	};
 };

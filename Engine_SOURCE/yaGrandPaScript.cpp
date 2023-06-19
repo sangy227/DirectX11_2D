@@ -260,6 +260,7 @@ namespace ya {
 			Needle_Sc_FX* sc_fx = needleeffect->AddComponent<Needle_Sc_FX>();
 			sc_fx->setmGameObject(mGameObject);
 			
+			
 		}
 		{
 			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Skill_Effect);
