@@ -28,6 +28,7 @@
 #include "yaRigidbody.h"
 #include "yaEnums.h"
 #include "yaGameObject.h"
+#include "yaSculptorScript.h"
 
 namespace ya {
 	Sculptor_Needle_Sc_Fx::Sculptor_Needle_Sc_Fx()
@@ -88,15 +89,13 @@ namespace ya {
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		Transform* ownertr = GetOwner()->GetComponent<Transform>();
-		//Transform* playertr = mGameObject->GetComponent<Transform>();
 
 		Vector3 ow_tr = ownertr->GetPosition();
-		//Vector3 tr = playertr->GetPosition(); // �ҹ貨
+		
 
 		ow_tr += (-(10.6f) * ownertr->Up());
 		ownertr->SetPosition(ow_tr);
 
-	
 		
 		
 

@@ -2,6 +2,7 @@
 #pragma once
 #include "yaScript.h"
 #include "yathirdCameraMoveLine_Script.h"
+#include "yaSculptorScript.h"
 namespace ya
 {
 
@@ -28,12 +29,13 @@ namespace ya
 
 
 		void SetCamera_Sc(thirdCameraMoveLine_Script* obj) { mGameObject = obj; }
+		void SetSculptorScript(SculptorScript* obj) { mSculptorScript = obj; }
 		thirdCameraMoveLine_Script* GetCamera_Sc() { return mGameObject; }
 
 
 	private:
 		thirdCameraMoveLine_Script* mGameObject;
-
+		SculptorScript* mSculptorScript;
 	private:
 
 

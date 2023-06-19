@@ -23,6 +23,10 @@ namespace ya::enums
 		EventObjectLine,
 		EventObjectStop,
 
+		EventObjectStart2,
+		EventObjectLine2,
+		EventObjectStop2,
+
 		Particle,
 
 

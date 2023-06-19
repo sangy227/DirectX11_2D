@@ -352,53 +352,54 @@ namespace ya {
 		}
 
 		//날아다니는 할배 == 조각가보스
-		{
-			Monster* sculptor_obj = object::Instantiate<Monster>(eLayerType::Monster);
-			sculptor_obj->SetName(L"sculptor");
+		
+		Monster* sculptor_obj = object::Instantiate<Monster>(eLayerType::Monster);
+		sculptor_obj->SetName(L"sculptor");
 
-			Transform* sculptor_tr = sculptor_obj->GetComponent<Transform>();
-			sculptor_tr->SetPosition(Vector3(51.5f, -0.7f, 5.0f));
-			sculptor_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
-			{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
-				Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
-				Vector3 firsttr = sculptor_tr->GetPosition();
-				Vector3 secondtr = gameplayer_tr->GetPosition();
-				if (firsttr.x - secondtr.x > 0.0f)
-					sculptor_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f)); //왼쪽 바라보기
-				else
-					sculptor_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
-			}
-
-			Collider2D* sculptor_col = sculptor_obj->AddComponent<Collider2D>();
-			sculptor_col->SetType(eColliderType::Rect);
-			sculptor_col->SetSize(Vector2(0.1f, 0.25f));
-			sculptor_col->SetCenter(Vector2(0.0f, 0.0f));
-
-
-
-			Animator* sculptor_Animator = sculptor_obj->AddComponent<Animator>();
-			std::shared_ptr<Texture> sculptor_idle = Resources::Load<Texture>(L"sculptor", L"BossSculptor\\T_BossSculptor_Idle.png");
-			std::shared_ptr<Texture> sculptor_attack = Resources::Load<Texture>(L"sculptor_attack", L"BossSculptor\\T_BossSculptor_Cast.png");
-			std::shared_ptr<Texture> sculptor_die = Resources::Load<Texture>(L"sculptor_die", L"BossSculptor\\T_BossSculptor_DeathBody.png");
-
-
-			sculptor_Animator->Create(L"sculptor_idle", sculptor_idle, Vector2(0.0f, 0.0f), Vector2(194.0f, 139.0f), Vector2(0.0f, 0.0f), 3, 4, 12, 0.12f);
-			sculptor_Animator->Create(L"sculptor_attack", sculptor_attack, Vector2(0.0f, 0.0f), Vector2(202.0f, 189.0f), Vector2(0.0f, 0.0f), 3, 5, 13, 0.12f);
-			sculptor_Animator->Create(L"sculptor_die", sculptor_die, Vector2(0.0f, 0.0f), Vector2(102.0f, 135.0f), Vector2(0.0f, 0.0f), 7, 5, 35, 0.10f);
-
-
-			sculptor_Animator->Play(L"sculptor_idle", true);
-
-
-			SpriteRenderer* sculptor_sr = sculptor_obj->AddComponent<SpriteRenderer>();
-			std::shared_ptr<Mesh> sculptor_mesh = Resources::Find<Mesh>(L"RectMesh");
-			std::shared_ptr<Material> sculptor_mt = Resources::Find<Material>(L"SpriteMaterial");
-			sculptor_sr->SetMesh(sculptor_mesh);
-			sculptor_sr->SetMaterial(sculptor_mt);
-			SculptorScript* SculptorSc = sculptor_obj->AddComponent<SculptorScript>();
-			SculptorSc->setmGameObject(gameplayer);
-
+		Transform* sculptor_tr = sculptor_obj->GetComponent<Transform>();
+		sculptor_tr->SetPosition(Vector3(51.5f, -0.7f, 5.0f));
+		sculptor_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+		{//플레이어 tr 가져와서 몬스터기준 왼쪽에있으면 왼쪽 바라보고, 오른쪽에 있으면 오른쪽 바라보고
+			Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
+			Vector3 firsttr = sculptor_tr->GetPosition();
+			Vector3 secondtr = gameplayer_tr->GetPosition();
+			if (firsttr.x - secondtr.x > 0.0f)
+				sculptor_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f)); //왼쪽 바라보기
+			else
+				sculptor_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
 		}
+
+		Collider2D* sculptor_col = sculptor_obj->AddComponent<Collider2D>();
+		sculptor_col->SetType(eColliderType::Rect);
+		sculptor_col->SetSize(Vector2(0.1f, 0.25f));
+		sculptor_col->SetCenter(Vector2(0.0f, 0.0f));
+
+
+
+		Animator* sculptor_Animator = sculptor_obj->AddComponent<Animator>();
+		std::shared_ptr<Texture> sculptor_idle = Resources::Load<Texture>(L"sculptor", L"BossSculptor\\T_BossSculptor_Idle.png");
+		std::shared_ptr<Texture> sculptor_attack = Resources::Load<Texture>(L"sculptor_attack", L"BossSculptor\\T_BossSculptor_Cast.png");
+		std::shared_ptr<Texture> sculptor_die = Resources::Load<Texture>(L"sculptor_die", L"BossSculptor\\T_BossSculptor_DeathBody.png");
+
+
+		sculptor_Animator->Create(L"sculptor_idle", sculptor_idle, Vector2(0.0f, 0.0f), Vector2(194.0f, 139.0f), Vector2(0.0f, 0.0f), 3, 4, 12, 0.12f);
+		sculptor_Animator->Create(L"sculptor_attack", sculptor_attack, Vector2(0.0f, 0.0f), Vector2(202.0f, 189.0f), Vector2(0.0f, 0.0f), 3, 5, 13, 0.12f);
+		sculptor_Animator->Create(L"sculptor_die", sculptor_die, Vector2(0.0f, 0.0f), Vector2(102.0f, 135.0f), Vector2(0.0f, 0.0f), 7, 5, 35, 0.10f);
+
+
+		sculptor_Animator->Play(L"sculptor_idle", true);
+
+
+		SpriteRenderer* sculptor_sr = sculptor_obj->AddComponent<SpriteRenderer>();
+		std::shared_ptr<Mesh> sculptor_mesh = Resources::Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> sculptor_mt = Resources::Find<Material>(L"SpriteMaterial");
+		sculptor_sr->SetMesh(sculptor_mesh);
+		sculptor_sr->SetMaterial(sculptor_mt);
+		SculptorScript* SculptorSc = sculptor_obj->AddComponent<SculptorScript>();
+		SculptorSc->setmGameObject(gameplayer);
+			
+
+		
 
 #pragma region 이벤트 콜라이더 설정 모음
 		//이벤트 수직 선
@@ -502,7 +503,7 @@ namespace ya {
 
 
 		//세번째 이벤트 수직 선
-		GameObject* event_line3 = object::Instantiate<GameObject>(eLayerType::EventObjectLine);
+		GameObject* event_line3 = object::Instantiate<GameObject>(eLayerType::EventObjectLine2);
 		event_line3->SetName(L"event_Line3");
 
 		Transform* event_Line_tr3 = event_line3->GetComponent<Transform>();
@@ -533,7 +534,7 @@ namespace ya {
 
 
 		//세번째카메라 멈추기 위한 콜라이더
-		GameObject* thirdCameraStopLine = object::Instantiate<GameObject>(eLayerType::EventObjectStop);
+		GameObject* thirdCameraStopLine = object::Instantiate<GameObject>(eLayerType::EventObjectStop2);
 		thirdCameraStopLine->SetName(L"thirdCameraStopLine");
 
 		Transform* thirdCameraStopLine_tr = thirdCameraStopLine->GetComponent<Transform>();
@@ -546,6 +547,7 @@ namespace ya {
 
 		thirdCameraStopLine_Script* thirdCameraStopLineSc = thirdCameraStopLine->AddComponent<thirdCameraStopLine_Script>();
 		thirdCameraStopLineSc->SetCamera_Sc(thirdCameraMoveLineSc);
+		thirdCameraStopLineSc->SetSculptorScript(SculptorSc);
 
 		
 		//네번째 이벤트 수직 선
@@ -606,6 +608,11 @@ namespace ya {
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectStart, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectLine, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::EventObjectStop, eLayerType::EventObjectLine, true);
+
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectLine2, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::EventObjectStop2, eLayerType::EventObjectLine2, true);
+
+
 
 	}
 	void MainScene::OnExit()

@@ -23,6 +23,7 @@ namespace ya
 	}
 	void thirdCameraStopLine_Script::OnCollisionEnter(Collider2D* collider)
 	{
+		mSculptorScript->Sculptor_IDLE();
 		mGameObject->StopMove();
 	}
 	void thirdCameraStopLine_Script::OnCollisionStay(Collider2D* collider)

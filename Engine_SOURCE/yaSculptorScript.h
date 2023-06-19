@@ -52,14 +52,19 @@ namespace ya
 		void Sculptor_Needle();
 		void Sculptor_Needle2();
 
+		void chenge();
+
 		void setmGameObject(GameObject* obj) { mGameObject = obj; }
 		GameObject* GetmGameObject() { return mGameObject; }
 
 	private:
 		eSculptorState mSculptorState;
 		eNeedleState mNeedleState;
+
 		GameObject* mGameObject; //플레이어꺼를 들고있음
 
+
+		bool mbool;
 
 	};
 };

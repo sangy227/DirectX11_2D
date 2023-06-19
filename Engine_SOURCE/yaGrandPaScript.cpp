@@ -89,12 +89,14 @@ namespace ya {
 		{
 			//mGrandpaState = eGrandPaState::ATTACK1;
 			//Attack_index_PLUS();
-			Grandpa_DIE();
+			
+			Needle_FX();
 		}
 
 		if (Input::GetKeyDown(eKeyCode::R)) //여긴 콜라이더 설정
 		{
-			Needle_FX();
+			
+			Grandpa_DIE();
 			
 		}
 

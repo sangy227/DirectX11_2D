@@ -33,6 +33,7 @@ namespace ya {
 		: Script()
 		, mSculptorState(eSculptorState::IDLE)
 		, mNeedleState(eNeedleState::None)
+		, mbool(true)
 	{
 	}
 	SculptorScript::~SculptorScript()
@@ -54,26 +55,35 @@ namespace ya {
 			
 		}
 		if (mNeedleState == eNeedleState::Chenge) {
-
+			if (mbool) {
+				mbool = false;
+				mNeedleState = eNeedleState::Needle1;
+			}
+			else {
+				mbool = true;
+				mNeedleState = eNeedleState::Needle2;
+			}
 		}
 		if (mNeedleState == eNeedleState::Needle1) {
-
+			Sculptor_Needle();
+			mNeedleState = eNeedleState::IDLE_Needle;
 		}
 		if (mNeedleState == eNeedleState::Needle2) {
-
+			Sculptor_Needle2();
+			mNeedleState = eNeedleState::IDLE_Needle;
 		}
 
 
 		if (Input::GetKeyDown(eKeyCode::T)) //여긴 콜라이더 설정
 		{
-			//animator->GetCompleteEvent(L"sculptor_idle") = std::bind(&SculptorScript::Sculptor_IDLE, this);
-			//animator->Play(L"sculptor_idle");
-			Sculptor_Needle();
+			animator->GetCompleteEvent(L"sculptor_idle") = std::bind(&SculptorScript::Sculptor_IDLE, this);
+			animator->Play(L"sculptor_idle");
+			//Sculptor_Needle();
 		}
 
 		if (Input::GetKeyDown(eKeyCode::Y)) //여긴 콜라이더 설정
 		{
-			Sculptor_Needle2();
+			Sculptor_IDLE_TO_DIE();
 
 		}
 
@@ -114,7 +124,7 @@ namespace ya {
 		mSculptorState = eSculptorState::IDLE;
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-		animator->GetCompleteEvent(L"sculptor_idle") = std::bind(&SculptorScript::Sculptor_IDLE2, this);
+		animator->GetCompleteEvent(L"sculptor_idle") = std::bind(&SculptorScript::Sculptor_IDLE3, this); //임시로 어택으로 넘기기
 		animator->Play(L"sculptor_idle");
 
 	}
@@ -133,7 +143,7 @@ namespace ya {
 	}
 	void SculptorScript::Sculptor_ATTACK1()
 	{
-		Sculptor_Needle();
+		chenge();
 		mSculptorState = eSculptorState::ATTACK1;
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
@@ -472,5 +482,9 @@ namespace ya {
 
 
 		}
+	}
+	void SculptorScript::chenge()
+	{
+		mNeedleState = eNeedleState::Chenge;
 	}
 }
