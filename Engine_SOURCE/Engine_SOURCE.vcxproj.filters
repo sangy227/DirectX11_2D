@@ -136,6 +136,9 @@
     <Filter Include="Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line4">
       <UniqueIdentifier>{134f9f27-276e-45ea-b2c3-22672dc65f72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script\Contents\Monster\wanda">
+      <UniqueIdentifier>{33dd9eae-28e4-4d76-9e4a-48306bb37e22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -277,9 +280,6 @@
     <ClCompile Include="yaMonster.cpp">
       <Filter>Component\Script\Contents\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="yaBossWandaScript.cpp">
-      <Filter>Component\Script\Contents\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="yaMainScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -339,6 +339,15 @@
     </ClCompile>
     <ClCompile Include="yafourthCameraStopLine_Script.cpp">
       <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line4</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBossWandaScript.cpp">
+      <Filter>Component\Script\Contents\Monster\wanda</Filter>
+    </ClCompile>
+    <ClCompile Include="yaWanda_Dmg_Down_Sc_Fx.cpp">
+      <Filter>Component\Script\Contents\Monster\wanda</Filter>
+    </ClCompile>
+    <ClCompile Include="yaWanda_Dmg_UP_Sc_Fx.cpp">
+      <Filter>Component\Script\Contents\Monster\wanda</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -496,9 +505,6 @@
     <ClInclude Include="yaMonster.h">
       <Filter>Component\Script\Contents\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="yaBossWandaScript.h">
-      <Filter>Component\Script\Contents\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="yaMainScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -558,6 +564,15 @@
     </ClInclude>
     <ClInclude Include="yafourthCameraStopLine_Script.h">
       <Filter>Component\Script\Contents\EventCollider\Mainscene_CameraMoveLine\Line4</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBossWandaScript.h">
+      <Filter>Component\Script\Contents\Monster\wanda</Filter>
+    </ClInclude>
+    <ClInclude Include="yaWanda_Dmg_Down_Sc_Fx.h">
+      <Filter>Component\Script\Contents\Monster\wanda</Filter>
+    </ClInclude>
+    <ClInclude Include="yaWanda_Dmg_UP_Sc_Fx.h">
+      <Filter>Component\Script\Contents\Monster\wanda</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

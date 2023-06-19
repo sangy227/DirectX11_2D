@@ -227,6 +227,8 @@
     <ClInclude Include="yaTime.h" />
     <ClInclude Include="yaTitleScene.h" />
     <ClInclude Include="yaTransform.h" />
+    <ClInclude Include="yaWanda_Dmg_Down_Sc_Fx.h" />
+    <ClInclude Include="yaWanda_Dmg_UP_Sc_Fx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaAnimation.cpp" />
@@ -297,6 +299,8 @@
     <ClCompile Include="yaTime.cpp" />
     <ClCompile Include="yaTitleScene.cpp" />
     <ClCompile Include="yaTransform.cpp" />
+    <ClCompile Include="yaWanda_Dmg_Down_Sc_Fx.cpp" />
+    <ClCompile Include="yaWanda_Dmg_UP_Sc_Fx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="yaMath.inl" />

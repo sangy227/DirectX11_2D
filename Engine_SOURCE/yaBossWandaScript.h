@@ -62,6 +62,7 @@ namespace ya
 		GameObject* mGameObject;
 		UINT Skill_index;
 		UINT Garden2_index;
+		bool Garden2_bool;
 	};
 }
 

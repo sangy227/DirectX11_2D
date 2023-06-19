@@ -22,13 +22,15 @@
 #include "yaSkillEffectScript.h"
 #include "yaRigidbody.h"
 #include "yaEnums.h"
-
+#include "yaWanda_Dmg_UP_Sc_Fx.h"
+#include "yaWanda_Dmg_Down_Sc_Fx.h"
 namespace ya {
 	BossWandaScript::BossWandaScript()
 		: Script()
 		, mState(eState::Idle)
 		, Skill_index(0)
 		, Garden2_index(0)
+		, Garden2_bool(true)
 	{
 	}
 	BossWandaScript::~BossWandaScript()
@@ -275,10 +277,21 @@ namespace ya {
 	void BossWandaScript::Wanda_Skill_Garden2_Again()
 	{
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-		Garden2_index++;
-		Wanda_Up_fx();
-		Wanda_Down_fx();
-		if (Garden2_index > 7)
+
+		if (Garden2_bool) //번갈아가면서 하기
+		{
+			Garden2_bool = false;
+			Wanda_Up_fx();
+		}
+		else
+		{
+			Garden2_bool = true;
+			Wanda_Down_fx();
+		}
+
+
+		Garden2_index++; // 공격모션 얼마나 반복 시키는지
+		if (Garden2_index > 6)
 		{
 			Garden2_index = 0;
 			animator->GetCompleteEvent(L"wanda_s2_garden2") = std::bind(&BossWandaScript::Wanda_Skill_Garden3, this);
@@ -303,11 +316,81 @@ namespace ya {
 
 	void BossWandaScript::Wanda_Up_fx() //T_Boss_Wanda_TentacleDamage
 	{
+		
+		GameObject* wanda_dmg_obj = object::Instantiate<GameObject>(eLayerType::Skill_Effect);
+		wanda_dmg_obj->SetName(L"wanda_dmg_obj");
+
+		Transform* wanda_dmg_tr = wanda_dmg_obj->GetComponent<Transform>();
+		Transform* player_tr = mGameObject->GetComponent<Transform>(); // 이건 플레이어꺼	
+		Vector3 tr = player_tr->GetPosition(); // 플레이어꺼
+
+		tr += 1.6f * player_tr->Up();
+		tr += 0.f * player_tr->Right();
+		wanda_dmg_tr->SetPosition(tr);
+		wanda_dmg_tr->SetScale(Vector3(14.0f, 14.0f, 1.0f));
+
+		Collider2D* wanda_dmg_col = wanda_dmg_obj->AddComponent<Collider2D>();
+		wanda_dmg_col->SetType(eColliderType::Rect);
+		wanda_dmg_col->SetSize(Vector2(0.05f, 0.3f));
+
+
+		Animator* wanda_dmg_ani = wanda_dmg_obj->AddComponent<Animator>();
+		std::shared_ptr<Texture> wanda_dmg = Resources::Load<Texture>(L"wanda_dmg", L"Boss\\T_Boss_Wanda_TentacleDamage.png");
+
+
+		wanda_dmg_ani->Create(L"wanda_dmg", wanda_dmg, Vector2(0.0f, 0.0f), Vector2(47.0f, 168.0f), Vector2(0.0f, 0.0f), 4, 4, 16, 0.12f);
+
+		wanda_dmg_ani->Play(L"wanda_dmg", false); //루프 안돌림
+
+
+		SpriteRenderer* SculptorNeedle_sr = wanda_dmg_obj->AddComponent<SpriteRenderer>();
+		std::shared_ptr<Material> SculptorNeedle_mateiral = Resources::Find<Material>(L"SpriteMaterial");
+		SculptorNeedle_sr->SetMaterial(SculptorNeedle_mateiral);
+		std::shared_ptr<Mesh> SculptorNeedle_mesh = Resources::Find<Mesh>(L"RectMesh");
+		SculptorNeedle_sr->SetMesh(SculptorNeedle_mesh);
+
+		Wanda_Dmg_UP_Sc_Fx* up_sc = wanda_dmg_obj->AddComponent<Wanda_Dmg_UP_Sc_Fx>();
+
+		
 	}
 
 
 
 	void BossWandaScript::Wanda_Down_fx() //T_Boss_Wanda_TentacleDamage
 	{
+		GameObject* wanda_dmg_obj = object::Instantiate<GameObject>(eLayerType::Skill_Effect);
+		wanda_dmg_obj->SetName(L"wanda_dmg_obj");
+
+		Transform* wanda_dmg_tr = wanda_dmg_obj->GetComponent<Transform>();
+		Transform* player_tr = mGameObject->GetComponent<Transform>(); // 이건 플레이어꺼	
+		Vector3 tr = player_tr->GetPosition(); // 플레이어꺼
+
+		tr += 1.7f * player_tr->Up();
+		tr += 0.f * player_tr->Right();
+		wanda_dmg_tr->SetPosition(tr);
+		wanda_dmg_tr->SetScale(Vector3(14.0f, 14.0f, 1.0f));
+		wanda_dmg_tr->SetRotation(Vector3(180.f, 0.f, 0.f));
+
+		Collider2D* wanda_dmg_col = wanda_dmg_obj->AddComponent<Collider2D>();
+		wanda_dmg_col->SetType(eColliderType::Rect);
+		wanda_dmg_col->SetSize(Vector2(0.05f, 0.3f));
+
+
+		Animator* wanda_dmg_ani = wanda_dmg_obj->AddComponent<Animator>();
+		std::shared_ptr<Texture> wanda_dmg = Resources::Load<Texture>(L"wanda_dmg", L"Boss\\T_Boss_Wanda_TentacleDamage.png");
+
+
+		wanda_dmg_ani->Create(L"wanda_dmg", wanda_dmg, Vector2(0.0f, 0.0f), Vector2(47.0f, 168.0f), Vector2(0.0f, 0.0f), 4, 4, 16, 0.12f);
+
+		wanda_dmg_ani->Play(L"wanda_dmg", false); //루프 안돌림
+
+
+		SpriteRenderer* SculptorNeedle_sr = wanda_dmg_obj->AddComponent<SpriteRenderer>();
+		std::shared_ptr<Material> SculptorNeedle_mateiral = Resources::Find<Material>(L"SpriteMaterial");
+		SculptorNeedle_sr->SetMaterial(SculptorNeedle_mateiral);
+		std::shared_ptr<Mesh> SculptorNeedle_mesh = Resources::Find<Mesh>(L"RectMesh");
+		SculptorNeedle_sr->SetMesh(SculptorNeedle_mesh);
+
+		Wanda_Dmg_Down_Sc_Fx* up_sc = wanda_dmg_obj->AddComponent<Wanda_Dmg_Down_Sc_Fx>();
 	}
 }

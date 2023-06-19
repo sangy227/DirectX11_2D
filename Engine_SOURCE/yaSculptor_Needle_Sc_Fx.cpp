@@ -93,7 +93,7 @@ namespace ya {
 		Vector3 ow_tr = ownertr->GetPosition();
 		
 
-		ow_tr += (-(10.6f) * ownertr->Up());
+		ow_tr += (-(50.6f) * ownertr->Up());
 		ownertr->SetPosition(ow_tr);
 
 		

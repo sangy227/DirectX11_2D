@@ -46,9 +46,9 @@ namespace ya {
 	}
 	void Needle_Sc_FX::Update()
 	{
-		Animator* animator = GetOwner()->GetComponent<Animator>();
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>();
 		
+		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"needle_idle") = std::bind(&Needle_Sc_FX::Start, this);
 		
 		Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -105,24 +105,14 @@ namespace ya {
 		
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-		Transform* ownertr = GetOwner()->GetComponent<Transform>();
-		Transform* playertr = mGameObject->GetComponent<Transform>();
 
-		Vector3 ow_tr = ownertr->GetPosition();
+		Transform* playertr = mGameObject->GetComponent<Transform>();
 		Vector3 tr = playertr->GetPosition(); // 플레이어꺼
 
-		//여기는 반복으로 계속 나타나게 하는것
-		{
-			//tr += 5.6f * playertr->Up();
-			////tr += 5.4f * -playertr->Up();
-			//ownertr->SetPosition(tr);
-			//ownertr->SetScale(Vector3(10.f, 10.f, 1.f));
+		Transform* ownertr = GetOwner()->GetComponent<Transform>();
+		Vector3 ow_tr = ownertr->GetPosition();
 
-			//animator->GetCompleteEvent(L"needle_idle") = std::bind(&Needle_Sc_FX::Action, this);
-			//animator->Play(L"needle_idle", false); //루프 안돌림 
-		}
-
-		ow_tr += (-(10.6f) * ownertr->Up());
+		ow_tr += (-(1000.6f) * ownertr->Up());
 		ownertr->SetPosition(ow_tr);
 
 		
