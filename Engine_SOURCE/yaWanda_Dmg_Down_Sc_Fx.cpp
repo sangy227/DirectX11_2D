@@ -41,7 +41,7 @@ namespace ya {
 	void Wanda_Dmg_Down_Sc_Fx::Initalize()
 	{
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-		animator->GetCompleteEvent(L"wanda_dmg") = std::bind(&Wanda_Dmg_Down_Sc_Fx::End, this);
+		animator->GetCompleteEvent(L"wanda_dmg") = std::bind(&Wanda_Dmg_Down_Sc_Fx::Start, this);
 	}
 	void Wanda_Dmg_Down_Sc_Fx::Update()
 	{
@@ -54,6 +54,7 @@ namespace ya {
 	}
 	void Wanda_Dmg_Down_Sc_Fx::OnCollisionEnter(Collider2D* collider)
 	{
+		int a = 0;
 	}
 	void Wanda_Dmg_Down_Sc_Fx::OnCollisionStay(Collider2D* collider)
 	{
@@ -63,16 +64,31 @@ namespace ya {
 	}
 	void Wanda_Dmg_Down_Sc_Fx::Start()
 	{
+		Collider2D* wanda_dmg_col = GetOwner()->AddComponent<Collider2D>();
+		wanda_dmg_col->SetType(eColliderType::Rect);
+		wanda_dmg_col->SetSize(Vector2(0.05f, 0.3f));
+		
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"wanda_dmg2") = std::bind(&Wanda_Dmg_Down_Sc_Fx::End, this);
+		animator->Play(L"wanda_dmg2",false);
 	}
 	void Wanda_Dmg_Down_Sc_Fx::Action()
 	{
 	}
 	void Wanda_Dmg_Down_Sc_Fx::End()
 	{
+		Collider2D* wanda_dmg_col = GetOwner()->GetComponent<Collider2D>();
+		wanda_dmg_col->IsTriiger_True();
+
 		Transform* ownertr = GetOwner()->GetComponent<Transform>();
 		Vector3 ow_tr = ownertr->GetPosition();
 
 		ow_tr += (-(100.6f) * ownertr->Up());
 		ownertr->SetPosition(ow_tr);
+
+
+		
+
 	}
 }

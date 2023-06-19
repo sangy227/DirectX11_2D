@@ -95,9 +95,9 @@ namespace ya {
 		if (mState == eState::Skill_Start) 
 		{
 			if (Skill_index == 0)
-				Wanda_Skill_Spin();
+				Wanda_Skill_Spin(); //콜라이더 완료
 			if (Skill_index == 1)
-				Wanda_Skill_Garden();
+				Wanda_Skill_Garden(); //콜라이더 완료
 			if (Skill_index == 2)
 				Wanda_Skill_Chain();
 			if (Skill_index == 3)
@@ -132,7 +132,7 @@ namespace ya {
 
 		if (Input::GetKeyDown(eKeyCode::R)) 
 		{
-			Wanda_Skill_Garden();
+			Wanda_Skill_Chain();
 			
 		}
 		//if (Input::GetKeyDown(eKeyCode::T)) //스킬
@@ -198,6 +198,11 @@ namespace ya {
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		tr->SetScale(Vector3(13.0f, 15.0f, 1.0f));
+
+		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+
+		col->SetSize(Vector2(0.1f, 0.25f));
+		col->SetCenter(Vector2(-0.1f, 0.0f));
 	
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"wanda_idle") = std::bind(&BossWandaScript::MState_Change_Skill_Selected, this);
@@ -211,14 +216,65 @@ namespace ya {
 
 
 
+
+
+
 	void BossWandaScript::Wanda_Skill_Spin()
 	{
 		mState = eState::Skill;
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-		animator->GetCompleteEvent(L"wanda_s2_spin") = std::bind(&BossWandaScript::Wanda_Idel, this);
+		animator->GetCompleteEvent(L"wanda_s2_spin") = std::bind(&BossWandaScript::Wanda_Skill_Spin2, this);
 		animator->Play(L"wanda_s2_spin");
 	}
+
+	void BossWandaScript::Wanda_Skill_Spin2()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"wanda_s2_spin2") = std::bind(&BossWandaScript::Wanda_Skill_Spin3, this);
+		animator->Play(L"wanda_s2_spin2");
+
+		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+		
+		col->SetSize(Vector2(0.6f, 0.25f));
+
+
+		
+	}
+
+	void BossWandaScript::Wanda_Skill_Spin3()
+	{
+
+		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+		
+		col->SetSize(Vector2(0.1f, 0.25f));
+
+
+
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"wanda_s2_spin3") = std::bind(&BossWandaScript::Wanda_Skill_Spin4, this);
+		animator->Play(L"wanda_s2_spin3");
+	}
+
+	void BossWandaScript::Wanda_Skill_Spin4()
+	{
+		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+
+		col->SetSize(Vector2(0.6f, 0.25f));
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"wanda_s2_spin4") = std::bind(&BossWandaScript::Wanda_Idel, this);
+		animator->Play(L"wanda_s2_spin4");
+	}
+
+
+
+
+
+
+
+
 
 	void BossWandaScript::Wanda_Skill_Middle()
 	{
@@ -231,6 +287,10 @@ namespace ya {
 		animator->Play(L"wanda_aoe_middle");
 	}
 
+
+
+
+
 	
 
 	void BossWandaScript::Wanda_Skill_Chain()
@@ -238,9 +298,83 @@ namespace ya {
 		mState = eState::Skill;
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-		animator->GetCompleteEvent(L"wanda_chain") = std::bind(&BossWandaScript::Wanda_Idel, this);
+		animator->GetCompleteEvent(L"wanda_chain") = std::bind(&BossWandaScript::Wanda_Skill_Chain2, this);
 		animator->Play(L"wanda_chain");
 	}
+
+	void BossWandaScript::Wanda_Skill_Chain2()
+	{
+		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+		Transform* wanda_tr = GetOwner()->GetComponent<Transform>();
+		Transform* player_tr = mGameObject->GetComponent<Transform>();
+		Vector3 firsttr = wanda_tr->GetPosition();
+		Vector3 secondtr = player_tr->GetPosition();
+		if (firsttr.x - secondtr.x > 0.0f)
+		{ 
+			//왼쪽 일떄
+			col->SetCenter(Vector2(-2.5f, 0.0f));
+			col->SetSize(Vector2(0.5f, 0.2f));
+		}
+		else
+		{
+			//오른쪽 일떄
+			col->SetCenter(Vector2(2.5f, 0.0f));
+			col->SetSize(Vector2(0.5f, 0.2f));
+		}
+
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"wanda_chain2") = std::bind(&BossWandaScript::Wanda_Skill_Chain3, this);
+		animator->Play(L"wanda_chain2");
+	}
+
+	void BossWandaScript::Wanda_Skill_Chain3()
+	{
+		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+
+		col->SetSize(Vector2(0.1f, 0.25f));
+		col->SetCenter(Vector2(-0.1f, 0.0f));
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"wanda_chain3") = std::bind(&BossWandaScript::Wanda_Skill_Chain4, this);
+		animator->Play(L"wanda_chain3");
+	}
+
+	void BossWandaScript::Wanda_Skill_Chain4()
+	{
+		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+		Transform* wanda_tr = GetOwner()->GetComponent<Transform>();
+		Transform* player_tr = mGameObject->GetComponent<Transform>();
+		Vector3 firsttr = wanda_tr->GetPosition();
+		Vector3 secondtr = player_tr->GetPosition();
+		if (firsttr.x - secondtr.x > 0.0f)
+		{
+			//왼쪽 일떄
+			col->SetCenter(Vector2(-2.5f, 0.0f));
+			col->SetSize(Vector2(0.5f, 0.2f));
+			wanda_tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
+		}
+		else
+		{
+			//오른쪽 일떄
+			col->SetCenter(Vector2(2.5f, 0.0f));
+			col->SetSize(Vector2(0.5f, 0.2f));
+			wanda_tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
+		}
+
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"wanda_chain4") = std::bind(&BossWandaScript::Wanda_Idel, this);
+		animator->Play(L"wanda_chain4");
+	}
+
+
+
+
+
+
+
+
 
 	void BossWandaScript::Wanda_Skill_S2()
 	{
@@ -251,14 +385,46 @@ namespace ya {
 		animator->Play(L"wanda_s1_s2");
 	}
 
+
+
+
+
+
 	void BossWandaScript::Wanda_Skill_Aoe()
 	{
 		mState = eState::Skill;
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-		animator->GetCompleteEvent(L"wanda_s2_aoe") = std::bind(&BossWandaScript::Wanda_Idel, this);
+		animator->GetCompleteEvent(L"wanda_s2_aoe") = std::bind(&BossWandaScript::Wanda_Skill_Aoe2, this);
 		animator->Play(L"wanda_s2_aoe");
 	}
+
+	void BossWandaScript::Wanda_Skill_Aoe2()
+	{
+		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+
+		col->SetSize(Vector2(0.63f, 0.25f));
+
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"wanda_s2_aoe2") = std::bind(&BossWandaScript::Wanda_Skill_Aoe3, this);
+		animator->Play(L"wanda_s2_aoe2");
+	}
+
+	void BossWandaScript::Wanda_Skill_Aoe3()
+	{
+		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+
+		col->SetSize(Vector2(0.1f, 0.25f));
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"wanda_s2_aoe3") = std::bind(&BossWandaScript::Wanda_Idel, this);
+		animator->Play(L"wanda_s2_aoe3");
+	}
+
+
+
+
 
 	void BossWandaScript::Wanda_Skill_Garden()
 	{
@@ -317,7 +483,7 @@ namespace ya {
 	void BossWandaScript::Wanda_Up_fx() //T_Boss_Wanda_TentacleDamage
 	{
 		
-		GameObject* wanda_dmg_obj = object::Instantiate<GameObject>(eLayerType::Skill_Effect);
+		GameObject* wanda_dmg_obj = object::Instantiate<GameObject>(eLayerType::Attack_Object);
 		wanda_dmg_obj->SetName(L"wanda_dmg_obj");
 
 		Transform* wanda_dmg_tr = wanda_dmg_obj->GetComponent<Transform>();
@@ -329,16 +495,17 @@ namespace ya {
 		wanda_dmg_tr->SetPosition(tr);
 		wanda_dmg_tr->SetScale(Vector3(14.0f, 14.0f, 1.0f));
 
-		Collider2D* wanda_dmg_col = wanda_dmg_obj->AddComponent<Collider2D>();
-		wanda_dmg_col->SetType(eColliderType::Rect);
-		wanda_dmg_col->SetSize(Vector2(0.05f, 0.3f));
+		//Collider2D* wanda_dmg_col = wanda_dmg_obj->AddComponent<Collider2D>();
+		//wanda_dmg_col->SetType(eColliderType::Rect);
+		//wanda_dmg_col->SetSize(Vector2(0.05f, 0.3f));
 
 
 		Animator* wanda_dmg_ani = wanda_dmg_obj->AddComponent<Animator>();
 		std::shared_ptr<Texture> wanda_dmg = Resources::Load<Texture>(L"wanda_dmg", L"Boss\\T_Boss_Wanda_TentacleDamage.png");
 
 
-		wanda_dmg_ani->Create(L"wanda_dmg", wanda_dmg, Vector2(0.0f, 0.0f), Vector2(47.0f, 168.0f), Vector2(0.0f, 0.0f), 4, 4, 16, 0.12f);
+		wanda_dmg_ani->Create(L"wanda_dmg", wanda_dmg, Vector2(0.0f, 0.0f), Vector2(47.0f, 168.0f), Vector2(0.0f, 0.0f), 4, 4, 8, 0.12f);
+		wanda_dmg_ani->Create(L"wanda_dmg2", wanda_dmg, Vector2(0.0f, 336.0f), Vector2(47.0f, 168.0f), Vector2(0.0f, 0.0f), 4, 2, 8, 0.12f);
 
 		wanda_dmg_ani->Play(L"wanda_dmg", false); //루프 안돌림
 
@@ -358,7 +525,7 @@ namespace ya {
 
 	void BossWandaScript::Wanda_Down_fx() //T_Boss_Wanda_TentacleDamage
 	{
-		GameObject* wanda_dmg_obj = object::Instantiate<GameObject>(eLayerType::Skill_Effect);
+		GameObject* wanda_dmg_obj = object::Instantiate<GameObject>(eLayerType::Attack_Object);
 		wanda_dmg_obj->SetName(L"wanda_dmg_obj");
 
 		Transform* wanda_dmg_tr = wanda_dmg_obj->GetComponent<Transform>();
@@ -371,16 +538,17 @@ namespace ya {
 		wanda_dmg_tr->SetScale(Vector3(14.0f, 14.0f, 1.0f));
 		wanda_dmg_tr->SetRotation(Vector3(180.f, 0.f, 0.f));
 
-		Collider2D* wanda_dmg_col = wanda_dmg_obj->AddComponent<Collider2D>();
+		/*Collider2D* wanda_dmg_col = wanda_dmg_obj->AddComponent<Collider2D>();
 		wanda_dmg_col->SetType(eColliderType::Rect);
-		wanda_dmg_col->SetSize(Vector2(0.05f, 0.3f));
+		wanda_dmg_col->SetSize(Vector2(0.05f, 0.3f));*/
 
 
 		Animator* wanda_dmg_ani = wanda_dmg_obj->AddComponent<Animator>();
 		std::shared_ptr<Texture> wanda_dmg = Resources::Load<Texture>(L"wanda_dmg", L"Boss\\T_Boss_Wanda_TentacleDamage.png");
 
 
-		wanda_dmg_ani->Create(L"wanda_dmg", wanda_dmg, Vector2(0.0f, 0.0f), Vector2(47.0f, 168.0f), Vector2(0.0f, 0.0f), 4, 4, 16, 0.12f);
+		wanda_dmg_ani->Create(L"wanda_dmg", wanda_dmg, Vector2(0.0f, 0.0f), Vector2(47.0f, 168.0f), Vector2(0.0f, 0.0f), 4, 4, 8, 0.12f);
+		wanda_dmg_ani->Create(L"wanda_dmg2", wanda_dmg, Vector2(0.0f, 336.0f), Vector2(47.0f, 168.0f), Vector2(0.0f, 0.0f), 4, 2, 8, 0.12f);
 
 		wanda_dmg_ani->Play(L"wanda_dmg", false); //루프 안돌림
 

@@ -218,7 +218,7 @@ namespace ya {
 	void GrandPaScript::Needle_FX()
 	{
 		{
-			Monster* needleeffect = object::Instantiate<Monster>(eLayerType::Skill_Effect);
+			Monster* needleeffect = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			needleeffect->SetName(L"GrandPa_Needle_01");
 
 			Transform* needleeffect_tr = needleeffect->GetComponent<Transform>();
@@ -265,7 +265,7 @@ namespace ya {
 			
 		}
 		{
-			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Skill_Effect);
+			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			needleeffect2->SetName(L"GrandPa_Needle_02");
 
 			Transform* needleeffect2_tr = needleeffect2->GetComponent<Transform>();
@@ -311,7 +311,7 @@ namespace ya {
 
 		}
 		{
-			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Skill_Effect);
+			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			needleeffect2->SetName(L"GrandPa_Needle_03");
 
 			Transform* needleeffect2_tr = needleeffect2->GetComponent<Transform>();
@@ -359,7 +359,7 @@ namespace ya {
 		}
 
 		{
-			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Skill_Effect);
+			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			needleeffect2->SetName(L"GrandPa_Needle_04");
 
 			Transform* needleeffect2_tr = needleeffect2->GetComponent<Transform>();
@@ -407,7 +407,7 @@ namespace ya {
 		}
 
 		{
-			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Skill_Effect);
+			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			needleeffect2->SetName(L"GrandPa_Needle_04");
 
 			Transform* needleeffect2_tr = needleeffect2->GetComponent<Transform>();

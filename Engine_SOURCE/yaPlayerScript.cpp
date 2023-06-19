@@ -295,7 +295,7 @@ namespace ya
 
 	void PlayerScript::OnCollisionEnter(Collider2D* collider)
 	{
-		
+		int a = 0;
 	}
 
 	void PlayerScript::OnCollisionStay(Collider2D* collider)
@@ -329,12 +329,12 @@ namespace ya
 
 	void PlayerScript::Player_Idel() //스킬모션이끝나고 idel 애니메이션으로 전환
 	{
+		cameraShakeIdel();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->Play(L"Idle");
-		cameraShakeIdel();
 	}
 
 
@@ -363,7 +363,7 @@ namespace ya
 	void PlayerScript::Skill_Whirlwind_Fx() 
 	{
 		{
-			Player* skilleffect = object::Instantiate<Player>(eLayerType::Skill_Effect);
+			Player* skilleffect = object::Instantiate<Player>(eLayerType::Attack_Object);
 			skilleffect->SetName(L"player_skill_effect_01");
 
 			Transform* skilleffct_tr = skilleffect->GetComponent<Transform>();
@@ -397,7 +397,7 @@ namespace ya
 	void PlayerScript::Skill_Spear_FX() // 잔상 안씀
 	{
 		{
-			Player* skilleffect = object::Instantiate<Player>(eLayerType::Skill_Effect);
+			Player* skilleffect = object::Instantiate<Player>(eLayerType::Attack_Object);
 			skilleffect->SetName(L"player_skill_effect_02");
 
 			Transform* skilleffct_tr = skilleffect->GetComponent<Transform>();

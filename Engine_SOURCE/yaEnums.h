@@ -18,12 +18,19 @@ namespace ya::enums
 		Grid,
 		Monster,
 		Player,
-		Skill_Effect,
+		Attack_Object,
+		Player_Attack_Object,
+
+
+
+
+
+
 		EventObjectStart,
 		EventObjectLine,
 		EventObjectStop,
 
-		EventObjectStart2,
+		
 		EventObjectLine2,
 		EventObjectStop2,
 

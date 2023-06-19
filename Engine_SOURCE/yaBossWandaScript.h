@@ -40,11 +40,24 @@ namespace ya
 		void MState_Change_Skill_Selected();
 
 		void Wanda_Skill_Spin();
+		void Wanda_Skill_Spin2();
+		void Wanda_Skill_Spin3();
+		void Wanda_Skill_Spin4();
+
 		void Wanda_Skill_Middle();
 		
 		void Wanda_Skill_Chain();
+		void Wanda_Skill_Chain2();
+		void Wanda_Skill_Chain3();
+		void Wanda_Skill_Chain4();
+
 		void Wanda_Skill_S2();
+
 		void Wanda_Skill_Aoe();
+		void Wanda_Skill_Aoe2();
+		void Wanda_Skill_Aoe3();
+
+
 		void Wanda_Skill_Garden();
 		void Wanda_Skill_Garden2();
 		void Wanda_Skill_Garden2_Again();
@@ -63,6 +76,11 @@ namespace ya
 		UINT Skill_index;
 		UINT Garden2_index;
 		bool Garden2_bool;
+
+
+	private:
+		GameObject* Spin_attack_Right;
+		GameObject* Spin_attack_Left;
 	};
 }
 

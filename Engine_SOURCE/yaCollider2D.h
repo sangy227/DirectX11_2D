@@ -28,6 +28,9 @@ namespace ya
 		void SetCenter(Vector2 center) { mCenter = center; }
 		void SetRadius(float radius) { mRadius = radius; }
 		bool IsTriiger() { return mbTrigger; }
+		void IsTriiger_True() { mbTrigger = true; }
+		void IsTriiger_False() { mbTrigger = false; }
+
 		UINT GetID() { return mID; }
 		Vector3 GetPosition() { return mPosition; }
 		Vector2 GetSize() { return mSize; }

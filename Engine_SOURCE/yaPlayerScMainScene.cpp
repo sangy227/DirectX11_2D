@@ -337,7 +337,7 @@ namespace ya {
 	void PlayerScMainScene::Skill_Whirlwind_Fx()
 	{
 		{
-			Player* skilleffect = object::Instantiate<Player>(eLayerType::Skill_Effect);
+			Player* skilleffect = object::Instantiate<Player>(eLayerType::Player);
 			skilleffect->SetName(L"player_skill_effect_01");
 
 			Transform* skilleffct_tr = skilleffect->GetComponent<Transform>();

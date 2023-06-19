@@ -278,27 +278,35 @@ namespace ya
 			Animator* BossWanda_Animator = wanda_obj->AddComponent<Animator>();
 			std::shared_ptr<Texture> wanda_idle = Resources::Load<Texture>(L"wanda", L"Boss\\T_Boss_Wanda_S1_Idle.png");
 			std::shared_ptr<Texture> wanda_aoe_middle = Resources::Load<Texture>(L"wanda_aoe", L"Boss\\T_Boss_Wanda_S1_AoE_Middle.png");
-			std::shared_ptr<Texture> wanda_chain = Resources::Load<Texture>(L"wanda_chain", L"Boss\\T_Boss_Wanda_S1_Chain.png");
+			std::shared_ptr<Texture> wanda_chain = Resources::Load<Texture>(L"wanda_chain", L"Boss\\T_Boss_Wanda_S1_Chain.png"); //¾¸
 			std::shared_ptr<Texture> wanda_s1_s2 = Resources::Load<Texture>(L"wanda_S1_S2", L"Boss\\T_Boss_Wanda_S1_S2.png");
-			std::shared_ptr<Texture> wanda_s2_aoe = Resources::Load<Texture>(L"wanda_S1_AoE", L"Boss\\T_Boss_Wanda_S2_AoE.png");
-			std::shared_ptr<Texture> wanda_s2_garden = Resources::Load<Texture>(L"wanda_S2_Garden", L"Boss\\T_Boss_Wanda_S2_Garden.png");
+			std::shared_ptr<Texture> wanda_s2_aoe = Resources::Load<Texture>(L"wanda_S1_AoE", L"Boss\\T_Boss_Wanda_S2_AoE.png"); // ¾¸
+			std::shared_ptr<Texture> wanda_s2_garden = Resources::Load<Texture>(L"wanda_S2_Garden", L"Boss\\T_Boss_Wanda_S2_Garden.png"); //¾¸
 			std::shared_ptr<Texture> wanda_s2_npc = Resources::Load<Texture>(L"wanda_S2_NPC", L"Boss\\T_Boss_Wanda_S2_NPC.png");
 			std::shared_ptr<Texture> wanda_s2_npc_idle = Resources::Load<Texture>(L"wanda_S2_NPC_IDLE", L"Boss\\T_Boss_Wanda_S2_NPC_idel.png");
 			std::shared_ptr<Texture> wanda_s2_skinshed = Resources::Load<Texture>(L"wanda_S2_SkinShed", L"Boss\\T_Boss_Wanda_S2_SkinShed.png");
-			std::shared_ptr<Texture> wanda_s2_spin = Resources::Load<Texture>(L"wanda_S2_Spin", L"Boss\\T_Boss_Wanda_S2_Spin.png");
+			std::shared_ptr<Texture> wanda_s2_spin = Resources::Load<Texture>(L"wanda_S2_Spin", L"Boss\\T_Boss_Wanda_S2_Spin.png"); //¾¸
 
 			BossWanda_Animator->Create(L"wanda_idle", wanda_idle, Vector2(0.0f, 0.0f), Vector2(96.0f, 106.0f), Vector2::Zero, 4, 4, 13, 0.10f);
 			BossWanda_Animator->Create(L"wanda_aoe_middle", wanda_aoe_middle, Vector2(0.0f, 0.0f), Vector2(130.0f, 167.0f), Vector2(0.0f, -0.03f), 6, 6, 36, 0.10f);
-			BossWanda_Animator->Create(L"wanda_chain", wanda_chain, Vector2(0.0f, 0.0f), Vector2(285.0f, 98.0f), Vector2(0.07f, -0.03f), 5, 5, 25, 0.10f , 3);
+			BossWanda_Animator->Create(L"wanda_chain", wanda_chain, Vector2(0.0f, 0.0f), Vector2(285.0f, 98.0f), Vector2(0.07f, -0.03f), 5, 2, 10, 0.10f , 3); //¾¸
+			BossWanda_Animator->Create(L"wanda_chain2", wanda_chain, Vector2(0.0f, 196.0f), Vector2(285.0f, 98.0f), Vector2(0.07f, -0.03f), 5, 3, 5, 0.10f , 3); //¾¸
+			BossWanda_Animator->Create(L"wanda_chain3", wanda_chain, Vector2(0.0f, 294.0f), Vector2(285.0f, 98.0f), Vector2(0.07f, -0.03f), 5, 5, 5, 0.10f , 3); //¾¸
+			BossWanda_Animator->Create(L"wanda_chain4", wanda_chain, Vector2(0.0f, 392.0f), Vector2(285.0f, 98.0f), Vector2(0.07f, -0.03f), 5, 5, 5, 0.10f , 3); //¾¸
 			BossWanda_Animator->Create(L"wanda_s1_s2", wanda_s1_s2, Vector2(0.0f, 0.0f), Vector2(119.0f, 122.0f), Vector2(0.0f, -0.03f), 6, 5, 26, 0.10f, 6);
-			BossWanda_Animator->Create(L"wanda_s2_aoe", wanda_s2_aoe, Vector2(0.0f, 0.0f), Vector2(365.0f, 234.0f), Vector2(0.0f, -0.03f), 5, 5, 24, 0.10f);
-			BossWanda_Animator->Create(L"wanda_s2_garden", wanda_s2_garden, Vector2(0.0f, 0.0f), Vector2(181.0f, 228.0f), Vector2(0.0f, -0.01f), 6, 2, 8, 0.1f);
-			BossWanda_Animator->Create(L"wanda_s2_garden2", wanda_s2_garden, Vector2(362.0f, 228.0f), Vector2(181.0f, 228.0f), Vector2(0.0f, -0.01f), 4, 1, 4, 0.1f);
-			BossWanda_Animator->Create(L"wanda_s2_garden3", wanda_s2_garden, Vector2(0.0f, 456.0f), Vector2(181.0f, 228.0f), Vector2(0.0f, -0.01f), 6, 4, 19, 0.1f);
-			BossWanda_Animator->Create(L"wanda_s2_npc", wanda_s2_npc, Vector2(0.0f, 0.0f), Vector2(121.0f, 147.0f), Vector2(0.0f, -0.01f), 5, 5, 24, 0.10f);
-			BossWanda_Animator->Create(L"wanda_s2_npc_idle", wanda_s2_npc_idle, Vector2(0.0f, 0.0f), Vector2(48.0f, 61.0f), Vector2(0.0f, 0.1f), 1, 1, 1, 0.10f);
-			BossWanda_Animator->Create(L"wanda_s2_skinshed", wanda_s2_skinshed, Vector2(0.0f, 0.0f), Vector2(272.0f, 132.0f), Vector2(0.0f, -0.01f), 7, 6, 39, 0.10f); //ÁÂÇ¥ ºý¼¼¼­ ¾È¾¸
-			BossWanda_Animator->Create(L"wanda_s2_spin", wanda_s2_spin, Vector2(0.0f, 0.0f), Vector2(391.0f, 216.0f), Vector2(0.0f, -0.03f), 6, 6, 31, 0.10f);
+			BossWanda_Animator->Create(L"wanda_s2_aoe", wanda_s2_aoe, Vector2(0.0f, 0.0f), Vector2(365.0f, 234.0f), Vector2(0.0f, -0.03f), 5, 5, 15, 0.10f); //¾¸
+			BossWanda_Animator->Create(L"wanda_s2_aoe2", wanda_s2_aoe, Vector2(0.0f, 702.0f), Vector2(365.0f, 234.0f), Vector2(0.0f, -0.03f), 5, 2, 5, 0.10f); //¾¸
+			BossWanda_Animator->Create(L"wanda_s2_aoe3", wanda_s2_aoe, Vector2(0.0f, 936.0f), Vector2(365.0f, 234.0f), Vector2(0.0f, -0.03f), 5, 1, 4, 0.10f); //¾¸
+			BossWanda_Animator->Create(L"wanda_s2_garden", wanda_s2_garden, Vector2(0.0f, 0.0f), Vector2(181.0f, 228.0f), Vector2(0.0f, -0.01f), 6, 2, 8, 0.1f); //¾¸
+			BossWanda_Animator->Create(L"wanda_s2_garden2", wanda_s2_garden, Vector2(362.0f, 228.0f), Vector2(181.0f, 228.0f), Vector2(0.0f, -0.01f), 4, 1, 4, 0.1f); //¾¸
+			BossWanda_Animator->Create(L"wanda_s2_garden3", wanda_s2_garden, Vector2(0.0f, 456.0f), Vector2(181.0f, 228.0f), Vector2(0.0f, -0.01f), 6, 4, 19, 0.1f); //¾¸
+			BossWanda_Animator->Create(L"wanda_s2_npc", wanda_s2_npc, Vector2(0.0f, 0.0f), Vector2(121.0f, 147.0f), Vector2(0.0f, -0.01f), 5, 5, 24, 0.10f);//¾¸
+			BossWanda_Animator->Create(L"wanda_s2_npc_idle", wanda_s2_npc_idle, Vector2(0.0f, 0.0f), Vector2(48.0f, 61.0f), Vector2(0.0f, 0.1f), 1, 1, 1, 0.10f);//¾¸
+			BossWanda_Animator->Create(L"wanda_s2_skinshed", wanda_s2_skinshed, Vector2(0.0f, 0.0f), Vector2(272.0f, 132.0f), Vector2(0.0f, -0.01f), 7, 6, 39, 0.10f); 
+			BossWanda_Animator->Create(L"wanda_s2_spin", wanda_s2_spin, Vector2(0.0f, 0.0f), Vector2(391.0f, 216.0f), Vector2(0.0f, -0.03f), 6, 6, 12, 0.10f); //¾¸
+			BossWanda_Animator->Create(L"wanda_s2_spin2", wanda_s2_spin, Vector2(0.0f, 432.0f), Vector2(391.0f, 216.0f), Vector2(0.0f, -0.03f), 6, 4, 6, 0.10f); //¾¸
+			BossWanda_Animator->Create(L"wanda_s2_spin3", wanda_s2_spin, Vector2(0.0f, 648.0f), Vector2(391.0f, 216.0f), Vector2(0.0f, -0.03f), 6, 3, 6, 0.10f); //¾¸
+			BossWanda_Animator->Create(L"wanda_s2_spin4", wanda_s2_spin, Vector2(0.0f, 864.0f), Vector2(391.0f, 216.0f), Vector2(0.0f, -0.03f), 6, 2, 7, 0.10f); //¾¸
 
 			BossWanda_Animator->Play(L"wanda_s2_npc_idle", true);
 			
@@ -336,11 +344,12 @@ namespace ya
 		}
 		
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Attack_Object, true);
 	}
 
 	void PlayScene::OnExit()
 	{
-		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, false);
+		//CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, false);
 	}
 
 }

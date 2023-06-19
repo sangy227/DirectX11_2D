@@ -617,7 +617,13 @@ namespace ya {
 	}
 	void MainScene::OnExit()
 	{
-		
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, false);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectStart, false);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectLine, false);
+		CollisionManager::CollisionLayerCheck(eLayerType::EventObjectStop, eLayerType::EventObjectLine, false);
+
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectLine2, false);
+		CollisionManager::CollisionLayerCheck(eLayerType::EventObjectStop2, eLayerType::EventObjectLine2, false);
 
 	}
 }

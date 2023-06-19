@@ -175,7 +175,7 @@ namespace ya {
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>(); //할배꺼 가져온거
 
 		{
-			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Skill_Effect);
+			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			SculptorNeedle_effect->SetName(L"SculptorNeedle_effect1");
 
 			Transform* SculptorNeedle_tr = SculptorNeedle_effect->GetComponent<Transform>();
@@ -220,7 +220,7 @@ namespace ya {
 		}
 
 		{
-			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Skill_Effect);
+			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			SculptorNeedle_effect->SetName(L"SculptorNeedle_effect5");
 
 			Transform* SculptorNeedle_tr = SculptorNeedle_effect->GetComponent<Transform>();
@@ -261,7 +261,7 @@ namespace ya {
 		}
 
 		{
-			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Skill_Effect);
+			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			SculptorNeedle_effect->SetName(L"SculptorNeedle_effect5");
 
 			Transform* SculptorNeedle_tr = SculptorNeedle_effect->GetComponent<Transform>();
@@ -302,7 +302,7 @@ namespace ya {
 		}
 
 		{
-			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Skill_Effect);
+			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			SculptorNeedle_effect->SetName(L"SculptorNeedle_effect7");
 
 			Transform* SculptorNeedle_tr = SculptorNeedle_effect->GetComponent<Transform>();
@@ -348,7 +348,7 @@ namespace ya {
 	void SculptorScript::Sculptor_Needle2()
 	{
 		{
-			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Skill_Effect);
+			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			SculptorNeedle_effect->SetName(L"SculptorNeedle_effect2");
 
 			Transform* SculptorNeedle_tr = SculptorNeedle_effect->GetComponent<Transform>();
@@ -394,7 +394,7 @@ namespace ya {
 
 
 		{
-			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Skill_Effect);
+			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			SculptorNeedle_effect->SetName(L"SculptorNeedle_effect2");
 
 			Transform* SculptorNeedle_tr = SculptorNeedle_effect->GetComponent<Transform>();
@@ -439,7 +439,7 @@ namespace ya {
 		}
 
 		{
-			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Skill_Effect);
+			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			SculptorNeedle_effect->SetName(L"SculptorNeedle_effect2");
 
 			Transform* SculptorNeedle_tr = SculptorNeedle_effect->GetComponent<Transform>();
