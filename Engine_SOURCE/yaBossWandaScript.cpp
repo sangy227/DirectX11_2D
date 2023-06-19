@@ -173,12 +173,15 @@ namespace ya {
 
 	void BossWandaScript::OnCollisionEnter(Collider2D* collider)
 	{
+		int a = 0;
 	}
 	void BossWandaScript::OnCollisionStay(Collider2D* collider)
 	{
+		int a = 0;
 	}
 	void BossWandaScript::OnCollisionExit(Collider2D* collider)
 	{
+		int a = 0;
 	}
 
 

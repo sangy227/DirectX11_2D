@@ -178,6 +178,9 @@ namespace ya
 			}
 		}
 
+		//어택 콜라이더 오브젝트
+		GameObject* mPlayer_attack_object = object::Instantiate<GameObject>(eLayerType::Player_Attack_Object);
+
 		//Game_Main_Player
 		{
 			gameplayer = object::Instantiate<Player>(eLayerType::Player);
@@ -196,7 +199,7 @@ namespace ya
 			Collider2D* gameplayer_col = gameplayer->AddComponent<Collider2D>();
 			gameplayer_col->SetType(eColliderType::Rect);
 			gameplayer_col->SetSize(Vector2(0.03f, 0.11f));
-			gameplayer_col->SetCenter(Vector2(0.2f, 0.0f));
+			
 
 			
 #pragma region Animator
@@ -237,9 +240,12 @@ namespace ya
 			gameplayer_sr->SetMesh(gameplayer_mesh);
 			gameplayer_sr->SetMaterial(gameplayer_mateiral);
 
+			
 
-			PlayerScript* camsc = gameplayer->AddComponent<PlayerScript>();
-			camsc->setCameraScript(bcs);
+			PlayerScript* player_sc = gameplayer->AddComponent<PlayerScript>();
+			player_sc->setCameraScript(bcs);
+			player_sc->setGameObject(cameraObj);
+			player_sc->setAttack_obj(mPlayer_attack_object);
 			//gameplayer->AddComponent<PlayerScript>();
 			//object::DontDestroyOnLoad(gameplayer);
 
@@ -318,6 +324,7 @@ namespace ya
 			wanda_sr->SetMaterial(wanda_mt);
 			BossWandaScript* wandaSc = wanda_obj->AddComponent<BossWandaScript>();
 			wandaSc->setmGameObject(gameplayer);
+
 		}
 
 
@@ -345,6 +352,7 @@ namespace ya
 		
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Attack_Object, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player_Attack_Object, eLayerType::Monster, true);
 	}
 
 	void PlayScene::OnExit()

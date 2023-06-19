@@ -100,7 +100,7 @@ namespace ya
 
 	Vector3 CameraScript::CameraWeakShakeeffect(Vector3 pos)
 	{
-		float shakeAmount = 0.003f; // Change this value to adjust the camera shake intensity
+		float shakeAmount = 0.002f; // Change this value to adjust the camera shake intensity
 		Vector3 shakeOffset = Vector3(RandomRange(-shakeAmount, shakeAmount), RandomRange(-shakeAmount, shakeAmount), 0.0f);
 		return pos += shakeOffset;
 	}

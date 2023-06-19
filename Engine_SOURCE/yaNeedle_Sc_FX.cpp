@@ -43,13 +43,15 @@ namespace ya {
 	}
 	void Needle_Sc_FX::Initalize()
 	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"needle_idle") = std::bind(&Needle_Sc_FX::Start, this);
 	}
 	void Needle_Sc_FX::Update()
 	{
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>();
 		
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-		animator->GetCompleteEvent(L"needle_idle") = std::bind(&Needle_Sc_FX::Start, this);
+	
 		
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		if (trigger) {

@@ -22,6 +22,8 @@
 #include "yaSkillEffectScript.h"
 #include "yaRigidbody.h"
 #include "yaEnums.h"
+#include "yaTransform.h"
+#include "yaComponent.h"
 
 namespace ya
 {
@@ -29,7 +31,7 @@ namespace ya
 		: Script()
 		, mState(ePlayerState::RIGHT_Idle)
 	{
-		int a = 0;
+		
 	}
 
 	PlayerScript::~PlayerScript()
@@ -38,24 +40,14 @@ namespace ya
 
 	void PlayerScript::Initalize()
 	{
-		int a = 0;
-		Animator* animator = GetOwner()->GetComponent<Animator>();
-		animator->GetStartEvent(L"skill_hammer") = std::bind(&PlayerScript::Start, this);
-		animator->GetCompleteEvent(L"Idle") = std::bind(&PlayerScript::Action, this);
-		animator->GetEndEvent(L"Idle") = std::bind(&PlayerScript::End, this);
-		animator->GetEvent(L"Idle", 1) = std::bind(&PlayerScript::End, this);
+		
 	}
 
 	void PlayerScript::Update()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-		//Vector3 rot = tr->GetRotation();
-		//rot.z += 10.0f * Time::DeltaTime();
-		//tr->SetRotation(rot);
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-
-		
-
+		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 
 		if (Input::GetKeyState(eKeyCode::R) == eKeyState::PRESSED) //회전
 		{
@@ -65,7 +57,7 @@ namespace ya
 		}
 
 
-		if (Input::GetKeyDown(eKeyCode::RIGHT))
+		if (Input::GetKeyDown(eKeyCode::RIGHT)) //오른쪽 이동
 		{
 			animator->Play(L"run",true);
 			mState = ePlayerState::RIGHT_Run;
@@ -78,7 +70,7 @@ namespace ya
 		}
 		
 
-		if (Input::GetKeyDown(eKeyCode::LEFT))
+		if (Input::GetKeyDown(eKeyCode::LEFT)) //왼쪽 이동
 		{
 			animator->Play(L"run", true);
 			mState = ePlayerState::Left_Run;
@@ -90,7 +82,7 @@ namespace ya
 		}
 		
 
-		if (Input::GetKey(eKeyCode::DOWN))
+		if (Input::GetKey(eKeyCode::DOWN)) //아래쪽 이동 안씀
 		{
 			Vector3 pos = tr->GetPosition();
 			//pos.y -= 3.0f * Time::DeltaTime();
@@ -98,7 +90,7 @@ namespace ya
 		}
 
 
-		if (Input::GetKey(eKeyCode::UP))
+		if (Input::GetKey(eKeyCode::UP)) //위로 이동 안씀
 		{
 			Vector3 pos = tr->GetPosition();
 			//pos.y += 3.0f * Time::DeltaTime();
@@ -109,11 +101,13 @@ namespace ya
 		//idle 구현부
 		if (mState == ePlayerState::RIGHT_Idle)
 		{
-			
+			Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+			col->SetCenter(Vector2(0.2f, 0.0f));
 		}
 		if (mState == ePlayerState::Left_Idle)
 		{
-			
+			Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+			col->SetCenter(Vector2(-0.2f, 0.0f));
 		}
 
 
@@ -124,6 +118,9 @@ namespace ya
 			tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
 			pos.x += 3.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
+
+			
+			col->SetCenter(Vector2(0.4f, 0.0f));
 		}
 
 		//LEFT_Run 구현부
@@ -133,25 +130,36 @@ namespace ya
 			tr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
 			pos.x -= 3.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
+
+			col->SetCenter(Vector2(-0.4f, 0.0f));
 		}
 
-		//Player_dash 구현부      //리지드 바디 추가해서 튕겨 나가듯이 만들어야댐
+
+
+
+
+
+		//Player_dash 구현부    
 		if (Input::GetKeyDown(eKeyCode::Z))
 		{
-			for (size_t i = 1; i <= 8; i++)
+			
+			//이동
+			Vector3 pos = tr->GetPosition();
+			if (mState == ePlayerState::RIGHT_Idle || mState == ePlayerState::RIGHT_Run)
 			{
-				{
-					//이동
-					Vector3 pos = tr->GetPosition();
-					if (mState == ePlayerState::RIGHT_Idle || mState == ePlayerState::RIGHT_Run)
-						pos.x += 0.4f;
-					if (mState == ePlayerState::Left_Idle || mState == ePlayerState::Left_Run)
-						pos.x -= 0.4f;
-					tr->SetPosition(pos);
-				}
+				pos.x += 4.f;
+				
+			}
+			if (mState == ePlayerState::Left_Idle || mState == ePlayerState::Left_Run)
+			{
+				pos.x -= 4.f;
+				
 			}
 
-			//상태창              //아직 발동이 안댐
+			tr->SetPosition(pos);
+				
+
+			//상태창   
 			if (mState == ePlayerState::RIGHT_Idle || mState == ePlayerState::Left_Idle)
 				animator->GetCompleteEvent(L"dash") = std::bind(&PlayerScript::Player_Idel, this);
 			else if (mState == ePlayerState::RIGHT_Run || mState == ePlayerState::Left_Run)
@@ -163,7 +171,8 @@ namespace ya
 		}
 
 
-		//Player_jump 구현부
+
+		//Player_jump 구현부 //안쓰는중
 		if (Input::GetKeyDown(eKeyCode::C)) 
 		{
 			if(mState == ePlayerState::RIGHT_Idle || mState == ePlayerState::Left_Idle)
@@ -172,16 +181,8 @@ namespace ya
 				animator->GetCompleteEvent(L"jump") = std::bind(&PlayerScript::Player_Run_to, this);
 
 			animator->Play(L"jump");
-
-			//오류 많음 물어보자
-		/*	Rigidbody* rigidbody = GetOwner()->AddComponent<Rigidbody>();
-			Vector2 velocity = rigidbody->GetVelocity();
-			velocity.y = -0.1f;
-			rigidbody->SetVelocity(velocity);
-
-			rigidbody->SetGround(false);*/
-
 		}
+
 
 		//Player_attack 구현부
 		if (Input::GetKeyDown(eKeyCode::X))
@@ -220,8 +221,6 @@ namespace ya
 			Animator* animator = GetOwner()->GetComponent<Animator>();
 			for (size_t i = 1; i < 38; i++)
 			{
-				if (i == 1)
-					cameraShakeSmall();
 				if (mState == ePlayerState::RIGHT_Idle) {
 					animator->GetEvent(L"skill_hammer", i) = std::bind(&PlayerScript::Skill_Moving_Right, this);
 				}
@@ -229,6 +228,10 @@ namespace ya
 					animator->GetEvent(L"skill_hammer", i) = std::bind(&PlayerScript::Skill_Moving_Left, this);
 				}
 			}
+			animator->GetEvent(L"skill_hammer", 1) = std::bind(&PlayerScript::cameraShakeSmall, this);
+			animator->GetEvent(L"skill_hammer", 45) = std::bind(&PlayerScript::cameraShakeBig, this);
+			animator->GetEvent(L"skill_hammer", 53) = std::bind(&PlayerScript::cameraShakeIdel, this);
+			animator->GetEvent(L"skill_hammer", 46) = std::bind(&PlayerScript::Hammer_Attack_Hit_Check, this);
 			animator->GetCompleteEvent(L"skill_hammer") = std::bind(&PlayerScript::Player_Idel, this);
 			animator->Play(L"skill_hammer");
 		}
@@ -245,6 +248,9 @@ namespace ya
 				if (mState == ePlayerState::Left_Idle )
 					animator->GetEvent(L"skill_Painwheel", i) = std::bind(&PlayerScript::Skill_Moving_Left, this);
 			}
+			animator->GetEvent(L"skill_Painwheel", 1) = std::bind(&PlayerScript::cameraShakeSmall, this);
+			animator->GetEvent(L"skill_Painwheel", 16) = std::bind(&PlayerScript::cameraShakeBig, this);
+			animator->GetEvent(L"skill_Painwheel", 46) = std::bind(&PlayerScript::cameraShakeIdel, this);
 			animator->GetCompleteEvent(L"skill_Painwheel") = std::bind(&PlayerScript::Player_Idel, this);
 			animator->Play(L"skill_Painwheel");
 		}
@@ -265,9 +271,10 @@ namespace ya
 					if (i < 16)
 						animator->GetEvent(L"skill_Spear", i) = std::bind(&PlayerScript::Skill_Moving_Left, this);
 				}
-				//if (i == 29)
-					//animator->GetEvent(L"skill_Spear", i) = std::bind(&PlayerScript::Skill_Spear_FX, this);
+				
 			}
+			animator->GetEvent(L"skill_Spear", 17) = std::bind(&PlayerScript::cameraShakeSmall, this);
+			animator->GetEvent(L"skill_Spear", 28) = std::bind(&PlayerScript::cameraShakeIdel, this);
 			animator->GetCompleteEvent(L"skill_Spear") = std::bind(&PlayerScript::Player_Idel, this);
 			animator->Play(L"skill_Spear");
 		}
@@ -278,12 +285,15 @@ namespace ya
 			Animator* animator = GetOwner()->GetComponent<Animator>();
 			for (size_t i = 1; i < 31; i++)
 			{
+				
 				if (i == 12)
 				{
 					//여기서 추가 이펙트 로드및 진행시킴
 					animator->GetEvent(L"skill_Whirlwind", i) = std::bind(&PlayerScript::Skill_Whirlwind_Fx, this);
 				}
 			}
+			animator->GetEvent(L"skill_Whirlwind", 13) = std::bind(&PlayerScript::cameraShakeSmall, this);
+			animator->GetEvent(L"skill_Whirlwind", 24) = std::bind(&PlayerScript::cameraShakeIdel, this);
 			animator->GetCompleteEvent(L"skill_Whirlwind") = std::bind(&PlayerScript::Player_Idel, this);
 			animator->Play(L"skill_Whirlwind");
 		}
@@ -300,10 +310,12 @@ namespace ya
 
 	void PlayerScript::OnCollisionStay(Collider2D* collider)
 	{
+		int a = 0;
 	}
 
 	void PlayerScript::OnCollisionExit(Collider2D* collider)
 	{
+		int a = 0;
 	}
 
 	void PlayerScript::Start()
@@ -326,6 +338,31 @@ namespace ya
 
 
 
+
+	void PlayerScript::Hammer_Attack_Hit_Check()
+	{
+		Transform* mAttack_tr = mAttack_obj->GetComponent<Transform>();
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		mAttack_tr->SetPosition(pos);
+
+		Collider2D* mAttack_col = mAttack_obj->AddComponent<Collider2D>();
+		mAttack_col->SetType(eColliderType::Rect);
+		mAttack_col->SetSize(Vector2(2.0f, 1.0f));
+
+		if (mState == ePlayerState::RIGHT_Idle || mState == ePlayerState::RIGHT_Run)
+		{
+			mAttack_col->SetCenter(Vector2(2.5f, 0.0f));
+
+		}
+		if (mState == ePlayerState::Left_Idle || mState == ePlayerState::Left_Run)
+		{
+			mAttack_col->SetCenter(Vector2(-2.5f, 0.0f));
+
+		}
+
+		
+	}
 
 	void PlayerScript::Player_Idel() //스킬모션이끝나고 idel 애니메이션으로 전환
 	{
@@ -426,16 +463,41 @@ namespace ya
 	void PlayerScript::cameraShakeSmall()
 	{
 		mCameraSc->SetCameraState_Small_Shake();
+
+		
+		Transform* cam_tr = mGameObject->GetComponent<Transform>();
+		Vector3 cam_pos = cam_tr->GetPosition();
+
+		cam_pos += 0.7f * cam_tr->Foward();
+		cam_tr->SetPosition(cam_pos);
+
+
 	}
 
 	void PlayerScript::cameraShakeBig()
 	{
 		mCameraSc->SetCameraState_Big_Shake();
+
+		Transform* cam_tr = mGameObject->GetComponent<Transform>();
+
+		//Vector3 cam_pos = Vector3((1.0f, 1.0f, 6.0f)); //초기화
+		//cam_tr->SetPosition(cam_pos);
+
+		Vector3 cam_pos = cam_tr->GetPosition();
+		cam_pos += 0.5f * cam_tr->Foward();
+		cam_tr->SetPosition(cam_pos);
+
 	}
 
 	void PlayerScript::cameraShakeIdel()
 	{
 		mCameraSc->SetCameraState_Idle();
+
+		
+		Transform* cam_tr = mGameObject->GetComponent<Transform>();
+		Vector3 cam_pos = Vector3((1.0f, 1.0f, 6.0f));
+
+		cam_tr->SetPosition(cam_pos);
 	}
 
 }

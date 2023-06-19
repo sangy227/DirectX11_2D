@@ -2,6 +2,7 @@
 #include "yaScript.h"
 #include "yaCameraScript.h"
 
+
 namespace ya
 {
 	class PlayerScript : public Script
@@ -23,6 +24,9 @@ namespace ya
 		void End();
 
 
+		void Hammer_Attack_Hit_Check();
+
+
 		void Player_Idel();
 		void Player_Run_to();
 		void Skill_Moving_Right();
@@ -36,10 +40,17 @@ namespace ya
 		void cameraShakeIdel();
 		
 		void setCameraScript(CameraScript* sc) { mCameraSc = sc; }
+		void setGameObject(GameObject* sc) { mGameObject = sc; }
+		void setAttack_obj(GameObject* sc) { mAttack_obj = sc; }
+
 		CameraScript* GetCameraScript() { return mCameraSc; }
+		
 
 	private:
 		ePlayerState mState;
 		CameraScript* mCameraSc;
+		
+		GameObject* mGameObject;
+		GameObject* mAttack_obj;
 	};
 }
