@@ -4,16 +4,31 @@
 #include "yaInput.h"
 #include "yaTime.h"
 #include "yaAnimator.h"
+#include "yaMeshRenderer.h"
+#include "yaRenderer.h"
+#include "yaResources.h"
+#include "yaTexture.h"
 #include "yaPlayerScript.h"
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include "yaCamera.h"
+#include "yaCameraScript.h"
+#include "yaSpriteRenderer.h"
+#include "yaGridScript.h"
+#include "yaObject.h"
+#include "yaCollider2D.h"
+#include "yaPlayer.h"
+#include "yaMonster.h"
+#include "yaCollisionManager.h"
+#include "yaSkillEffect.h"
+#include "yaSkillEffectScript.h"
+#include "yaRigidbody.h"
+#include "yaEnums.h"
 
 namespace ya {
 	BossWandaScript::BossWandaScript()
 		: Script()
 		, mState(eState::Idle)
 		, Skill_index(0)
+		, Garden2_index(0)
 	{
 	}
 	BossWandaScript::~BossWandaScript()
@@ -80,7 +95,7 @@ namespace ya {
 			if (Skill_index == 0)
 				Wanda_Skill_Spin();
 			if (Skill_index == 1)
-				Wanda_Skill_Middle();
+				Wanda_Skill_Garden();
 			if (Skill_index == 2)
 				Wanda_Skill_Chain();
 			if (Skill_index == 3)
@@ -113,11 +128,11 @@ namespace ya {
 			animator->Play(L"wanda_s2_npc");
 		}
 
-		//if (Input::GetKeyDown(eKeyCode::R)) // ¾²Áö ¸»ÀÚ ÁÂÇ¥°è»êÇÏ±â ºý¼À
-		//{
-		//	animator->GetCompleteEvent(L"wanda_s2_skinshed") = std::bind(&BossWandaScript::Wanda_Idel, this);
-		//	animator->Play(L"wanda_s2_skinshed");
-		//}
+		if (Input::GetKeyDown(eKeyCode::R)) 
+		{
+			Wanda_Skill_Garden();
+			
+		}
 		//if (Input::GetKeyDown(eKeyCode::T)) //½ºÅ³
 		//{
 		//	Wanda_Skill_Spin();
@@ -194,12 +209,6 @@ namespace ya {
 
 
 
-
-
-
-
-
-
 	void BossWandaScript::Wanda_Skill_Spin()
 	{
 		mState = eState::Skill;
@@ -212,11 +221,15 @@ namespace ya {
 	void BossWandaScript::Wanda_Skill_Middle()
 	{
 		mState = eState::Skill;
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"wanda_aoe_middle") = std::bind(&BossWandaScript::Wanda_Idel, this);
 		animator->Play(L"wanda_aoe_middle");
 	}
+
+	
 
 	void BossWandaScript::Wanda_Skill_Chain()
 	{
@@ -250,7 +263,51 @@ namespace ya {
 		mState = eState::Skill;
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-		animator->GetCompleteEvent(L"wanda_s2_garden") = std::bind(&BossWandaScript::Wanda_Idel, this);
+		animator->GetCompleteEvent(L"wanda_s2_garden") = std::bind(&BossWandaScript::Wanda_Skill_Garden2, this);
 		animator->Play(L"wanda_s2_garden");
+	}
+	void BossWandaScript::Wanda_Skill_Garden2()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"wanda_s2_garden2") = std::bind(&BossWandaScript::Wanda_Skill_Garden2_Again, this);
+		animator->Play(L"wanda_s2_garden2");
+	}
+	void BossWandaScript::Wanda_Skill_Garden2_Again()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		Garden2_index++;
+		Wanda_Up_fx();
+		Wanda_Down_fx();
+		if (Garden2_index > 7)
+		{
+			Garden2_index = 0;
+			animator->GetCompleteEvent(L"wanda_s2_garden2") = std::bind(&BossWandaScript::Wanda_Skill_Garden3, this);
+			animator->Play(L"wanda_s2_garden2");
+		}
+		else {
+			animator->GetCompleteEvent(L"wanda_s2_garden2") = std::bind(&BossWandaScript::Wanda_Skill_Garden2, this);
+			animator->Play(L"wanda_s2_garden2");
+		}
+
+
+	}
+	void BossWandaScript::Wanda_Skill_Garden3()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"wanda_s2_garden3") = std::bind(&BossWandaScript::Wanda_Idel, this);
+		animator->Play(L"wanda_s2_garden3");
+	}
+
+
+
+
+	void BossWandaScript::Wanda_Up_fx() //T_Boss_Wanda_TentacleDamage
+	{
+	}
+
+
+
+	void BossWandaScript::Wanda_Down_fx() //T_Boss_Wanda_TentacleDamage
+	{
 	}
 }

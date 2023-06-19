@@ -41,10 +41,18 @@ namespace ya
 
 		void Wanda_Skill_Spin();
 		void Wanda_Skill_Middle();
+		
 		void Wanda_Skill_Chain();
 		void Wanda_Skill_S2();
 		void Wanda_Skill_Aoe();
 		void Wanda_Skill_Garden();
+		void Wanda_Skill_Garden2();
+		void Wanda_Skill_Garden2_Again();
+		void Wanda_Skill_Garden3();
+
+		void Wanda_Up_fx();
+		void Wanda_Down_fx();
+
 
 		void setmGameObject(GameObject* obj) { mGameObject = obj; }
 		GameObject* GetmGameObject() { return mGameObject; }
@@ -53,6 +61,7 @@ namespace ya
 		eState mState;
 		GameObject* mGameObject;
 		UINT Skill_index;
+		UINT Garden2_index;
 	};
 }
 

@@ -292,7 +292,9 @@ namespace ya
 			BossWanda_Animator->Create(L"wanda_chain", wanda_chain, Vector2(0.0f, 0.0f), Vector2(285.0f, 98.0f), Vector2(0.07f, -0.03f), 5, 5, 25, 0.10f , 3);
 			BossWanda_Animator->Create(L"wanda_s1_s2", wanda_s1_s2, Vector2(0.0f, 0.0f), Vector2(119.0f, 122.0f), Vector2(0.0f, -0.03f), 6, 5, 26, 0.10f, 6);
 			BossWanda_Animator->Create(L"wanda_s2_aoe", wanda_s2_aoe, Vector2(0.0f, 0.0f), Vector2(365.0f, 234.0f), Vector2(0.0f, -0.03f), 5, 5, 24, 0.10f);
-			BossWanda_Animator->Create(L"wanda_s2_garden", wanda_s2_garden, Vector2(0.0f, 0.0f), Vector2(181.0f, 228.0f), Vector2(0.0f, -0.01f), 6, 6, 31, 0.10f);
+			BossWanda_Animator->Create(L"wanda_s2_garden", wanda_s2_garden, Vector2(0.0f, 0.0f), Vector2(181.0f, 228.0f), Vector2(0.0f, -0.01f), 6, 2, 8, 0.1f);
+			BossWanda_Animator->Create(L"wanda_s2_garden2", wanda_s2_garden, Vector2(362.0f, 228.0f), Vector2(181.0f, 228.0f), Vector2(0.0f, -0.01f), 4, 1, 4, 0.1f);
+			BossWanda_Animator->Create(L"wanda_s2_garden3", wanda_s2_garden, Vector2(0.0f, 456.0f), Vector2(181.0f, 228.0f), Vector2(0.0f, -0.01f), 6, 4, 19, 0.1f);
 			BossWanda_Animator->Create(L"wanda_s2_npc", wanda_s2_npc, Vector2(0.0f, 0.0f), Vector2(121.0f, 147.0f), Vector2(0.0f, -0.01f), 5, 5, 24, 0.10f);
 			BossWanda_Animator->Create(L"wanda_s2_npc_idle", wanda_s2_npc_idle, Vector2(0.0f, 0.0f), Vector2(48.0f, 61.0f), Vector2(0.0f, 0.1f), 1, 1, 1, 0.10f);
 			BossWanda_Animator->Create(L"wanda_s2_skinshed", wanda_s2_skinshed, Vector2(0.0f, 0.0f), Vector2(272.0f, 132.0f), Vector2(0.0f, -0.01f), 7, 6, 39, 0.10f); //ÁÂÇ¥ ºý¼¼¼­ ¾È¾¸
@@ -308,8 +310,6 @@ namespace ya
 			wanda_sr->SetMaterial(wanda_mt);
 			BossWandaScript* wandaSc = wanda_obj->AddComponent<BossWandaScript>();
 			wandaSc->setmGameObject(gameplayer);
-			//wanda_obj->AddComponent<BossWandaScript>();
-			//object::DontDestroyOnLoad(wanda_obj);
 		}
 
 
