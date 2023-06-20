@@ -207,6 +207,12 @@ namespace ya
 						animator->GetEvent(L"attack", i) = std::bind(&PlayerScript::Skill_Moving_Left, this);
 				}
 			}
+			animator->GetEvent(L"attack",2) = std::bind(&PlayerScript::Normal_Attack_Hit_Check, this);
+			animator->GetEvent(L"attack",5) = std::bind(&PlayerScript::Attack_Hit_Death, this);
+			animator->GetEvent(L"attack",10) = std::bind(&PlayerScript::Normal_Attack_Hit_Check, this);
+			animator->GetEvent(L"attack",13) = std::bind(&PlayerScript::Attack_Hit_Death, this);
+			animator->GetEvent(L"attack",18) = std::bind(&PlayerScript::Normal_Attack_Hit_Check, this);
+			animator->GetEvent(L"attack",21) = std::bind(&PlayerScript::Attack_Hit_Death, this);
 			animator->GetCompleteEvent(L"attack") = std::bind(&PlayerScript::Player_Idel, this);
 			animator->Play(L"attack");
 		}
@@ -291,6 +297,8 @@ namespace ya
 				
 			}
 			animator->GetEvent(L"skill_Spear", 17) = std::bind(&PlayerScript::cameraShakeSmall, this);
+			animator->GetEvent(L"skill_Spear", 21) = std::bind(&PlayerScript::Spear_Attack_Hit_Check, this);
+			animator->GetEvent(L"skill_Spear", 25) = std::bind(&PlayerScript::Attack_Hit_Death, this);
 			animator->GetEvent(L"skill_Spear", 28) = std::bind(&PlayerScript::cameraShakeIdel, this);
 			animator->GetCompleteEvent(L"skill_Spear") = std::bind(&PlayerScript::Player_Idel, this);
 			animator->Play(L"skill_Spear");
@@ -310,6 +318,10 @@ namespace ya
 				}
 			}
 			animator->GetEvent(L"skill_Whirlwind", 13) = std::bind(&PlayerScript::cameraShakeSmall, this);
+			animator->GetEvent(L"skill_Whirlwind", 14) = std::bind(&PlayerScript::Whirlwind_Attack_Hit_Check, this);
+			animator->GetEvent(L"skill_Whirlwind", 16) = std::bind(&PlayerScript::Attack_Hit_Death, this);
+			animator->GetEvent(L"skill_Whirlwind", 18) = std::bind(&PlayerScript::Whirlwind_Attack_Hit_Check, this);
+			animator->GetEvent(L"skill_Whirlwind", 20) = std::bind(&PlayerScript::Attack_Hit_Death, this);
 			animator->GetEvent(L"skill_Whirlwind", 24) = std::bind(&PlayerScript::cameraShakeIdel, this);
 			animator->GetCompleteEvent(L"skill_Whirlwind") = std::bind(&PlayerScript::Player_Idel, this);
 			animator->Play(L"skill_Whirlwind");
@@ -356,6 +368,20 @@ namespace ya
 
 
 
+	void PlayerScript::Normal_Attack_Hit_Check()
+	{
+		Transform* mAttack_tr = mAttack_Object->GetComponent<Transform>();
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		mAttack_tr->SetPosition(pos);
+
+		Collider2D* mAttack_col = mAttack_Object->AddComponent<Collider2D>();
+		mAttack_col->SetType(eColliderType::Rect);
+		mAttack_col->SetSize(Vector2(0.3f, 1.0f));
+
+		mAttack_tr->SetPosition(pos += 2.1f * tr->Right());
+	}
+
 	void PlayerScript::Hammer_Attack_Hit_Check()
 	{
 		Transform* mAttack_tr = mAttack_Object->GetComponent<Transform>();
@@ -388,10 +414,33 @@ namespace ya
 
 	void PlayerScript::Spear_Attack_Hit_Check()
 	{
+		Transform* mAttack_tr = mAttack_Object->GetComponent<Transform>();
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		mAttack_tr->SetPosition(pos);
+
+		Collider2D* mAttack_col = mAttack_Object->AddComponent<Collider2D>();
+		mAttack_col->SetType(eColliderType::Rect);
+		mAttack_col->SetSize(Vector2(1.5f, 0.3f));
+
+		mAttack_tr->SetPosition(pos += 2.8f * tr->Right());
+		//mAttack_tr->SetPosition(pos += 0.4f * tr->Up());
+
 	}
 
 	void PlayerScript::Whirlwind_Attack_Hit_Check()
 	{
+		Transform* mAttack_tr = mAttack_Object->GetComponent<Transform>();
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		mAttack_tr->SetPosition(pos);
+
+		Collider2D* mAttack_col = mAttack_Object->AddComponent<Collider2D>();
+		mAttack_col->SetType(eColliderType::Rect);
+		mAttack_col->SetSize(Vector2(5.5f, 0.1f));
+
+		mAttack_tr->SetPosition(pos += 0.5f * tr->Right());
+		//mAttack_tr->SetPosition(pos += 0.4f * tr->Up());
 	}
 
 	void PlayerScript::Attack_Hit_Death()

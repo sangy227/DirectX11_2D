@@ -23,7 +23,7 @@ namespace ya
 		void Action();
 		void End();
 		
-
+		void Normal_Attack_Hit_Check();
 		void Hammer_Attack_Hit_Check();
 		void Painwheel_Attack_Hit_Check();
 		void Spear_Attack_Hit_Check();
