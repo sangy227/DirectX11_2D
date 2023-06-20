@@ -52,9 +52,11 @@ namespace ya::enums
 		//Collider2,
 		MeshRenerer,
 		SpriteRenderer,
-		Light,
 		Animator,
 		ParticleSystem,
+		AudioListener,
+		AudioSource,
+		Light,
 		UI,
 		//FadeOut,FadeIn
 		Script,
@@ -72,6 +74,7 @@ namespace ya::enums
 		MeshData,
 		GraphicShader,
 		ComputeShader,
+		AudioClip,
 		Script,
 		End,
 	};

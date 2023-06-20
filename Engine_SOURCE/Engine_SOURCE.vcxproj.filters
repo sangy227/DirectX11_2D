@@ -139,6 +139,12 @@
     <Filter Include="Component\Script\Contents\Monster\wanda">
       <UniqueIdentifier>{33dd9eae-28e4-4d76-9e4a-48306bb37e22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Audio">
+      <UniqueIdentifier>{a4289438-4922-4485-bff7-d63e0672ca4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Audio">
+      <UniqueIdentifier>{7ca7b943-1ebf-4d24-938c-ae48ac8f4e16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -348,6 +354,18 @@
     </ClCompile>
     <ClCompile Include="yaWanda_Dmg_UP_Sc_Fx.cpp">
       <Filter>Component\Script\Contents\Monster\wanda</Filter>
+    </ClCompile>
+    <ClCompile Include="yaAudioClip.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="yaAudioListener.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="yaFmod.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="yaAudioSource.cpp">
+      <Filter>Resource\Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -573,6 +591,18 @@
     </ClInclude>
     <ClInclude Include="yaWanda_Dmg_UP_Sc_Fx.h">
       <Filter>Component\Script\Contents\Monster\wanda</Filter>
+    </ClInclude>
+    <ClInclude Include="yaAudioClip.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="yaAudioListener.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="yaFmod.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="yaAudioSource.h">
+      <Filter>Resource\Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

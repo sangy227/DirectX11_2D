@@ -131,6 +131,9 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>copy "$(SolutionDir)fmodL.dll" "$(SolutionDir)\x64\Debug\"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -152,10 +155,19 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>copy "$(SolutionDir)fmodL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)fmodstudioL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)fmod.dl" "$(SolutionDir)\x64\Release\"
+copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="yaAnimation.h" />
     <ClInclude Include="yaAnimator.h" />
+    <ClInclude Include="yaAudioClip.h" />
+    <ClInclude Include="yaAudioListener.h" />
+    <ClInclude Include="yaAudioSource.h" />
     <ClInclude Include="yaBossWandaScript.h" />
     <ClInclude Include="yaCollider3D.h" />
     <ClInclude Include="yaCollider2D.h" />
@@ -178,6 +190,7 @@
     <ClInclude Include="yaevent_Line_Sc.h" />
     <ClInclude Include="yafirstCameraMoveLine_Script.h" />
     <ClInclude Include="yafirstCameraStopLine_Script.h" />
+    <ClInclude Include="yaFmod.h" />
     <ClInclude Include="yafourthCameraMoveLine_Script.h" />
     <ClInclude Include="yafourthCameraStopLine_Script.h" />
     <ClInclude Include="yaGameObject.h" />
@@ -233,6 +246,9 @@
   <ItemGroup>
     <ClCompile Include="yaAnimation.cpp" />
     <ClCompile Include="yaAnimator.cpp" />
+    <ClCompile Include="yaAudioClip.cpp" />
+    <ClCompile Include="yaAudioListener.cpp" />
+    <ClCompile Include="yaAudioSource.cpp" />
     <ClCompile Include="yaBossWandaScript.cpp" />
     <ClCompile Include="yaCollider3D.cpp" />
     <ClCompile Include="yaCollider2D.cpp" />
@@ -252,6 +268,7 @@
     <ClCompile Include="yaevent_Line_Sc.cpp" />
     <ClCompile Include="yafirstCameraMoveLine_Script.cpp" />
     <ClCompile Include="yafirstCameraStopLine_Script.cpp" />
+    <ClCompile Include="yaFmod.cpp" />
     <ClCompile Include="yafourthCameraMoveLine_Script.cpp" />
     <ClCompile Include="yafourthCameraStopLine_Script.cpp" />
     <ClCompile Include="yaGameObject.cpp" />

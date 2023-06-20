@@ -5,7 +5,7 @@
 #include "yaSceneManager.h"
 #include "yaResources.h"
 #include "yaCollisionManager.h"
-
+#include "yaFmod.h"
 namespace ya
 {
 	using namespace graphics;
@@ -24,6 +24,7 @@ namespace ya
 	{
 		Time::Initialize();
 		Input::Initialize();
+		Fmod::Initialize();
 		CollisionManager::Initialize();
 		renderer::Initialize();
 		SceneManager::Initalize();
@@ -84,6 +85,7 @@ namespace ya
 
 	void Application::Release()
 	{
+		Fmod::Release();
 		Resources::deleteTest();
 	}
 
