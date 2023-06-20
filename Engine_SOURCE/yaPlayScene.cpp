@@ -180,7 +180,7 @@ namespace ya
 
 		//어택 콜라이더 오브젝트
 		GameObject* mPlayer_attack_object = object::Instantiate<GameObject>(eLayerType::Player_Attack_Object);
-
+		mPlayer_attack_object->SetName(L"attack_object");
 		//Game_Main_Player
 		{
 			gameplayer = object::Instantiate<Player>(eLayerType::Player);

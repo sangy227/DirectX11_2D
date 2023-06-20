@@ -352,12 +352,15 @@ namespace ya
 
 		if (mState == ePlayerState::RIGHT_Idle || mState == ePlayerState::RIGHT_Run)
 		{
-			mAttack_col->SetCenter(Vector2(2.5f, 0.0f));
+			//mAttack_col->SetCenter(Vector2(2.5f, 0.0f));
+			mAttack_tr->SetPosition(pos += 2.5f * tr->Right());
 
 		}
 		if (mState == ePlayerState::Left_Idle || mState == ePlayerState::Left_Run)
 		{
-			mAttack_col->SetCenter(Vector2(-2.5f, 0.0f));
+			//mAttack_col->SetCenter(Vector2(-2.5f, 0.0f));
+			mAttack_tr->SetPosition(pos += -2.5f * tr->Right());
+
 
 		}
 

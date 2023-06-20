@@ -96,7 +96,7 @@ namespace ya {
 
 		ow_tr += (-(50.6f) * ownertr->Up());
 		ownertr->SetPosition(ow_tr);
-
+		//GetOwner()->Death();
 		
 		
 

@@ -58,6 +58,7 @@ namespace ya
 		CollisionManager::Render();
 		//graphicDevice->Render();
 		//graphicDevice->Present();
+		SceneManager::Destroy();
 
 		
 	}
