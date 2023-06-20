@@ -164,8 +164,13 @@ namespace ya {
 		mSculptorState = eSculptorState::IDLE;
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-		
+		animator->GetCompleteEvent(L"sculptor_die") = std::bind(&SculptorScript::Dead, this);
 		animator->Play(L"sculptor_die",false);
+	}
+
+	void SculptorScript::Dead()
+	{
+		GetOwner()->Death();
 	}
 
 

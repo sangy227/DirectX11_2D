@@ -49,6 +49,8 @@ namespace ya
 		void Sculptor_IDLE_TO_DIE();
 		void Sculptor_DIE();
 
+		void Dead();
+
 		void Sculptor_Needle();
 		void Sculptor_Needle2();
 

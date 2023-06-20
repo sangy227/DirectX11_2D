@@ -101,13 +101,11 @@ namespace ya
 		//idle 구현부
 		if (mState == ePlayerState::RIGHT_Idle)
 		{
-			Collider2D* col = GetOwner()->GetComponent<Collider2D>();
-			col->SetCenter(Vector2(0.2f, 0.0f));
+			
 		}
 		if (mState == ePlayerState::Left_Idle)
 		{
-			Collider2D* col = GetOwner()->GetComponent<Collider2D>();
-			col->SetCenter(Vector2(-0.2f, 0.0f));
+			
 		}
 
 
@@ -120,7 +118,7 @@ namespace ya
 			tr->SetPosition(pos);
 
 			
-			col->SetCenter(Vector2(0.4f, 0.0f));
+			
 		}
 
 		//LEFT_Run 구현부
@@ -131,7 +129,7 @@ namespace ya
 			pos.x -= 3.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 
-			col->SetCenter(Vector2(-0.4f, 0.0f));
+			
 		}
 
 
@@ -221,10 +219,10 @@ namespace ya
 			Animator* animator = GetOwner()->GetComponent<Animator>();
 			for (size_t i = 1; i < 38; i++)
 			{
-				if (mState == ePlayerState::RIGHT_Idle) {
+				if (mState == ePlayerState::RIGHT_Idle || mState == ePlayerState::RIGHT_Run) {
 					animator->GetEvent(L"skill_hammer", i) = std::bind(&PlayerScript::Skill_Moving_Right, this);
 				}
-				if (mState == ePlayerState::Left_Idle) {
+				if (mState == ePlayerState::Left_Idle || mState == ePlayerState::Left_Run) {
 					animator->GetEvent(L"skill_hammer", i) = std::bind(&PlayerScript::Skill_Moving_Left, this);
 				}
 			}
@@ -232,6 +230,7 @@ namespace ya
 			animator->GetEvent(L"skill_hammer", 45) = std::bind(&PlayerScript::cameraShakeBig, this);
 			animator->GetEvent(L"skill_hammer", 53) = std::bind(&PlayerScript::cameraShakeIdel, this);
 			animator->GetEvent(L"skill_hammer", 46) = std::bind(&PlayerScript::Hammer_Attack_Hit_Check, this);
+			animator->GetEvent(L"skill_hammer", 52) = std::bind(&PlayerScript::Attack_Hit_Death, this);
 			animator->GetCompleteEvent(L"skill_hammer") = std::bind(&PlayerScript::Player_Idel, this);
 			animator->Play(L"skill_hammer");
 		}
@@ -250,6 +249,24 @@ namespace ya
 			}
 			animator->GetEvent(L"skill_Painwheel", 1) = std::bind(&PlayerScript::cameraShakeSmall, this);
 			animator->GetEvent(L"skill_Painwheel", 16) = std::bind(&PlayerScript::cameraShakeBig, this);
+			animator->GetEvent(L"skill_Painwheel", 17) = std::bind(&PlayerScript::Painwheel_Attack_Hit_Check, this);
+			animator->GetEvent(L"skill_Painwheel", 18) = std::bind(&PlayerScript::Attack_Hit_Death, this);
+			animator->GetEvent(L"skill_Painwheel", 20) = std::bind(&PlayerScript::Painwheel_Attack_Hit_Check, this);
+			animator->GetEvent(L"skill_Painwheel", 21) = std::bind(&PlayerScript::Attack_Hit_Death, this);
+			animator->GetEvent(L"skill_Painwheel", 23) = std::bind(&PlayerScript::Painwheel_Attack_Hit_Check, this);
+			animator->GetEvent(L"skill_Painwheel", 24) = std::bind(&PlayerScript::Attack_Hit_Death, this);
+			animator->GetEvent(L"skill_Painwheel", 26) = std::bind(&PlayerScript::Painwheel_Attack_Hit_Check, this);
+			animator->GetEvent(L"skill_Painwheel", 25) = std::bind(&PlayerScript::Attack_Hit_Death, this);
+			animator->GetEvent(L"skill_Painwheel", 29) = std::bind(&PlayerScript::Painwheel_Attack_Hit_Check, this);
+			animator->GetEvent(L"skill_Painwheel", 30) = std::bind(&PlayerScript::Attack_Hit_Death, this);
+			animator->GetEvent(L"skill_Painwheel", 32) = std::bind(&PlayerScript::Painwheel_Attack_Hit_Check, this);
+			animator->GetEvent(L"skill_Painwheel", 33) = std::bind(&PlayerScript::Attack_Hit_Death, this);
+			animator->GetEvent(L"skill_Painwheel", 35) = std::bind(&PlayerScript::Painwheel_Attack_Hit_Check, this);
+			animator->GetEvent(L"skill_Painwheel", 36) = std::bind(&PlayerScript::Attack_Hit_Death, this);
+			animator->GetEvent(L"skill_Painwheel", 38) = std::bind(&PlayerScript::Painwheel_Attack_Hit_Check, this);
+			animator->GetEvent(L"skill_Painwheel", 39) = std::bind(&PlayerScript::Attack_Hit_Death, this);
+			animator->GetEvent(L"skill_Painwheel", 41) = std::bind(&PlayerScript::Painwheel_Attack_Hit_Check, this);
+			animator->GetEvent(L"skill_Painwheel", 42) = std::bind(&PlayerScript::Attack_Hit_Death, this);
 			animator->GetEvent(L"skill_Painwheel", 46) = std::bind(&PlayerScript::cameraShakeIdel, this);
 			animator->GetCompleteEvent(L"skill_Painwheel") = std::bind(&PlayerScript::Player_Idel, this);
 			animator->Play(L"skill_Painwheel");
@@ -341,30 +358,48 @@ namespace ya
 
 	void PlayerScript::Hammer_Attack_Hit_Check()
 	{
-		Transform* mAttack_tr = mAttack_obj->GetComponent<Transform>();
+		Transform* mAttack_tr = mAttack_Object->GetComponent<Transform>();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 		mAttack_tr->SetPosition(pos);
 
-		Collider2D* mAttack_col = mAttack_obj->AddComponent<Collider2D>();
+		Collider2D* mAttack_col = mAttack_Object->AddComponent<Collider2D>();
 		mAttack_col->SetType(eColliderType::Rect);
-		mAttack_col->SetSize(Vector2(2.0f, 1.0f));
+		mAttack_col->SetSize(Vector2(1.5f, 0.5f));
 
-		if (mState == ePlayerState::RIGHT_Idle || mState == ePlayerState::RIGHT_Run)
-		{
-			//mAttack_col->SetCenter(Vector2(2.5f, 0.0f));
-			mAttack_tr->SetPosition(pos += 2.5f * tr->Right());
+		mAttack_tr->SetPosition(pos += 2.3f * tr->Right());
 
-		}
-		if (mState == ePlayerState::Left_Idle || mState == ePlayerState::Left_Run)
-		{
-			//mAttack_col->SetCenter(Vector2(-2.5f, 0.0f));
-			mAttack_tr->SetPosition(pos += -2.5f * tr->Right());
+	}
 
+	void PlayerScript::Painwheel_Attack_Hit_Check()
+	{
+		Transform* mAttack_tr = mAttack_Object->GetComponent<Transform>();
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		mAttack_tr->SetPosition(pos);
 
-		}
+		Collider2D* mAttack_col = mAttack_Object->AddComponent<Collider2D>();
+		mAttack_col->SetType(eColliderType::Rect);
+		mAttack_col->SetSize(Vector2(1.3f, 1.3f));
 
-		
+		mAttack_tr->SetPosition(pos += 1.2f * tr->Right());
+		mAttack_tr->SetPosition(pos += 0.4f * tr->Up());
+	}
+
+	void PlayerScript::Spear_Attack_Hit_Check()
+	{
+	}
+
+	void PlayerScript::Whirlwind_Attack_Hit_Check()
+	{
+	}
+
+	void PlayerScript::Attack_Hit_Death()
+	{
+		Transform* mAttack_tr = mAttack_Object->GetComponent<Transform>();
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		mAttack_tr->SetPosition(pos += 500.3f * tr->Up());
 	}
 
 	void PlayerScript::Player_Idel() //스킬모션이끝나고 idel 애니메이션으로 전환

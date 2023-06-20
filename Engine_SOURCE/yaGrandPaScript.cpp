@@ -210,7 +210,13 @@ namespace ya {
 	void GrandPaScript::Grandpa_DIE()
 	{
 		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"grandpa_die") = std::bind(&GrandPaScript::dead, this);
 		animator->Play(L"grandpa_die",false);
+	}
+
+	void GrandPaScript::dead()
+	{
+		GetOwner()->Death();
 	}
 
 

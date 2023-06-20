@@ -84,10 +84,9 @@ namespace ya {
 		Transform* ownertr = GetOwner()->GetComponent<Transform>();
 		Vector3 ow_tr = ownertr->GetPosition();
 
-		ow_tr += (-(100.6f) * ownertr->Up());
-		ownertr->SetPosition(ow_tr);
+		
 
-
+		GetOwner()->Death();
 		
 
 	}

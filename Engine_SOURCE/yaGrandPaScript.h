@@ -42,7 +42,7 @@ namespace ya
 		void Grandpa_ATTACK2();
 		void Grandpa_ATTACK3();
 		void Grandpa_DIE();
-
+		void dead();
 
 		void Needle_FX();
 

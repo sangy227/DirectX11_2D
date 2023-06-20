@@ -178,9 +178,7 @@ namespace ya
 			}
 		}
 
-		//어택 콜라이더 오브젝트
-		GameObject* mPlayer_attack_object = object::Instantiate<GameObject>(eLayerType::Player_Attack_Object);
-		mPlayer_attack_object->SetName(L"attack_object");
+		
 		//Game_Main_Player
 		{
 			gameplayer = object::Instantiate<Player>(eLayerType::Player);
@@ -240,12 +238,14 @@ namespace ya
 			gameplayer_sr->SetMesh(gameplayer_mesh);
 			gameplayer_sr->SetMaterial(gameplayer_mateiral);
 
-			
+			//어택 콜라이더 오브젝트
+			GameObject* mAttack_obj = object::Instantiate<GameObject>(eLayerType::Player_Attack_Object);
+			mAttack_obj->SetName(L"Hammer_Attack_Hit_Check");
 
 			PlayerScript* player_sc = gameplayer->AddComponent<PlayerScript>();
 			player_sc->setCameraScript(bcs);
 			player_sc->setGameObject(cameraObj);
-			player_sc->setAttack_obj(mPlayer_attack_object);
+			player_sc->setAttack_obj(mAttack_obj);
 			//gameplayer->AddComponent<PlayerScript>();
 			//object::DontDestroyOnLoad(gameplayer);
 

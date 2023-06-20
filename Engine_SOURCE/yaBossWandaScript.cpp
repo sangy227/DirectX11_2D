@@ -31,6 +31,7 @@ namespace ya {
 		, Skill_index(0)
 		, Garden2_index(0)
 		, Garden2_bool(true)
+		, hit(0)
 	{
 	}
 	BossWandaScript::~BossWandaScript()
@@ -178,24 +179,16 @@ namespace ya {
 			int a = 0;
 		}
 
-
-		if (collider->GetOwner()->GetLayerType() == eLayerType::Player_Attack_Object)
+		if (collider->GetOwner()->GetName() == L"Hammer_Attack_Hit_Check")
 		{
-			int a = 0;
+			hit++;
 		}
+
+	
 	}
 	void BossWandaScript::OnCollisionStay(Collider2D* collider)
 	{
-		if (collider->GetOwner()->GetLayerType() == eLayerType::Player)
-		{
-			int a = 0;
-		}
-
-
-		if (collider->GetOwner()->GetLayerType() == eLayerType::Player_Attack_Object)
-		{
-			int a = 0;
-		}
+		
 	}
 	void BossWandaScript::OnCollisionExit(Collider2D* collider)
 	{

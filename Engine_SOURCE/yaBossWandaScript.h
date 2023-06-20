@@ -77,6 +77,7 @@ namespace ya
 		UINT Garden2_index;
 		bool Garden2_bool;
 
+		int hit;
 
 	private:
 		GameObject* Spin_attack_Right;

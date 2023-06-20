@@ -40,6 +40,9 @@
 #include "yafourthCameraMoveLine_Script.h"
 #include "yaevent_Line4_Sc.h"
 #include "yafourthCameraStopLine_Script.h"
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
 
 namespace ya {
 	MainScene::MainScene()
@@ -89,7 +92,7 @@ namespace ya {
 		Transform* cameratr = cameraObj->GetComponent<Transform>();
 
 		cameratr->SetPosition(Vector3(1.0f, 1.0f, -3.0f));
-
+		AudioListener* player_lis = cameraObj->AddComponent<AudioListener>();
 
 
 
@@ -132,6 +135,10 @@ namespace ya {
 				std::shared_ptr<Material> maintBGmaterial_02 = Resources::Find<Material>(L"mainBGMaterial02");
 				mainsr_02->SetMaterial(maintBGmaterial_02);
 				mainsr_02->SetMesh(mainmesh_02);
+
+				//Moonscars Exterior Music
+
+
 			}
 		}
 
@@ -139,9 +146,20 @@ namespace ya {
 		{
 			gameplayer = object::Instantiate<Player>(eLayerType::Player);
 			gameplayer->SetName(L"GamePlayer");
+
 			Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
 			gameplayer_tr->SetPosition(Vector3(-5.0f, -1.55f, 5.0f));
 			gameplayer_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+
+			AudioSource* mainBG_audio = gameplayer->AddComponent<AudioSource>();
+			std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"BGM", L"Moonscars Exterior Music.wav");
+			myAudioClip->Set3DAttributes(Vector3(gameplayer_tr->GetPosition()), Vector3(100.0f, 100.0f, 100.0f));
+			//std::shared_ptr<AudioClip> myAudioClip =  Resources::Load<AudioClip>(L"DeathSound",L"gull_death.mp3");
+			mainBG_audio->SetClip(myAudioClip);
+			mainBG_audio->SetLoop(false);
+
+			mainBG_audio->Play();
+
 
 			Light* gameplayer_light = gameplayer->AddComponent<Light>();
 			gameplayer_light->SetType(eLightType::Directional);

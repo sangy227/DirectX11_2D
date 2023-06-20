@@ -22,9 +22,14 @@ namespace ya
 		void Start();
 		void Action();
 		void End();
-
+		
 
 		void Hammer_Attack_Hit_Check();
+		void Painwheel_Attack_Hit_Check();
+		void Spear_Attack_Hit_Check();
+		void Whirlwind_Attack_Hit_Check();
+
+		void Attack_Hit_Death();
 
 
 		void Player_Idel();
@@ -41,7 +46,7 @@ namespace ya
 		
 		void setCameraScript(CameraScript* sc) { mCameraSc = sc; }
 		void setGameObject(GameObject* sc) { mGameObject = sc; }
-		void setAttack_obj(GameObject* sc) { mAttack_obj = sc; }
+		void setAttack_obj(GameObject* sc) { mAttack_Object = sc; }
 
 		CameraScript* GetCameraScript() { return mCameraSc; }
 		
@@ -51,6 +56,6 @@ namespace ya
 		CameraScript* mCameraSc;
 		
 		GameObject* mGameObject;
-		GameObject* mAttack_obj;
+		GameObject* mAttack_Object;
 	};
 }
