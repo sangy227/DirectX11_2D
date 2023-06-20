@@ -211,9 +211,15 @@ namespace ya {
 			gameplayer_sr->SetMesh(gameplayer_mesh);
 			gameplayer_sr->SetMaterial(gameplayer_mateiral);
 
+			//어택 콜라이더 오브젝트
+			GameObject* mAttack_obj = object::Instantiate<GameObject>(eLayerType::Player_Attack_Object);
+			mAttack_obj->SetName(L"Hammer_Attack_Hit_Check");
 
 			PlayerScMainScene* camsc = gameplayer->AddComponent<PlayerScMainScene>();
-			camsc->setCameraScript(bcs);
+			camsc->setMainCameraSc(bcs);
+			camsc->setGameObject(cameraObj);
+			camsc->setAttack_obj(mAttack_obj);
+
 			//gameplayer->AddComponent<PlayerScript>();
 			//object::DontDestroyOnLoad(gameplayer);
 

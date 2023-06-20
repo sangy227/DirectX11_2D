@@ -578,11 +578,11 @@ namespace ya
 
 	void PlayerScript::cameraShakeIdel()
 	{
-		mCameraSc->SetCameraState_Idle();
+		mCameraSc->SetCameraState_Idle(); //여기서 갱신중
 
 		
 		Transform* cam_tr = mGameObject->GetComponent<Transform>();
-		Vector3 cam_pos = Vector3((1.0f, 1.0f, 6.0f));
+		Vector3 cam_pos = Vector3((1.0f, 1.0f, -3.0f));
 
 		cam_tr->SetPosition(cam_pos);
 	}
