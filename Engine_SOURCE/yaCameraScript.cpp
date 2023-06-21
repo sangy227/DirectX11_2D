@@ -82,7 +82,9 @@ namespace ya
 		}
 		if (Input::GetKey(eKeyCode::W))
 		{
-			pos = CameraStrongShakeeffect(pos);
+			//pos = CameraStrongShakeeffect(pos);
+			mCameraState = eCameraState::BIG_SHAKE;
+
 		}
 		if (Input::GetKeyUp(eKeyCode::W))
 		{

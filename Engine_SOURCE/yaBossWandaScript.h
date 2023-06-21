@@ -67,18 +67,33 @@ namespace ya
 		void Wanda_Down_fx();
 
 
+		void CameraFowardUp();
+		void CameraFowardDown();
+
+		void Death();
+
+
 		void setmGameObject(GameObject* obj) { mGameObject = obj; }
+		void setCameraObject(GameObject* obj) { mCameraObject = obj; }
 		GameObject* GetmGameObject() { return mGameObject; }
+
+
 		
 	private:
 		eState mState;
 		GameObject* mGameObject;
+		GameObject* mCameraObject;
+
+		GameObject* HpBar_Bg_HP_obj;
+		GameObject* HpBar_Bg_obj;
+
+
 		UINT Skill_index;
 		UINT Garden2_index;
 		bool Garden2_bool;
 
 		int hit;
-
+		float mWanda_Hp;
 	private:
 		GameObject* Spin_attack_Right;
 		GameObject* Spin_attack_Left;

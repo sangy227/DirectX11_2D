@@ -555,7 +555,7 @@ namespace ya
 		Transform* cam_tr = mGameObject->GetComponent<Transform>();
 		Vector3 cam_pos = cam_tr->GetPosition();
 
-		cam_pos += 0.7f * cam_tr->Foward();
+		cam_pos += 1.0f * cam_tr->Foward();
 		cam_tr->SetPosition(cam_pos);
 
 
@@ -571,7 +571,7 @@ namespace ya
 		//cam_tr->SetPosition(cam_pos);
 
 		Vector3 cam_pos = cam_tr->GetPosition();
-		cam_pos += 0.5f * cam_tr->Foward();
+		cam_pos += 1.0f * cam_tr->Foward();
 		cam_tr->SetPosition(cam_pos);
 
 	}

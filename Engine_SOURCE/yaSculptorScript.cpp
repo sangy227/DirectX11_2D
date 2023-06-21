@@ -116,7 +116,40 @@ namespace ya {
 
 	void SculptorScript::OnCollisionEnter(Collider2D* collider)
 	{
+		if (collider->GetOwner()->GetName() == L"Normal_Attack_Hit_Check")
+		{
+			mSculptor_Hp -= 0.16f;
+		}
 
+		if (collider->GetOwner()->GetName() == L"Hammer_Attack_Hit_Check")
+		{
+			mSculptor_Hp -= 1.2f;
+		}
+
+		if (collider->GetOwner()->GetName() == L"Painwheel_Attack_Hit_Check")
+		{
+			mSculptor_Hp -= 0.2f;
+		}
+
+		if (collider->GetOwner()->GetName() == L"Spear_Attack_Hit_Check")
+		{
+			mSculptor_Hp -= 0.8f;
+		}
+
+		if (collider->GetOwner()->GetName() == L"Whirlwind_Attack_Hit_Check")
+		{
+			mSculptor_Hp -= 0.56f;
+		}
+
+
+		if (mSculptor_Hp < 0) {
+			Sculptor_UI_Sc* Sc = HpBar_Bg_HP_obj->AddComponent<Sculptor_UI_Sc>();
+			Sc->setIndex(0);
+		}
+		else {
+			Sculptor_UI_Sc* Sc = HpBar_Bg_HP_obj->AddComponent<Sculptor_UI_Sc>();
+			Sc->setIndex(mSculptor_Hp);
+		}
 	}
 	void SculptorScript::OnCollisionStay(Collider2D* collider)
 	{

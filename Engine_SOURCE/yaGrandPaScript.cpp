@@ -135,10 +135,33 @@ namespace ya {
 
 	void GrandPaScript::OnCollisionEnter(Collider2D* collider)
 	{
+		if (collider->GetOwner()->GetName() == L"Normal_Attack_Hit_Check")
+		{
+			mGrandPa_Hp -= 0.2f;
+
+			
+		}
+
 		if (collider->GetOwner()->GetName() == L"Hammer_Attack_Hit_Check")
 		{
-			mGrandPa_Hp -= 1.f;
+			mGrandPa_Hp -= 1.5f;
 		}
+
+		if (collider->GetOwner()->GetName() == L"Painwheel_Attack_Hit_Check")
+		{
+			mGrandPa_Hp -= 0.25f;
+		}
+
+		if (collider->GetOwner()->GetName() == L"Spear_Attack_Hit_Check")
+		{
+			mGrandPa_Hp -= 1.0f;
+		}
+
+		if (collider->GetOwner()->GetName() == L"Whirlwind_Attack_Hit_Check")
+		{
+			mGrandPa_Hp -= 0.7f;
+		}
+		
 
 		if (mGrandPa_Hp < 0) {
 			GrandPa_UI_Sc* Sc = HpBar_Bg_HP_obj->AddComponent<GrandPa_UI_Sc>();
@@ -148,6 +171,11 @@ namespace ya {
 			GrandPa_UI_Sc* Sc = HpBar_Bg_HP_obj->AddComponent<GrandPa_UI_Sc>();
 			Sc->setIndex(mGrandPa_Hp);
 		}
+
+		
+
+		
+	
 
 	}
 	void GrandPaScript::OnCollisionStay(Collider2D* collider)

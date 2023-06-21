@@ -24,6 +24,9 @@
 #include "yaEnums.h"
 #include "yaWanda_Dmg_UP_Sc_Fx.h"
 #include "yaWanda_Dmg_Down_Sc_Fx.h"
+#include "yaGrandPa_UI_Sc.h"
+
+
 namespace ya {
 	BossWandaScript::BossWandaScript()
 		: Script()
@@ -32,6 +35,7 @@ namespace ya {
 		, Garden2_index(0)
 		, Garden2_bool(true)
 		, hit(0)
+		, mWanda_Hp(7.8f)
 	{
 	}
 	BossWandaScript::~BossWandaScript()
@@ -127,8 +131,8 @@ namespace ya {
 
 		if (Input::GetKeyDown(eKeyCode::E)) //여긴 콜라이더 설정
 		{
-			animator->GetCompleteEvent(L"wanda_s2_npc") = std::bind(&BossWandaScript::Wanda_Idel, this);
-			animator->Play(L"wanda_s2_npc");
+			Start();
+			
 		}
 
 		if (Input::GetKeyDown(eKeyCode::R)) 
@@ -184,6 +188,10 @@ namespace ya {
 			hit++;
 		}
 
+
+
+		
+
 	
 	}
 	void BossWandaScript::OnCollisionStay(Collider2D* collider)
@@ -199,6 +207,63 @@ namespace ya {
 
 	void BossWandaScript::Start()
 	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+
+		animator->GetCompleteEvent(L"wanda_s2_npc") = std::bind(&BossWandaScript::Wanda_Idel, this);
+		animator->GetEvent(L"wanda_s2_npc", 23) = std::bind(&BossWandaScript::CameraFowardDown, this);
+		animator->Play(L"wanda_s2_npc");
+		CameraFowardUp();
+
+		//UI 보스 피통 BG
+		{
+			HpBar_Bg_obj = object::Instantiate<GameObject>(eLayerType::UI);
+			HpBar_Bg_obj->SetName(L"Hpbar_grandpa");
+
+			Transform* HpBar_Bg_tr = HpBar_Bg_obj->GetComponent<Transform>();
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			pos += 4.7 * tr->Up();
+			pos += 1.1 * tr->Foward();
+
+			HpBar_Bg_tr->SetPosition(pos);
+			HpBar_Bg_tr->SetScale(Vector3(8.f, 0.5f, 0.f));
+
+			SpriteRenderer* UI_SpellRect_sr = HpBar_Bg_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> UI_SpellRect_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> UI_SpellRect_material = Resources::Find<Material>(L"Bar_Boss_BGMaterial");
+			UI_SpellRect_sr->SetMaterial(UI_SpellRect_material);
+			UI_SpellRect_sr->SetMesh(UI_SpellRect_mesh);
+		}
+
+		//UI 보스 피
+		{
+			HpBar_Bg_HP_obj = object::Instantiate<GameObject>(eLayerType::UI);
+			HpBar_Bg_HP_obj->SetName(L"Hpbar_Health_grandpa");
+
+			Transform* HpBar_Bg_tr = HpBar_Bg_HP_obj->GetComponent<Transform>();
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			pos += 4.66 * tr->Up();
+			pos += 1.1 * tr->Foward();
+
+			HpBar_Bg_tr->SetPosition(pos);
+			HpBar_Bg_tr->SetScale(Vector3(7.5f, 0.07f, 0.f));
+
+
+			GrandPa_UI_Sc* Ui_Sc = HpBar_Bg_HP_obj->AddComponent<GrandPa_UI_Sc>();
+			Ui_Sc->setGameObject(GetOwner());
+			Ui_Sc->setIndex(mWanda_Hp);
+			Ui_Sc->setGrandPaScript(GetOwner()->GetComponent<GrandPaScript>());
+
+
+			SpriteRenderer* UI_SpellRect_sr = HpBar_Bg_HP_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> UI_SpellRect_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> UI_SpellRect_material = Resources::Find<Material>(L"Bar_Boss_HEALTHMaterial");
+			UI_SpellRect_sr->SetMaterial(UI_SpellRect_material);
+			UI_SpellRect_sr->SetMesh(UI_SpellRect_mesh);
+		}
+
+
 	}
 	void BossWandaScript::Action()
 	{
@@ -574,5 +639,27 @@ namespace ya {
 		SculptorNeedle_sr->SetMesh(SculptorNeedle_mesh);
 
 		Wanda_Dmg_Down_Sc_Fx* up_sc = wanda_dmg_obj->AddComponent<Wanda_Dmg_Down_Sc_Fx>();
+	}
+	void BossWandaScript::CameraFowardUp()
+	{
+		Transform* cam_tr = mCameraObject->GetComponent<Transform>();
+
+
+		Vector3 cam_pos = cam_tr->GetPosition();
+		cam_pos += 3.0f * cam_tr->Foward();
+		cam_tr->SetPosition(cam_pos);
+	}
+	void BossWandaScript::CameraFowardDown()
+	{
+		Transform* cam_tr = mCameraObject->GetComponent<Transform>();
+		Vector3 cam_pos = cam_tr->GetPosition();
+
+		cam_pos -= 1.5f * cam_tr->Foward();
+
+		cam_tr->SetPosition(cam_pos);
+	}
+	void BossWandaScript::Death()
+	{
+		
 	}
 }

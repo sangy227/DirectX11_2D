@@ -354,6 +354,8 @@ namespace ya {
 
 	void PlayerScMainScene::Normal_Attack_Hit_Check()
 	{
+		mAttack_Object->SetName(L"Normal_Attack_Hit_Check");
+
 		Transform* mAttack_tr = mAttack_Object->GetComponent<Transform>();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
@@ -367,6 +369,8 @@ namespace ya {
 	}
 	void PlayerScMainScene::Hammer_Attack_Hit_Check()
 	{
+		mAttack_Object->SetName(L"Hammer_Attack_Hit_Check");
+
 		Transform* mAttack_tr = mAttack_Object->GetComponent<Transform>();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
@@ -380,6 +384,8 @@ namespace ya {
 	}
 	void PlayerScMainScene::Painwheel_Attack_Hit_Check()
 	{
+		mAttack_Object->SetName(L"Painwheel_Attack_Hit_Check");
+
 		Transform* mAttack_tr = mAttack_Object->GetComponent<Transform>();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
@@ -394,6 +400,8 @@ namespace ya {
 	}
 	void PlayerScMainScene::Spear_Attack_Hit_Check()
 	{
+		mAttack_Object->SetName(L"Spear_Attack_Hit_Check");
+
 		Transform* mAttack_tr = mAttack_Object->GetComponent<Transform>();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
@@ -408,6 +416,8 @@ namespace ya {
 	}
 	void PlayerScMainScene::Whirlwind_Attack_Hit_Check()
 	{
+		mAttack_Object->SetName(L"Whirlwind_Attack_Hit_Check");
+
 		Transform* mAttack_tr = mAttack_Object->GetComponent<Transform>();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
