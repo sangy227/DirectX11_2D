@@ -1,15 +1,15 @@
-#pragma once
 
+#pragma once
 #include "yaScript.h"
-#include "yaCollider2D.h"
+
 
 namespace ya
 {
-	class SkillEffectScript : public Script
+	class UI_SPELL_Hammer_Sc : public Script
 	{
 	public:
-		SkillEffectScript();
-		~SkillEffectScript();
+		UI_SPELL_Hammer_Sc();
+		virtual ~UI_SPELL_Hammer_Sc();
 
 		virtual void Initalize() override;
 		virtual void Update() override;
@@ -23,8 +23,14 @@ namespace ya
 		void Action();
 		void End();
 
+		void setGameObject(GameObject* sc) { mGameObject = sc; }
+		void setPlayerObj(GameObject* sc) { mPlayer = sc; }
+
 
 	private:
-
+		GameObject* mGameObject;
+		GameObject* mPlayer;
+		float mTimer;
+		bool check;
 	};
 }

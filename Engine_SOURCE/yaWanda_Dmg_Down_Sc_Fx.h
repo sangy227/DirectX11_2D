@@ -2,7 +2,7 @@
 
 #pragma once
 #include "yaScript.h"
-
+#include "yaCollider2D.h"
 namespace ya
 {
 	class Wanda_Dmg_Down_Sc_Fx : public Script

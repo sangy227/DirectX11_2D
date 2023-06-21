@@ -454,8 +454,19 @@ namespace ya::renderer
 		//MainScene
 		Resources::Load<Texture>(L"MainBG_Leyer01", L"MainBG01.png");
 		Resources::Load<Texture>(L"MainBG_Leyer02", L"MainBG02.png");
-
 		Resources::Load<Texture>(L"RedQuene_Chair", L"T_NPC_Yadviga_throne_normal.png");
+
+		//UI
+		Resources::Load<Texture>(L"Bar_BG", L"UI\\T_UI_HEALT_BAR_BG.png");
+		Resources::Load<Texture>(L"Bar_HEALTH", L"UI\\T_UI_HEALTH_BAR.png");
+		Resources::Load<Texture>(L"Hammer_icon", L"UI\\T_Icon_Weapon_Hammer_small.png");
+		Resources::Load<Texture>(L"Painwheel_icon", L"UI\\T_Icon_Weapon_Painwheel_small.png");
+		Resources::Load<Texture>(L"Spear_icon", L"UI\\T_Icon_Weapon_Spear_small.png");
+		Resources::Load<Texture>(L"Whirlwind_icon", L"UI\\T_Icon_Weapon_Sword_small.png");
+		Resources::Load<Texture>(L"Bar_Boss_BG", L"UI\\T_UI_HealthBar_Boss_Background.png");
+		Resources::Load<Texture>(L"Bar_Boss_HEALTH", L"UI\\T_UI_HEALTH_BAR_HURT.png");
+
+
 
 #pragma endregion
 
@@ -537,6 +548,66 @@ namespace ya::renderer
 			chairMaterial->SetTexture(eTextureSlot::T0, chairTexture);
 			chairMaterial->SetShader(chairShader);
 			Resources::Insert<Material>(L"chairMaterial", chairMaterial);
+		}
+
+
+		//UI
+		{
+			std::shared_ptr <Texture> BarBGTexture = Resources::Find<Texture>(L"Bar_BG");
+			std::shared_ptr<Shader> BarBGShader = Resources::Find<Shader>(L"SpriteShader");
+			std::shared_ptr<Material> BarBGMaterial = std::make_shared<Material>();
+			BarBGMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			BarBGMaterial->SetTexture(eTextureSlot::T0, BarBGTexture);
+			BarBGMaterial->SetShader(BarBGShader);
+			Resources::Insert<Material>(L"BarBGMaterial", BarBGMaterial);
+
+			std::shared_ptr <Texture> BarHEALTHTexture = Resources::Find<Texture>(L"Bar_HEALTH");
+			std::shared_ptr<Shader> BarHEALTHShader = Resources::Find<Shader>(L"SpriteShader");
+			std::shared_ptr<Material> BarHEALTHMaterial = std::make_shared<Material>();
+			BarHEALTHMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			BarHEALTHMaterial->SetTexture(eTextureSlot::T0, BarHEALTHTexture);
+			BarHEALTHMaterial->SetShader(BarHEALTHShader);
+			Resources::Insert<Material>(L"BarHEALTHMaterial", BarHEALTHMaterial);
+
+			{
+				std::shared_ptr <Texture> Hammer_iconTexture = Resources::Find<Texture>(L"Hammer_icon");
+				std::shared_ptr<Shader> Hammer_iconShader = Resources::Find<Shader>(L"SpriteShader");
+				std::shared_ptr<Material> Hammer_iconMaterial = std::make_shared<Material>();
+				Hammer_iconMaterial->SetRenderingMode(eRenderingMode::Transparent);
+				Hammer_iconMaterial->SetTexture(eTextureSlot::T0, Hammer_iconTexture);
+				Hammer_iconMaterial->SetShader(Hammer_iconShader);
+				Resources::Insert<Material>(L"Hammer_iconMaterial", Hammer_iconMaterial);
+			}
+
+			{
+				std::shared_ptr <Texture> Painwheel_iconTexture = Resources::Find<Texture>(L"Painwheel_icon");
+				std::shared_ptr<Shader> Painwheel_iconShader = Resources::Find<Shader>(L"SpriteShader");
+				std::shared_ptr<Material> Painwheel_iconMaterial = std::make_shared<Material>();
+				Painwheel_iconMaterial->SetRenderingMode(eRenderingMode::Transparent);
+				Painwheel_iconMaterial->SetTexture(eTextureSlot::T0, Painwheel_iconTexture);
+				Painwheel_iconMaterial->SetShader(Painwheel_iconShader);
+				Resources::Insert<Material>(L"Painwheel_iconMaterial", Painwheel_iconMaterial);
+			}
+
+			{
+				std::shared_ptr <Texture> Spear_iconTexture = Resources::Find<Texture>(L"Spear_icon");
+				std::shared_ptr<Shader> Spear_iconShader = Resources::Find<Shader>(L"SpriteShader");
+				std::shared_ptr<Material> Spear_iconMaterial = std::make_shared<Material>();
+				Spear_iconMaterial->SetRenderingMode(eRenderingMode::Transparent);
+				Spear_iconMaterial->SetTexture(eTextureSlot::T0, Spear_iconTexture);
+				Spear_iconMaterial->SetShader(Spear_iconShader);
+				Resources::Insert<Material>(L"Spear_iconMaterial", Spear_iconMaterial);
+			}
+
+			{
+				std::shared_ptr <Texture> Whirlwind_iconTexture = Resources::Find<Texture>(L"Whirlwind_icon");
+				std::shared_ptr<Shader> Whirlwind_iconShader = Resources::Find<Shader>(L"SpriteShader");
+				std::shared_ptr<Material> Whirlwind_iconMaterial = std::make_shared<Material>();
+				Whirlwind_iconMaterial->SetRenderingMode(eRenderingMode::Transparent);
+				Whirlwind_iconMaterial->SetTexture(eTextureSlot::T0, Whirlwind_iconTexture);
+				Whirlwind_iconMaterial->SetShader(Whirlwind_iconShader);
+				Resources::Insert<Material>(L"Whirlwind_iconMaterial", Whirlwind_iconMaterial);
+			}
 		}
 
 

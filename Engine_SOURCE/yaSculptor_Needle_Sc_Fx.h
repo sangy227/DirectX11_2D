@@ -3,7 +3,7 @@
 
 #pragma once
 #include "yaScript.h"
-
+#include "yaCollider2D.h"
 namespace ya
 {
 	class Sculptor_Needle_Sc_Fx : public Script

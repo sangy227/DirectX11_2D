@@ -198,6 +198,8 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClInclude Include="yaGraphicDevice_DX11.h" />
     <ClInclude Include="yaGraphics.h" />
     <ClInclude Include="yaGridScript.h" />
+    <ClInclude Include="yaHPBar_BG_Sc.h" />
+    <ClInclude Include="yaHPBar_HEALTH_Sc.h" />
     <ClInclude Include="yaInput.h" />
     <ClInclude Include="yaLayer.h" />
     <ClInclude Include="yaLight.h" />
@@ -240,6 +242,10 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClInclude Include="yaTime.h" />
     <ClInclude Include="yaTitleScene.h" />
     <ClInclude Include="yaTransform.h" />
+    <ClInclude Include="yaUI_SPELL_Hammer_Sc.h" />
+    <ClInclude Include="yaUI_SPELL_Painwheel_Sc.h" />
+    <ClInclude Include="yaUI_SPELL_Spear_Sc.h" />
+    <ClInclude Include="yaUI_SPELL_Whirlwind_Sc.h" />
     <ClInclude Include="yaWanda_Dmg_Down_Sc_Fx.h" />
     <ClInclude Include="yaWanda_Dmg_UP_Sc_Fx.h" />
   </ItemGroup>
@@ -275,6 +281,8 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClCompile Include="yaGrandPaScript.cpp" />
     <ClCompile Include="yaGraphicDevice_DX11.cpp" />
     <ClCompile Include="yaGridScript.cpp" />
+    <ClCompile Include="yaHPBar_BG_Sc.cpp" />
+    <ClCompile Include="yaHPBar_HEALTH_Sc.cpp" />
     <ClCompile Include="yaInput.cpp" />
     <ClCompile Include="yaLayer.cpp" />
     <ClCompile Include="yaLight.cpp" />
@@ -316,6 +324,10 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClCompile Include="yaTime.cpp" />
     <ClCompile Include="yaTitleScene.cpp" />
     <ClCompile Include="yaTransform.cpp" />
+    <ClCompile Include="yaUI_SPELL_Hammer_Sc.cpp" />
+    <ClCompile Include="yaUI_SPELL_Painwheel_Sc.cpp" />
+    <ClCompile Include="yaUI_SPELL_Spear_Sc.cpp" />
+    <ClCompile Include="yaUI_SPELL_Whirlwind_Sc.cpp" />
     <ClCompile Include="yaWanda_Dmg_Down_Sc_Fx.cpp" />
     <ClCompile Include="yaWanda_Dmg_UP_Sc_Fx.cpp" />
   </ItemGroup>

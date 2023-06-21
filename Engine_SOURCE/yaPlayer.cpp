@@ -4,6 +4,7 @@
 namespace ya
 {
 	Player::Player()
+		: HP(10)
 	{
 		
 	}
@@ -14,24 +15,40 @@ namespace ya
 
 	void Player::Initalize()
 	{
+
+
+
+
 		GameObject::Initalize();
-		
 	}
 
 	void Player::Update()
 	{
+
+
+
+
+
 		GameObject::Update();
-		//head->update();
-		//body->update();
 	}
 
 	void Player::FixedUpdate()
 	{
+
+
+
+
 		GameObject::FixedUpdate();
 	}
 
 	void Player::Render()
 	{
+
+
+
+
+
+
 		GameObject::Render();
 
 	}

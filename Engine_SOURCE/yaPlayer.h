@@ -14,8 +14,10 @@ namespace ya
 		virtual void FixedUpdate();
 		virtual void Render();
 
+		UINT GetHp(){ return HP; }
+		void SetHp(UINT index) { HP = index; }
+
 	private:
-		//GameObject* head;
-		//GameObject* body;
+		UINT HP;
 	};
 }

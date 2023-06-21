@@ -1,15 +1,15 @@
-#pragma once
 
+#pragma once
 #include "yaScript.h"
-#include "yaCollider2D.h"
+
 
 namespace ya
 {
-	class SkillEffectScript : public Script
+	class HPBar_HEALTH_Sc : public Script
 	{
 	public:
-		SkillEffectScript();
-		~SkillEffectScript();
+		HPBar_HEALTH_Sc();
+		virtual ~HPBar_HEALTH_Sc();
 
 		virtual void Initalize() override;
 		virtual void Update() override;
@@ -23,8 +23,12 @@ namespace ya
 		void Action();
 		void End();
 
+		void setGameObject(GameObject* sc) { mGameObject = sc; }
+		void setPlayerObj(GameObject* sc) { mPlayer = sc; }
+
 
 	private:
-
+		GameObject* mGameObject;
+		GameObject* mPlayer;
 	};
 }

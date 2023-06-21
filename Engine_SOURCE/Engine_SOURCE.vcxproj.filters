@@ -145,6 +145,9 @@
     <Filter Include="Resource\Audio">
       <UniqueIdentifier>{7ca7b943-1ebf-4d24-938c-ae48ac8f4e16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script\Contents\UI">
+      <UniqueIdentifier>{98ffd51f-02bb-48e9-bfbc-837d542bfb13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -366,6 +369,24 @@
     </ClCompile>
     <ClCompile Include="yaAudioSource.cpp">
       <Filter>Resource\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="yaHPBar_BG_Sc.cpp">
+      <Filter>Component\Script\Contents\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaHPBar_HEALTH_Sc.cpp">
+      <Filter>Component\Script\Contents\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaUI_SPELL_Hammer_Sc.cpp">
+      <Filter>Component\Script\Contents\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaUI_SPELL_Painwheel_Sc.cpp">
+      <Filter>Component\Script\Contents\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaUI_SPELL_Spear_Sc.cpp">
+      <Filter>Component\Script\Contents\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaUI_SPELL_Whirlwind_Sc.cpp">
+      <Filter>Component\Script\Contents\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -603,6 +624,24 @@
     </ClInclude>
     <ClInclude Include="yaAudioSource.h">
       <Filter>Resource\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHPBar_BG_Sc.h">
+      <Filter>Component\Script\Contents\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHPBar_HEALTH_Sc.h">
+      <Filter>Component\Script\Contents\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaUI_SPELL_Hammer_Sc.h">
+      <Filter>Component\Script\Contents\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaUI_SPELL_Painwheel_Sc.h">
+      <Filter>Component\Script\Contents\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaUI_SPELL_Spear_Sc.h">
+      <Filter>Component\Script\Contents\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaUI_SPELL_Whirlwind_Sc.h">
+      <Filter>Component\Script\Contents\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

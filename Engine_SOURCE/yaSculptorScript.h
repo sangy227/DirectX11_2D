@@ -1,7 +1,7 @@
 
 #pragma once
 #include "yaScript.h"
-
+#include "yaCollider2D.h"
 namespace ya
 {
 	class SculptorScript : public Script

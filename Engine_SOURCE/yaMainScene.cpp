@@ -43,6 +43,12 @@
 #include "yaAudioListener.h"
 #include "yaAudioClip.h"
 #include "yaAudioSource.h"
+#include "yaHPBar_BG_Sc.h"
+#include "yaHPBar_HEALTH_Sc.h"
+#include "yaUI_SPELL_Hammer_Sc.h"
+#include "yaUI_SPELL_Painwheel_Sc.h"
+#include "yaUI_SPELL_Spear_Sc.h"
+#include "yaUI_SPELL_Whirlwind_Sc.h"
 
 namespace ya {
 	MainScene::MainScene()
@@ -51,6 +57,7 @@ namespace ya {
 		//키보드 목록
 		//ENTER 카메라 무브및 멈춤
 		//UIOJKL 카메라 이동
+		// QW 카메라 진동
 		//ER 할배 키목록
 		//TY 조각가할배 키 목록
  	}
@@ -85,14 +92,15 @@ namespace ya {
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Perspective);
 		cameraComp->RegisterCameraInRenderer();
-		cameraComp->TurnLayerMask(eLayerType::UI, false);
+		//cameraComp->TurnLayerMask(eLayerType::UI, false);
 		MainCameraSc* bcs = cameraObj->AddComponent<MainCameraSc>();
 		mainCamera = cameraComp;
 
 		Transform* cameratr = cameraObj->GetComponent<Transform>();
-
 		cameratr->SetPosition(Vector3(1.0f, 1.0f, -3.0f));
 		AudioListener* player_lis = cameraObj->AddComponent<AudioListener>();
+
+
 
 
 
@@ -375,8 +383,8 @@ namespace ya {
 			cat_sr->SetMaterial(cat_mt);
 		}
 
+#pragma region 조각가 보스
 		//날아다니는 할배 == 조각가보스
-		
 		Monster* sculptor_obj = object::Instantiate<Monster>(eLayerType::Monster);
 		sculptor_obj->SetName(L"sculptor");
 
@@ -422,7 +430,90 @@ namespace ya {
 		SculptorScript* SculptorSc = sculptor_obj->AddComponent<SculptorScript>();
 		SculptorSc->setmGameObject(gameplayer);
 			
+#pragma endregion
 
+
+#pragma region UI
+		//HPBG
+		{
+			GameObject* HPBar_BG_obj = object::Instantiate<GameObject>(eLayerType::UI);
+			HPBar_BG_obj->SetName(L"HPBar_BG_obj");
+
+			Transform* HPBar_BG_tr = HPBar_BG_obj->GetComponent<Transform>();
+			Vector3 cam_pos = cameratr->GetPosition();
+			cam_pos += 6.9 * cameratr->Foward();
+			cam_pos += -3.8 * cameratr->Up();
+			cam_pos += -4.9 * cameratr->Right();
+			HPBar_BG_tr->SetPosition(cam_pos);
+			HPBar_BG_tr->SetScale(Vector3(4.f, 0.1f, 0.f));
+
+			HPBar_BG_Sc* HpBG_Sc = HPBar_BG_obj->AddComponent<HPBar_BG_Sc>();
+			HpBG_Sc->setGameObject(cameraObj);
+			HpBG_Sc->setPlayerObj(gameplayer);
+
+			SpriteRenderer* HPBar_BG_sr = HPBar_BG_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> HPBar_BG_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> HPBar_BG_material = Resources::Find<Material>(L"BarBGMaterial");
+			HPBar_BG_sr->SetMaterial(HPBar_BG_material);
+			HPBar_BG_sr->SetMesh(HPBar_BG_mesh);
+		}
+
+		//HPBar
+		{
+			GameObject* HPBar_obj = object::Instantiate<GameObject>(eLayerType::UI);
+			HPBar_obj->SetName(L"HPBar_obj");
+
+			Transform* HPBar_tr = HPBar_obj->GetComponent<Transform>();
+			Vector3 cam_pos = cameratr->GetPosition();
+			cam_pos += 6.8 * cameratr->Foward();
+			cam_pos += -3.75 * cameratr->Up();
+			cam_pos += -4.8 * cameratr->Right();
+			HPBar_tr->SetPosition(cam_pos);
+			HPBar_tr->SetScale(Vector3(3.8f, 0.04f, 0.f));
+
+			HPBar_HEALTH_Sc* HpBar_Sc = HPBar_obj->AddComponent<HPBar_HEALTH_Sc>();
+			HpBar_Sc->setGameObject(cameraObj);
+			HpBar_Sc->setPlayerObj(gameplayer);
+
+			SpriteRenderer* HPBar_BG_sr = HPBar_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> HPBar_BG_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> HPBar_BG_material = Resources::Find<Material>(L"BarHEALTHMaterial");
+			HPBar_BG_sr->SetMaterial(HPBar_BG_material);
+			HPBar_BG_sr->SetMesh(HPBar_BG_mesh);
+		}
+
+		//Skill UI Hammer
+		{
+			GameObject* UI_SpellRect_obj = object::Instantiate<GameObject>(eLayerType::UI);
+			UI_SpellRect_obj->SetName(L"UI_SPellRect_obj");
+
+			Transform* UI_SpellRect_tr = UI_SpellRect_obj->GetComponent<Transform>();
+			Vector3 cam_pos = cameratr->GetPosition();
+			cam_pos += 6.8 * cameratr->Foward();
+			cam_pos += -2.4 * cameratr->Up();
+			cam_pos += -6.3 * cameratr->Right();
+			UI_SpellRect_tr->SetPosition(cam_pos);
+			UI_SpellRect_tr->SetScale(Vector3(8.f, 8.0f, 0.f));
+
+			Animator* UI_SpellRect_ani = UI_SpellRect_obj->AddComponent<Animator>();
+			std::shared_ptr<Texture> UI_Spell = Resources::Load<Texture>(L"UISPELL", L"UI\\UI_SpellReady.png");
+			UI_SpellRect_ani->Create(L"UI_Spell", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
+			UI_SpellRect_ani->Create(L"UI_Spell2", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
+			UI_SpellRect_ani->Play(L"UI_Spell", false);
+
+			UI_SPELL_Hammer_Sc* UI_SpellRect_Sc = UI_SpellRect_obj->AddComponent<UI_SPELL_Hammer_Sc>();
+			UI_SpellRect_Sc->setGameObject(cameraObj);
+
+			SpriteRenderer* UI_SpellRect_sr = UI_SpellRect_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> UI_SpellRect_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> UI_SpellRect_material = Resources::Find<Material>(L"SpriteMaterial");
+			UI_SpellRect_sr->SetMaterial(UI_SpellRect_material);
+			UI_SpellRect_sr->SetMesh(UI_SpellRect_mesh);
+		}
+
+
+
+#pragma endregion
 		
 
 #pragma region 이벤트 콜라이더 설정 모음

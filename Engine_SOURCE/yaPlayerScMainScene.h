@@ -1,7 +1,7 @@
 #pragma once
 #include "yaScript.h"
 #include "yaMainCameraSc.h"
-
+#include "yaCollider2D.h"
 
 namespace ya
 {
