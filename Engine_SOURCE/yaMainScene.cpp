@@ -88,7 +88,7 @@ namespace ya {
 	{
 
 		// Main Camera Game Object
-		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
+		cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Perspective);
 		cameraComp->RegisterCameraInRenderer();
@@ -100,7 +100,24 @@ namespace ya {
 		cameratr->SetPosition(Vector3(1.0f, 1.0f, -3.0f));
 		AudioListener* player_lis = cameraObj->AddComponent<AudioListener>();
 
+		
+		//Audio Object
+		GameObject* audio_obj = object::Instantiate<GameObject>(eLayerType::UI);
+		audio_obj->SetName(L"audio");
 
+		Transform* audio_tr = audio_obj->GetComponent<Transform>();
+		Vector3 pos = cameratr->GetPosition();
+		pos += 7 * cameratr->Foward();
+		audio_tr->SetPosition(pos);
+
+		audio = audio_obj->AddComponent<AudioSource>();
+		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"BGM", L"Moonscars Exterior Music.wav");
+		//std::shared_ptr<AudioClip> myAudioClip =  Resources::Load<AudioClip>(L"DeathSound",L"gull_death.mp3");
+		audio->SetClip(myAudioClip);
+		audio->SetLoop(true);
+		audio->Play();
+
+		
 
 
 
@@ -119,6 +136,8 @@ namespace ya {
 				mainBGComp_01->SetType(eLightType::Directional);
 				mainBGComp_01->SetDiffuse(Vector4(0.5f, 0.5f, 0.5f, 1.0f));
 				//mainBGComp_01->SetAmbient(Vector4(2.0f, 2.0f, 2.0f, 1.0f));
+
+				
 
 				SpriteRenderer* mainsr_01 = mainBGObj_01->AddComponent<SpriteRenderer>();
 				std::shared_ptr<Mesh> mainmesh_01 = Resources::Find<Mesh>(L"RectMesh");
@@ -158,8 +177,6 @@ namespace ya {
 			Transform* gameplayer_tr = gameplayer->GetComponent<Transform>();
 			gameplayer_tr->SetPosition(Vector3(-5.0f, -1.55f, 5.0f));
 			gameplayer_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
-
-			
 
 
 			Light* gameplayer_light = gameplayer->AddComponent<Light>();
@@ -221,8 +238,9 @@ namespace ya {
 			camsc->setGameObject(cameraObj);
 			camsc->setAttack_obj(mAttack_obj);
 
-			//gameplayer->AddComponent<PlayerScript>();
-			//object::DontDestroyOnLoad(gameplayer);
+			
+		
+		
 
 		}
 #pragma region 할배 몬스터
@@ -275,6 +293,7 @@ namespace ya {
 		std::shared_ptr<Material> grandpa_mt = Resources::Find<Material>(L"SpriteMaterial");
 		grandpa_sr->SetMesh(grandpa_mesh);
 		grandpa_sr->SetMaterial(grandpa_mt);
+
 		GrandPaScript* grandpaSc = grandpa_obj->AddComponent<GrandPaScript>();
 		grandpaSc->setmGameObject(gameplayer);
 		//object::DontDestroyOnLoad(wanda_obj);
@@ -659,13 +678,7 @@ namespace ya {
 			UI_icon_Sc->setPosX(3.25);
 
 
-			AudioSource* mainBG_audio = UI_SpellRect_icon_obj->AddComponent<AudioSource>();
-			std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"BGM", L"Moonscars Exterior Music.wav");
-			//std::shared_ptr<AudioClip> myAudioClip =  Resources::Load<AudioClip>(L"DeathSound",L"gull_death.mp3");
-			mainBG_audio->SetClip(myAudioClip);
-			mainBG_audio->SetLoop(false);
-
-			mainBG_audio->Play();
+			
 
 			SpriteRenderer* UI_SpellRect_icon_sr = UI_SpellRect_icon_obj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Mesh> UI_SpellRect_icon_mesh = Resources::Find<Mesh>(L"RectMesh");
@@ -675,6 +688,9 @@ namespace ya {
 
 
 		}
+
+		//GrandPa HP
+
 
 
 
@@ -885,10 +901,16 @@ namespace ya {
 
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player_Attack_Object, eLayerType::Monster, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Attack_Object, eLayerType::Player, true);
+
+
+
+
+
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectStart, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectLine, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::EventObjectStop, eLayerType::EventObjectLine, true);
-
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectLine2, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::EventObjectStop2, eLayerType::EventObjectLine2, true);
 
@@ -897,6 +919,7 @@ namespace ya {
 	}
 	void MainScene::OnExit()
 	{
+		audio->Stop();
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, false);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectStart, false);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectLine, false);

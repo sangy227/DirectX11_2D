@@ -45,6 +45,7 @@ namespace ya {
 	{
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"needle_idle") = std::bind(&Needle_Sc_FX::Start, this);
+		
 	}
 	void Needle_Sc_FX::Update()
 	{
@@ -56,7 +57,7 @@ namespace ya {
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		if (trigger) {
 			Vector3 pos = tr->GetPosition();
-			pos += 2.4f * tr->Up() * Time::DeltaTime();
+			pos += 4.5f * tr->Up() * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 
@@ -89,6 +90,7 @@ namespace ya {
 
 		Animator* animator = GetOwner()->GetComponent<Animator>(); 
 		animator->GetCompleteEvent(L"needle_idle2") = std::bind(&Needle_Sc_FX::Action, this);
+		animator->GetEvent(L"needle_idle2", 12) = std::bind(&Needle_Sc_FX::Action, this);
 		animator->Play(L"needle_idle2"); 
 	}
 	void Needle_Sc_FX::Action()

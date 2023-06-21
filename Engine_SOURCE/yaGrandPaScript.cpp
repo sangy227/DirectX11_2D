@@ -28,12 +28,14 @@
 #include "yaRigidbody.h"
 #include "yaEnums.h"
 #include "yaNeedle_Sc_FX.h"
+#include "yaGrandPa_UI_Sc.h"
 
 namespace ya {
 	GrandPaScript::GrandPaScript()
 		: Script()
 		, mGrandpaState(eGrandPaState::IDLE)
 		, Attack_index(0)
+		, mGrandPa_Hp(7.5f)
 	{
 	}
 	GrandPaScript::~GrandPaScript()
@@ -44,6 +46,10 @@ namespace ya {
 	}
 	void GrandPaScript::Update()
 	{
+		if (mGrandPa_Hp < 0)
+			Grandpa_DIE();
+		
+
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		Collider2D* collider = GetOwner()->GetComponent<Collider2D>();
@@ -90,13 +96,26 @@ namespace ya {
 			//mGrandpaState = eGrandPaState::ATTACK1;
 			//Attack_index_PLUS();
 			
-			Needle_FX();
+			Attack_Start();
 		}
 
+		
+			
 		if (Input::GetKeyDown(eKeyCode::R)) //여긴 콜라이더 설정
 		{
 			
-			Grandpa_DIE();
+				//Grandpa_DIE();
+				mGrandPa_Hp -= 0.3;
+				if (mGrandPa_Hp < 0) {
+					GrandPa_UI_Sc* Sc = HpBar_Bg_HP_obj->AddComponent<GrandPa_UI_Sc>();
+					Sc->setIndex(0);
+				}
+				else {
+					GrandPa_UI_Sc* Sc = HpBar_Bg_HP_obj->AddComponent<GrandPa_UI_Sc>();
+					Sc->setIndex(mGrandPa_Hp);
+				}
+				
+			
 			
 		}
 
@@ -116,7 +135,20 @@ namespace ya {
 
 	void GrandPaScript::OnCollisionEnter(Collider2D* collider)
 	{
-		int a = 0;
+		if (collider->GetOwner()->GetName() == L"Hammer_Attack_Hit_Check")
+		{
+			mGrandPa_Hp -= 1.f;
+		}
+
+		if (mGrandPa_Hp < 0) {
+			GrandPa_UI_Sc* Sc = HpBar_Bg_HP_obj->AddComponent<GrandPa_UI_Sc>();
+			Sc->setIndex(0);
+		}
+		else {
+			GrandPa_UI_Sc* Sc = HpBar_Bg_HP_obj->AddComponent<GrandPa_UI_Sc>();
+			Sc->setIndex(mGrandPa_Hp);
+		}
+
 	}
 	void GrandPaScript::OnCollisionStay(Collider2D* collider)
 	{
@@ -139,7 +171,7 @@ namespace ya {
 	{
 	}
 
-	void GrandPaScript::Attack_index_PLUS()
+	void GrandPaScript::Attack_Start()
 	{
 		//mGrandpaState = eGrandPaState::ATTACK1;
 
@@ -147,6 +179,55 @@ namespace ya {
 		animator->GetCompleteEvent(L"grandpa_idle") = std::bind(&GrandPaScript::Grandpa_IDLE, this);
 
 		animator->Play(L"grandpa_idle");
+
+
+		//UI 보스 피통 BG
+		{
+			HpBar_Bg_obj = object::Instantiate<GameObject>(eLayerType::UI);
+			HpBar_Bg_obj->SetName(L"Hpbar_grandpa");
+
+			Transform* HpBar_Bg_tr = HpBar_Bg_obj->GetComponent<Transform>();
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			pos += 5.7 * tr->Up();
+			
+			HpBar_Bg_tr->SetPosition(pos);
+			HpBar_Bg_tr->SetScale(Vector3(8.f, 0.5f, 0.f));
+		
+			SpriteRenderer* UI_SpellRect_sr = HpBar_Bg_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> UI_SpellRect_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> UI_SpellRect_material = Resources::Find<Material>(L"Bar_Boss_BGMaterial");
+			UI_SpellRect_sr->SetMaterial(UI_SpellRect_material);
+			UI_SpellRect_sr->SetMesh(UI_SpellRect_mesh);
+		}
+
+		//UI 보스 피
+		{
+			HpBar_Bg_HP_obj = object::Instantiate<GameObject>(eLayerType::UI);
+			HpBar_Bg_HP_obj->SetName(L"Hpbar_Health_grandpa");
+
+			Transform* HpBar_Bg_tr = HpBar_Bg_HP_obj->GetComponent<Transform>();
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			pos += 5.6 * tr->Up();
+			pos += 0.1 * tr->Foward();
+
+			HpBar_Bg_tr->SetPosition(pos);
+			HpBar_Bg_tr->SetScale(Vector3(7.5f, 0.08f, 0.f));
+
+
+			GrandPa_UI_Sc* Ui_Sc = HpBar_Bg_HP_obj->AddComponent<GrandPa_UI_Sc>();
+			Ui_Sc->setGameObject(GetOwner());
+			Ui_Sc->setIndex(mGrandPa_Hp);
+			Ui_Sc->setGrandPaScript(GetOwner()->GetComponent<GrandPaScript>());
+
+
+			SpriteRenderer* UI_SpellRect_sr = HpBar_Bg_HP_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> UI_SpellRect_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> UI_SpellRect_material = Resources::Find<Material>(L"Bar_Boss_HEALTHMaterial");
+			UI_SpellRect_sr->SetMaterial(UI_SpellRect_material);
+			UI_SpellRect_sr->SetMesh(UI_SpellRect_mesh);
+		}
 	}
 
 
@@ -182,7 +263,9 @@ namespace ya {
 	void GrandPaScript::Grandpa_ATTACK1()
 	{
 		//mGrandpaState = eGrandPaState::ATTACK3;
-
+		Needle_FX1();
+		Needle_FX3();
+		Needle_FX5();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"grandpa_attack_1") = std::bind(&GrandPaScript::Grandpa_ATTACK2, this);
 		animator->Play(L"grandpa_attack_1");
@@ -191,7 +274,10 @@ namespace ya {
 	void GrandPaScript::Grandpa_ATTACK2()
 	{
 		//mGrandpaState = eGrandPaState::ATTACK3;
-		Needle_FX();
+		Needle_FX2();
+		Needle_FX4();
+		
+		
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"grandpa_attack_2") = std::bind(&GrandPaScript::Grandpa_ATTACK3, this);
 
@@ -201,7 +287,11 @@ namespace ya {
 	void GrandPaScript::Grandpa_ATTACK3()
 	{
 		//mGrandpaState = eGrandPaState::ATTACK3;
-
+		Needle_FX1();
+		Needle_FX2();
+		Needle_FX3();
+		Needle_FX4();
+		Needle_FX5();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"grandpa_attack_3") = std::bind(&GrandPaScript::Grandpa_IDLE, this);
 		animator->Play(L"grandpa_attack_3");
@@ -212,16 +302,28 @@ namespace ya {
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"grandpa_die") = std::bind(&GrandPaScript::dead, this);
 		animator->Play(L"grandpa_die",false);
+		mGrandPa_Hp = 0.001;
 	}
 
 	void GrandPaScript::dead()
 	{
 		GetOwner()->Death();
+		HpBar_Bg_obj->Death();
 	}
 
 
 
 	void GrandPaScript::Needle_FX()
+	{
+		
+		//Needle_FX1();
+		//Needle_FX2();
+		//Needle_FX3();
+		//Needle_FX4();
+		//Needle_FX5();
+
+	}
+	void GrandPaScript::Needle_FX3()
 	{
 		{
 			Monster* needleeffect = object::Instantiate<Monster>(eLayerType::Attack_Object);
@@ -235,7 +337,7 @@ namespace ya {
 			Vector3 tr = needleeffect_getobject_tr->GetPosition(); // 할배꺼
 
 			Vector3 tr2 = player_tr->GetPosition(); // 플레이어꺼
-			tr2 += 5.6f * player_tr->Up() ;
+			tr2 += 5.6f * player_tr->Up();
 			needleeffect_tr->SetPosition(tr2);
 
 			needleeffect_tr->SetRotation(Vector3(180.0f, 0.0f, 0.0f));
@@ -252,12 +354,12 @@ namespace ya {
 			std::shared_ptr<Texture> needle_die2 = Resources::Load<Texture>(L"needle_die2", L"GrandPa\\T_BossMoon_RayHit.png"); // 안씀
 			std::shared_ptr<Texture> needle_die = Resources::Load<Texture>(L"needle_die", L"GrandPa\\T_BossMoon_AoeExplosion.png");
 
-			needleeffect_Ani->Create(L"needle_idle", needle_idle, Vector2(0.0f, 0.0f), Vector2(123.0f, 123.0f), Vector2(0.0f, -0.0f), 8, 4, 8, 0.1f);
+			needleeffect_Ani->Create(L"needle_idle", needle_idle, Vector2(0.0f, 0.0f), Vector2(123.0f, 123.0f), Vector2(0.0f, -0.0f), 8, 4, 8, 0.05f);
 			needleeffect_Ani->Create(L"needle_idle2", needle_idle, Vector2(0.0f, 123.0f), Vector2(123.0f, 123.0f), Vector2(0.0f, -0.0f), 8, 3, 23, 0.1f);
 			needleeffect_Ani->Create(L"needle_die", needle_die, Vector2(0.0f, 0.0f), Vector2(452.0f, 450.0f), Vector2(0.0f, -0.0f), 4, 3, 10, 0.10f);
 
-			needleeffect_Ani->Play(L"needle_idle",false); //루프 안돌림
-			
+			needleeffect_Ani->Play(L"needle_idle", false); //루프 안돌림
+
 
 			SpriteRenderer* needleeffect_sr = needleeffect->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> needleeffect_mateiral = Resources::Find<Material>(L"SpriteMaterial");
@@ -267,9 +369,12 @@ namespace ya {
 
 			Needle_Sc_FX* sc_fx = needleeffect->AddComponent<Needle_Sc_FX>();
 			sc_fx->setmGameObject(mGameObject);
-			
-			
+
+
 		}
+	}
+	void GrandPaScript::Needle_FX2()
+	{
 		{
 			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			needleeffect2->SetName(L"GrandPa_Needle_02");
@@ -299,9 +404,10 @@ namespace ya {
 			std::shared_ptr<Texture> needle_die2 = Resources::Load<Texture>(L"needle_die2", L"GrandPa\\T_BossMoon_RayHit.png"); // 안씀
 			std::shared_ptr<Texture> needle_die = Resources::Load<Texture>(L"needle_die", L"GrandPa\\T_BossMoon_AoeExplosion.png");
 
-			needleeffect2_Ani->Create(L"needle_idle", needle_idle, Vector2(0.0f, 0.0f), Vector2(123.0f, 123.0f), Vector2(0.0f, -0.0f), 8, 4, 8, 0.1f);
+			needleeffect2_Ani->Create(L"needle_idle", needle_idle, Vector2(0.0f, 0.0f), Vector2(123.0f, 123.0f), Vector2(0.0f, -0.0f), 8, 4, 8, 0.05f);
 			needleeffect2_Ani->Create(L"needle_idle2", needle_idle, Vector2(0.0f, 123.0f), Vector2(123.0f, 123.0f), Vector2(0.0f, -0.0f), 8, 3, 23, 0.1f);
 			needleeffect2_Ani->Create(L"needle_die", needle_die, Vector2(0.0f, 0.0f), Vector2(452.0f, 450.0f), Vector2(0.0f, -0.0f), 4, 3, 10, 0.10f);
+		
 
 			needleeffect2_Ani->Play(L"needle_idle", false); //루프 안돌림
 
@@ -316,6 +422,9 @@ namespace ya {
 			sc2_fx->setmGameObject(mGameObject);
 
 		}
+	}
+	void GrandPaScript::Needle_FX4()
+	{
 		{
 			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			needleeffect2->SetName(L"GrandPa_Needle_03");
@@ -345,7 +454,7 @@ namespace ya {
 			std::shared_ptr<Texture> needle_die2 = Resources::Load<Texture>(L"needle_die2", L"GrandPa\\T_BossMoon_RayHit.png"); // 안씀
 			std::shared_ptr<Texture> needle_die = Resources::Load<Texture>(L"needle_die", L"GrandPa\\T_BossMoon_AoeExplosion.png");
 
-			needleeffect2_Ani->Create(L"needle_idle", needle_idle, Vector2(0.0f, 0.0f), Vector2(123.0f, 123.0f), Vector2(0.0f, -0.0f), 8, 4, 8, 0.1f);
+			needleeffect2_Ani->Create(L"needle_idle", needle_idle, Vector2(0.0f, 0.0f), Vector2(123.0f, 123.0f), Vector2(0.0f, -0.0f), 8, 4, 8, 0.05f);
 			needleeffect2_Ani->Create(L"needle_idle2", needle_idle, Vector2(0.0f, 123.0f), Vector2(123.0f, 123.0f), Vector2(0.0f, -0.0f), 8, 3, 23, 0.1f);
 			needleeffect2_Ani->Create(L"needle_die2", needle_die2, Vector2(0.0f, 0.0f), Vector2(76.0f, 70.0f), Vector2(0.0f, -0.0f), 5, 5, 25, 0.10f);
 			needleeffect2_Ani->Create(L"needle_die", needle_die, Vector2(0.0f, 0.0f), Vector2(452.0f, 450.0f), Vector2(0.0f, -0.0f), 4, 3, 10, 0.10f);
@@ -363,7 +472,9 @@ namespace ya {
 			sc2_fx->setmGameObject(mGameObject);
 
 		}
-
+	}
+	void GrandPaScript::Needle_FX5()
+	{
 		{
 			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			needleeffect2->SetName(L"GrandPa_Needle_04");
@@ -393,7 +504,7 @@ namespace ya {
 			std::shared_ptr<Texture> needle_die2 = Resources::Load<Texture>(L"needle_die2", L"GrandPa\\T_BossMoon_RayHit.png"); // 안씀
 			std::shared_ptr<Texture> needle_die = Resources::Load<Texture>(L"needle_die", L"GrandPa\\T_BossMoon_AoeExplosion.png");
 
-			needleeffect2_Ani->Create(L"needle_idle", needle_idle, Vector2(0.0f, 0.0f), Vector2(123.0f, 123.0f), Vector2(0.0f, -0.0f), 8, 4, 8, 0.1f);
+			needleeffect2_Ani->Create(L"needle_idle", needle_idle, Vector2(0.0f, 0.0f), Vector2(123.0f, 123.0f), Vector2(0.0f, -0.0f), 8, 4, 8, 0.05f);
 			needleeffect2_Ani->Create(L"needle_idle2", needle_idle, Vector2(0.0f, 123.0f), Vector2(123.0f, 123.0f), Vector2(0.0f, -0.0f), 8, 3, 23, 0.1f);
 			needleeffect2_Ani->Create(L"needle_die2", needle_die2, Vector2(0.0f, 0.0f), Vector2(76.0f, 70.0f), Vector2(0.0f, -0.0f), 5, 5, 25, 0.10f);
 			needleeffect2_Ani->Create(L"needle_die", needle_die, Vector2(0.0f, 0.0f), Vector2(452.0f, 450.0f), Vector2(0.0f, -0.0f), 4, 3, 10, 0.10f);
@@ -411,7 +522,9 @@ namespace ya {
 			sc2_fx->setmGameObject(mGameObject);
 
 		}
-
+	}
+	void GrandPaScript::Needle_FX1()
+	{
 		{
 			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			needleeffect2->SetName(L"GrandPa_Needle_04");
@@ -441,7 +554,7 @@ namespace ya {
 			std::shared_ptr<Texture> needle_die2 = Resources::Load<Texture>(L"needle_die2", L"GrandPa\\T_BossMoon_RayHit.png"); // 안씀
 			std::shared_ptr<Texture> needle_die = Resources::Load<Texture>(L"needle_die", L"GrandPa\\T_BossMoon_AoeExplosion.png");
 
-			needleeffect2_Ani->Create(L"needle_idle", needle_idle, Vector2(0.0f, 0.0f), Vector2(123.0f, 123.0f), Vector2(0.0f, -0.0f), 8, 4, 8, 0.1f);
+			needleeffect2_Ani->Create(L"needle_idle", needle_idle, Vector2(0.0f, 0.0f), Vector2(123.0f, 123.0f), Vector2(0.0f, -0.0f), 8, 4, 8, 0.05f);
 			needleeffect2_Ani->Create(L"needle_idle2", needle_idle, Vector2(0.0f, 123.0f), Vector2(123.0f, 123.0f), Vector2(0.0f, -0.0f), 8, 3, 23, 0.1f);
 			needleeffect2_Ani->Create(L"needle_die2", needle_die2, Vector2(0.0f, 0.0f), Vector2(76.0f, 70.0f), Vector2(0.0f, -0.0f), 5, 5, 25, 0.10f);
 			needleeffect2_Ani->Create(L"needle_die", needle_die, Vector2(0.0f, 0.0f), Vector2(452.0f, 450.0f), Vector2(0.0f, -0.0f), 4, 3, 10, 0.10f);
@@ -459,6 +572,9 @@ namespace ya {
 			sc2_fx->setmGameObject(mGameObject);
 
 		}
-
+	}
+	void GrandPaScript::DieDieDie()
+	{
+		mGrandPa_Hp = 0;
 	}
 }

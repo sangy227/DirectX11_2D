@@ -40,7 +40,7 @@ namespace ya
 		void Action();
 		void End();
 
-
+		void Attack_Start();
 
 		void Sculptor_IDLE();
 		void Sculptor_IDLE2();
@@ -53,6 +53,13 @@ namespace ya
 
 		void Sculptor_Needle();
 		void Sculptor_Needle2();
+		void Sculptor_Needle3();
+		void Sculptor_Needle4();
+		void Sculptor_Needle5();
+		void Sculptor_Needle6();
+		void Sculptor_Needle7();
+		void Sculptor_Needle8();
+		
 
 		void chenge();
 
@@ -65,7 +72,9 @@ namespace ya
 
 		GameObject* mGameObject; //플레이어꺼를 들고있음
 
-
+		GameObject* HpBar_Bg_HP_obj;
+		GameObject* HpBar_Bg_obj;
+		float mSculptor_Hp;
 		bool mbool;
 
 	};

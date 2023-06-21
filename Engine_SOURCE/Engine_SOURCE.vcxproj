@@ -195,6 +195,7 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClInclude Include="yafourthCameraStopLine_Script.h" />
     <ClInclude Include="yaGameObject.h" />
     <ClInclude Include="yaGrandPaScript.h" />
+    <ClInclude Include="yaGrandPa_UI_Sc.h" />
     <ClInclude Include="yaGraphicDevice_DX11.h" />
     <ClInclude Include="yaGraphics.h" />
     <ClInclude Include="yaGridScript.h" />
@@ -229,6 +230,7 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClInclude Include="yaScript.h" />
     <ClInclude Include="yaSculptorScript.h" />
     <ClInclude Include="yaSculptor_Needle_Sc_Fx.h" />
+    <ClInclude Include="yaSculptor_UI_Sc.h" />
     <ClInclude Include="yasecondCameraMoveLine_Script.h" />
     <ClInclude Include="yasecondCameraStopLine_Script.h" />
     <ClInclude Include="yaShader.h" />
@@ -280,6 +282,7 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClCompile Include="yafourthCameraStopLine_Script.cpp" />
     <ClCompile Include="yaGameObject.cpp" />
     <ClCompile Include="yaGrandPaScript.cpp" />
+    <ClCompile Include="yaGrandPa_UI_Sc.cpp" />
     <ClCompile Include="yaGraphicDevice_DX11.cpp" />
     <ClCompile Include="yaGridScript.cpp" />
     <ClCompile Include="yaHPBar_BG_Sc.cpp" />
@@ -312,6 +315,7 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClCompile Include="yaScript.cpp" />
     <ClCompile Include="yaSculptorScript.cpp" />
     <ClCompile Include="yaSculptor_Needle_Sc_Fx.cpp" />
+    <ClCompile Include="yaSculptor_UI_Sc.cpp" />
     <ClCompile Include="yasecondCameraMoveLine_Script.cpp" />
     <ClCompile Include="yasecondCameraStopLine_Script.cpp" />
     <ClCompile Include="yaShader.cpp" />

@@ -2,7 +2,7 @@
 
 #pragma once
 #include "yaScript.h"
-#include "yaCollider2D.h"
+
 namespace ya
 {
 	class GrandPaScript : public Script
@@ -33,7 +33,7 @@ namespace ya
 		void Action();
 		void End();
 
-		void Attack_index_PLUS();
+		void Attack_Start();
 
 		void Grandpa_IDLE();
 		void Grandpa_IDLE2();
@@ -45,7 +45,13 @@ namespace ya
 		void dead();
 
 		void Needle_FX();
+		void Needle_FX1();
+		void Needle_FX2();
+		void Needle_FX3();
+		void Needle_FX4();
+		void Needle_FX5();
 
+		void DieDieDie();
 
 
 
@@ -55,10 +61,15 @@ namespace ya
 		void setmGameObject(GameObject* obj) { mGameObject = obj; }
 		GameObject* GetmGameObject() { return mGameObject; }
 
+		float GetGrandPa_Hp() { return mGrandPa_Hp; }
+
 	private:
 		eGrandPaState mGrandpaState;
 		GameObject* mGameObject;
-		int Attack_index;
 
+		GameObject* HpBar_Bg_HP_obj;
+		GameObject* HpBar_Bg_obj;
+		int Attack_index;
+		float mGrandPa_Hp;
 	};
 };

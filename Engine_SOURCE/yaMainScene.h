@@ -1,6 +1,6 @@
 #pragma once
 #include "yaScene.h"
-
+#include "yaAudioSource.h"
 namespace ya
 {
 	class MainScene : public Scene
@@ -18,5 +18,7 @@ namespace ya
 		virtual void OnExit() override;
 
 	private:
+		GameObject* cameraObj;
+		AudioSource* audio;
 	};
 }
