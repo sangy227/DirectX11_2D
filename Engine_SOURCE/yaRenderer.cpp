@@ -608,6 +608,26 @@ namespace ya::renderer
 				Whirlwind_iconMaterial->SetShader(Whirlwind_iconShader);
 				Resources::Insert<Material>(L"Whirlwind_iconMaterial", Whirlwind_iconMaterial);
 			}
+
+			{
+				std::shared_ptr <Texture> Bar_Boss_BGTexture = Resources::Find<Texture>(L"Bar_Boss_BG");
+				std::shared_ptr<Shader> Bar_Boss_BGShader = Resources::Find<Shader>(L"SpriteShader");
+				std::shared_ptr<Material> Bar_Boss_BGMaterial = std::make_shared<Material>();
+				Bar_Boss_BGMaterial->SetRenderingMode(eRenderingMode::Transparent);
+				Bar_Boss_BGMaterial->SetTexture(eTextureSlot::T0, Bar_Boss_BGTexture);
+				Bar_Boss_BGMaterial->SetShader(Bar_Boss_BGShader);
+				Resources::Insert<Material>(L"Bar_Boss_BGMaterial", Bar_Boss_BGMaterial);
+			}
+
+			{
+				std::shared_ptr <Texture> Bar_Boss_HEALTHTexture = Resources::Find<Texture>(L"Bar_Boss_HEALTH");
+				std::shared_ptr<Shader> Bar_Boss_HEALTHShader = Resources::Find<Shader>(L"SpriteShader");
+				std::shared_ptr<Material> Bar_Boss_HEALTHMaterial = std::make_shared<Material>();
+				Bar_Boss_HEALTHMaterial->SetRenderingMode(eRenderingMode::Transparent);
+				Bar_Boss_HEALTHMaterial->SetTexture(eTextureSlot::T0, Bar_Boss_HEALTHTexture);
+				Bar_Boss_HEALTHMaterial->SetShader(Bar_Boss_HEALTHShader);
+				Resources::Insert<Material>(L"Bar_Boss_HEALTHMaterial", Bar_Boss_HEALTHMaterial);
+			}
 		}
 
 

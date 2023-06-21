@@ -12,6 +12,8 @@ namespace ya {
 		: Script()
 		, mTimer(0.f)
 		, check(true)
+		, PosX(0)
+		, PosY(0)
 	{
 	}
 	UI_SPELL_Hammer_Sc::~UI_SPELL_Hammer_Sc()
@@ -26,8 +28,8 @@ namespace ya {
 		Transform* cam_tr = mGameObject->GetComponent<Transform>();
 		Vector3 pos = cam_tr->GetPosition();
 		pos += 6.8 * cam_tr->Foward();
-		pos += -2.4 * cam_tr->Up();
-		pos += -6.3 * cam_tr->Right();
+		pos += -PosY * cam_tr->Up();
+		pos += -PosX * cam_tr->Right();
 		tr->SetPosition(pos);
 
 		if (Input::GetKeyDown(eKeyCode::A))
@@ -40,7 +42,7 @@ namespace ya {
 		{
 			mTimer += 1.0 * Time::DeltaTime();
 
-			if (mTimer > 5.0f)
+			if (mTimer > 7.0f)
 			{
 				Start();
 				check = true;

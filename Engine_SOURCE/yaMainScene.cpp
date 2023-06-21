@@ -49,7 +49,7 @@
 #include "yaUI_SPELL_Painwheel_Sc.h"
 #include "yaUI_SPELL_Spear_Sc.h"
 #include "yaUI_SPELL_Whirlwind_Sc.h"
-
+#include "yaUI_Icon_Sc.h"
 namespace ya {
 	MainScene::MainScene()
 		: Scene(eSceneType::Main)
@@ -159,14 +159,7 @@ namespace ya {
 			gameplayer_tr->SetPosition(Vector3(-5.0f, -1.55f, 5.0f));
 			gameplayer_tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 
-			AudioSource* mainBG_audio = gameplayer->AddComponent<AudioSource>();
-			std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"BGM", L"Moonscars Exterior Music.wav");
-			myAudioClip->Set3DAttributes(Vector3(gameplayer_tr->GetPosition()), Vector3(100.0f, 100.0f, 100.0f));
-			//std::shared_ptr<AudioClip> myAudioClip =  Resources::Load<AudioClip>(L"DeathSound",L"gull_death.mp3");
-			mainBG_audio->SetClip(myAudioClip);
-			mainBG_audio->SetLoop(false);
-
-			mainBG_audio->Play();
+			
 
 
 			Light* gameplayer_light = gameplayer->AddComponent<Light>();
@@ -503,12 +496,184 @@ namespace ya {
 
 			UI_SPELL_Hammer_Sc* UI_SpellRect_Sc = UI_SpellRect_obj->AddComponent<UI_SPELL_Hammer_Sc>();
 			UI_SpellRect_Sc->setGameObject(cameraObj);
+			UI_SpellRect_Sc->setPosY(2.4);
+			UI_SpellRect_Sc->setPosX(6.3);
 
 			SpriteRenderer* UI_SpellRect_sr = UI_SpellRect_obj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Mesh> UI_SpellRect_mesh = Resources::Find<Mesh>(L"RectMesh");
 			std::shared_ptr<Material> UI_SpellRect_material = Resources::Find<Material>(L"SpriteMaterial");
 			UI_SpellRect_sr->SetMaterial(UI_SpellRect_material);
 			UI_SpellRect_sr->SetMesh(UI_SpellRect_mesh);
+
+			//icon
+			GameObject* UI_SpellRect_icon_obj = object::Instantiate<GameObject>(eLayerType::UI);
+			UI_SpellRect_icon_obj->SetName(L"UI_SpellRect_icon_obj");
+
+			Transform* UI_SpellRect_icon_tr = UI_SpellRect_icon_obj->GetComponent<Transform>();
+			UI_SpellRect_icon_tr->SetScale(Vector3(0.5f, 0.5f, 0.f));
+
+			UI_Icon_Sc* UI_icon_Sc = UI_SpellRect_icon_obj->AddComponent<UI_Icon_Sc>();
+			UI_icon_Sc->setGameObject(cameraObj);
+			UI_icon_Sc->setPosY(3.1);
+			UI_icon_Sc->setPosX(6.2);
+
+			SpriteRenderer* UI_SpellRect_icon_sr = UI_SpellRect_icon_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> UI_SpellRect_icon_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> UI_SpellRect_icon_material = Resources::Find<Material>(L"Hammer_iconMaterial");
+			UI_SpellRect_icon_sr->SetMaterial(UI_SpellRect_icon_material);
+			UI_SpellRect_icon_sr->SetMesh(UI_SpellRect_icon_mesh);
+		}
+
+		//Skill UI PainWheel
+		{
+			GameObject* UI_SpellRect_obj = object::Instantiate<GameObject>(eLayerType::UI);
+			UI_SpellRect_obj->SetName(L"UI_SPellRect_obj");
+
+			Transform* UI_SpellRect_tr = UI_SpellRect_obj->GetComponent<Transform>();
+			Vector3 cam_pos = cameratr->GetPosition();
+			cam_pos += 6.8 * cameratr->Foward();
+			cam_pos += -2.4 * cameratr->Up();
+			cam_pos += -5.3 * cameratr->Right();
+			UI_SpellRect_tr->SetPosition(cam_pos);
+			UI_SpellRect_tr->SetScale(Vector3(8.f, 8.0f, 0.f));
+
+			Animator* UI_SpellRect_ani = UI_SpellRect_obj->AddComponent<Animator>();
+			std::shared_ptr<Texture> UI_Spell = Resources::Load<Texture>(L"UISPELL", L"UI\\UI_SpellReady.png");
+			UI_SpellRect_ani->Create(L"UI_Spell", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
+			UI_SpellRect_ani->Create(L"UI_Spell2", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
+			UI_SpellRect_ani->Play(L"UI_Spell", false);
+
+			UI_SPELL_Painwheel_Sc* UI_SpellRect_Sc = UI_SpellRect_obj->AddComponent<UI_SPELL_Painwheel_Sc>();
+			UI_SpellRect_Sc->setGameObject(cameraObj);
+
+			SpriteRenderer* UI_SpellRect_sr = UI_SpellRect_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> UI_SpellRect_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> UI_SpellRect_material = Resources::Find<Material>(L"SpriteMaterial");
+			UI_SpellRect_sr->SetMaterial(UI_SpellRect_material);
+			UI_SpellRect_sr->SetMesh(UI_SpellRect_mesh);
+
+			//icon
+			GameObject* UI_SpellRect_icon_obj = object::Instantiate<GameObject>(eLayerType::UI);
+			UI_SpellRect_icon_obj->SetName(L"UI_SpellRect_icon_obj");
+
+			Transform* UI_SpellRect_icon_tr = UI_SpellRect_icon_obj->GetComponent<Transform>();
+			UI_SpellRect_icon_tr->SetScale(Vector3(0.5f, 0.5f, 0.f));
+
+			UI_Icon_Sc* UI_icon_Sc = UI_SpellRect_icon_obj->AddComponent<UI_Icon_Sc>();
+			UI_icon_Sc->setGameObject(cameraObj);
+			UI_icon_Sc->setPosY(3.1);
+			UI_icon_Sc->setPosX(5.2);
+
+			SpriteRenderer* UI_SpellRect_icon_sr = UI_SpellRect_icon_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> UI_SpellRect_icon_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> UI_SpellRect_icon_material = Resources::Find<Material>(L"Painwheel_iconMaterial");
+			UI_SpellRect_icon_sr->SetMaterial(UI_SpellRect_icon_material);
+			UI_SpellRect_icon_sr->SetMesh(UI_SpellRect_icon_mesh);
+		}
+
+		//Skill UI Spear
+		{
+			GameObject* UI_SpellRect_obj = object::Instantiate<GameObject>(eLayerType::UI);
+			UI_SpellRect_obj->SetName(L"UI_SPellRect_obj");
+
+			Transform* UI_SpellRect_tr = UI_SpellRect_obj->GetComponent<Transform>();
+			Vector3 cam_pos = cameratr->GetPosition();
+			cam_pos += 6.8 * cameratr->Foward();
+			cam_pos += -2.4 * cameratr->Up();
+			cam_pos += -4.3 * cameratr->Right();
+			UI_SpellRect_tr->SetPosition(cam_pos);
+			UI_SpellRect_tr->SetScale(Vector3(8.f, 8.0f, 0.f));
+
+			Animator* UI_SpellRect_ani = UI_SpellRect_obj->AddComponent<Animator>();
+			std::shared_ptr<Texture> UI_Spell = Resources::Load<Texture>(L"UISPELL", L"UI\\UI_SpellReady.png");
+			UI_SpellRect_ani->Create(L"UI_Spell", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
+			UI_SpellRect_ani->Create(L"UI_Spell2", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
+			UI_SpellRect_ani->Play(L"UI_Spell", false);
+
+			UI_SPELL_Spear_Sc* UI_SpellRect_Sc = UI_SpellRect_obj->AddComponent<UI_SPELL_Spear_Sc>();
+			UI_SpellRect_Sc->setGameObject(cameraObj);
+
+			SpriteRenderer* UI_SpellRect_sr = UI_SpellRect_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> UI_SpellRect_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> UI_SpellRect_material = Resources::Find<Material>(L"SpriteMaterial");
+			UI_SpellRect_sr->SetMaterial(UI_SpellRect_material);
+			UI_SpellRect_sr->SetMesh(UI_SpellRect_mesh);
+
+			//icon
+			GameObject* UI_SpellRect_icon_obj = object::Instantiate<GameObject>(eLayerType::UI);
+			UI_SpellRect_icon_obj->SetName(L"UI_SpellRect_icon_obj");
+
+			Transform* UI_SpellRect_icon_tr = UI_SpellRect_icon_obj->GetComponent<Transform>();
+			UI_SpellRect_icon_tr->SetScale(Vector3(0.45f, 0.45f, 0.f));
+
+			UI_Icon_Sc* UI_icon_Sc = UI_SpellRect_icon_obj->AddComponent<UI_Icon_Sc>();
+			UI_icon_Sc->setGameObject(cameraObj);
+			UI_icon_Sc->setPosY(3.1);
+			UI_icon_Sc->setPosX(4.25);
+
+			SpriteRenderer* UI_SpellRect_icon_sr = UI_SpellRect_icon_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> UI_SpellRect_icon_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> UI_SpellRect_icon_material = Resources::Find<Material>(L"Spear_iconMaterial");
+			UI_SpellRect_icon_sr->SetMaterial(UI_SpellRect_icon_material);
+			UI_SpellRect_icon_sr->SetMesh(UI_SpellRect_icon_mesh);
+		}
+
+		//Skill UI Whirlwind
+		{
+			GameObject* UI_SpellRect_obj = object::Instantiate<GameObject>(eLayerType::UI);
+			UI_SpellRect_obj->SetName(L"UI_SPellRect_obj");
+
+			Transform* UI_SpellRect_tr = UI_SpellRect_obj->GetComponent<Transform>();
+			Vector3 cam_pos = cameratr->GetPosition();
+			cam_pos += 6.8 * cameratr->Foward();
+			cam_pos += -2.4 * cameratr->Up();
+			cam_pos += -3.3 * cameratr->Right();
+			UI_SpellRect_tr->SetPosition(cam_pos);
+			UI_SpellRect_tr->SetScale(Vector3(8.f, 8.0f, 0.f));
+
+			Animator* UI_SpellRect_ani = UI_SpellRect_obj->AddComponent<Animator>();
+			std::shared_ptr<Texture> UI_Spell = Resources::Load<Texture>(L"UISPELL", L"UI\\UI_SpellReady.png");
+			UI_SpellRect_ani->Create(L"UI_Spell", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
+			UI_SpellRect_ani->Create(L"UI_Spell2", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
+			UI_SpellRect_ani->Play(L"UI_Spell", false);
+
+			UI_SPELL_Whirlwind_Sc* UI_SpellRect_Sc = UI_SpellRect_obj->AddComponent<UI_SPELL_Whirlwind_Sc>();
+			UI_SpellRect_Sc->setGameObject(cameraObj);
+
+			SpriteRenderer* UI_SpellRect_sr = UI_SpellRect_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> UI_SpellRect_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> UI_SpellRect_material = Resources::Find<Material>(L"SpriteMaterial");
+			UI_SpellRect_sr->SetMaterial(UI_SpellRect_material);
+			UI_SpellRect_sr->SetMesh(UI_SpellRect_mesh);
+
+			//icon
+			GameObject* UI_SpellRect_icon_obj = object::Instantiate<GameObject>(eLayerType::UI);
+			UI_SpellRect_icon_obj->SetName(L"UI_SpellRect_icon_obj");
+
+			Transform* UI_SpellRect_icon_tr = UI_SpellRect_icon_obj->GetComponent<Transform>();
+			UI_SpellRect_icon_tr->SetScale(Vector3(0.45f, 0.45f, 0.f));
+
+			UI_Icon_Sc* UI_icon_Sc = UI_SpellRect_icon_obj->AddComponent<UI_Icon_Sc>();
+			UI_icon_Sc->setGameObject(cameraObj);
+			UI_icon_Sc->setPosY(3.1);
+			UI_icon_Sc->setPosX(3.25);
+
+
+			AudioSource* mainBG_audio = UI_SpellRect_icon_obj->AddComponent<AudioSource>();
+			std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"BGM", L"Moonscars Exterior Music.wav");
+			//std::shared_ptr<AudioClip> myAudioClip =  Resources::Load<AudioClip>(L"DeathSound",L"gull_death.mp3");
+			mainBG_audio->SetClip(myAudioClip);
+			mainBG_audio->SetLoop(false);
+
+			mainBG_audio->Play();
+
+			SpriteRenderer* UI_SpellRect_icon_sr = UI_SpellRect_icon_obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> UI_SpellRect_icon_mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> UI_SpellRect_icon_material = Resources::Find<Material>(L"Whirlwind_iconMaterial");
+			UI_SpellRect_icon_sr->SetMaterial(UI_SpellRect_icon_material);
+			UI_SpellRect_icon_sr->SetMesh(UI_SpellRect_icon_mesh);
+
+
 		}
 
 

@@ -388,6 +388,9 @@
     <ClCompile Include="yaUI_SPELL_Whirlwind_Sc.cpp">
       <Filter>Component\Script\Contents\UI</Filter>
     </ClCompile>
+    <ClCompile Include="yaUI_Icon_Sc.cpp">
+      <Filter>Component\Script\Contents\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -641,6 +644,9 @@
       <Filter>Component\Script\Contents\UI</Filter>
     </ClInclude>
     <ClInclude Include="yaUI_SPELL_Whirlwind_Sc.h">
+      <Filter>Component\Script\Contents\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaUI_Icon_Sc.h">
       <Filter>Component\Script\Contents\UI</Filter>
     </ClInclude>
   </ItemGroup>

@@ -242,6 +242,7 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClInclude Include="yaTime.h" />
     <ClInclude Include="yaTitleScene.h" />
     <ClInclude Include="yaTransform.h" />
+    <ClInclude Include="yaUI_Icon_Sc.h" />
     <ClInclude Include="yaUI_SPELL_Hammer_Sc.h" />
     <ClInclude Include="yaUI_SPELL_Painwheel_Sc.h" />
     <ClInclude Include="yaUI_SPELL_Spear_Sc.h" />
@@ -324,6 +325,7 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClCompile Include="yaTime.cpp" />
     <ClCompile Include="yaTitleScene.cpp" />
     <ClCompile Include="yaTransform.cpp" />
+    <ClCompile Include="yaUI_Icon_Sc.cpp" />
     <ClCompile Include="yaUI_SPELL_Hammer_Sc.cpp" />
     <ClCompile Include="yaUI_SPELL_Painwheel_Sc.cpp" />
     <ClCompile Include="yaUI_SPELL_Spear_Sc.cpp" />

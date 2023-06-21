@@ -5,11 +5,11 @@
 
 namespace ya
 {
-	class UI_SPELL_Hammer_Sc : public Script
+	class UI_Icon_Sc : public Script
 	{
 	public:
-		UI_SPELL_Hammer_Sc();
-		virtual ~UI_SPELL_Hammer_Sc();
+		UI_Icon_Sc();
+		virtual ~UI_Icon_Sc();
 
 		virtual void Initalize() override;
 		virtual void Update() override;
