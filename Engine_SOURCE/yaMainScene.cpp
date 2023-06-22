@@ -86,6 +86,7 @@ namespace ya {
 	}
 	void MainScene::OnEnter()
 	{
+		
 
 		// Main Camera Game Object
 		cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
@@ -101,23 +102,30 @@ namespace ya {
 		AudioListener* player_lis = cameraObj->AddComponent<AudioListener>();
 
 		
+
+#pragma region Audio
+		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"BGMmain", L"Moonscars Exterior Music.wav");
+		myAudioClip->SetVolume(1.0f);
+
 		//Audio Object
-		GameObject* audio_obj = object::Instantiate<GameObject>(eLayerType::UI);
-		audio_obj->SetName(L"audio");
-
-		Transform* audio_tr = audio_obj->GetComponent<Transform>();
+		audio_obj[0] = object::Instantiate<GameObject>(eLayerType::UI);
+		Transform* audio_tr = audio_obj[0]->GetComponent<Transform>();
 		Vector3 pos = cameratr->GetPosition();
-		pos += 7 * cameratr->Foward();
+		pos += 10 * cameratr->Foward();
 		audio_tr->SetPosition(pos);
+		audio[0] = audio_obj[0]->AddComponent<AudioSource>();
+		audio[0]->SetClip(myAudioClip);
+		audio[0]->SetLoop(false);
+		audio[0]->Play();
 
-		audio = audio_obj->AddComponent<AudioSource>();
-		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"BGM", L"Moonscars Exterior Music.wav");
-		//std::shared_ptr<AudioClip> myAudioClip =  Resources::Load<AudioClip>(L"DeathSound",L"gull_death.mp3");
-		audio->SetClip(myAudioClip);
-		audio->SetLoop(true);
-		audio->Play();
+		//Audio Object
+		//audio_obj[1] = object::Instantiate<GameObject>(eLayerType::UI);
+		//audio[1] = audio_obj[0]->AddComponent<AudioSource>();
+		
+
 
 		
+#pragma endregion
 
 
 
@@ -919,7 +927,7 @@ namespace ya {
 	}
 	void MainScene::OnExit()
 	{
-		audio->Stop();
+		audio[0]->Stop();
 		gameplayer->Death();
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, false);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectStart, false);

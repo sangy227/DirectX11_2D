@@ -18,7 +18,9 @@
 #include "yaAnimator.h"
 #include "yaPaintShader.h"
 #include "yaParticleSystem.h"
-
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
 namespace ya
 {
 	TitleScene::TitleScene()
@@ -30,32 +32,40 @@ namespace ya
 	}
 	void TitleScene::Initalize()
 	{
-		//Particle
-		{
-			Player* obj = object::Instantiate<Player>(eLayerType::Particle);
-			obj->SetName(L"PARTICLE");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
-			obj->AddComponent<ParticleSystem>();
-		}
+		
 
-		////paint shader
-		//std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
-		////L"SmileTexture"
-		//std::shared_ptr<Texture> paintTex = Resources::Find<Texture>(L"PaintTexture");
-		//paintShader->SetTarget(paintTex);
-		//paintShader->OnExcute();
+		
 		
 
 		// Main Camera Game Object
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Perspective);
+
+		Transform* cameratr = cameraObj->GetComponent<Transform>();
 		//cameraComp->RegisterCameraInRenderer();
-		cameraComp->TurnLayerMask(eLayerType::UI, false);
+		//cameraComp->TurnLayerMask(eLayerType::UI, false);
 		//cameraObj->AddComponent<CameraScript>();
 		mainCamera = cameraComp;
 		
+		//Audio Object
+		GameObject* audio_obj = object::Instantiate<GameObject>(eLayerType::UI);
+		audio_obj->SetName(L"audio1");
+
+		Transform* audio_tr = audio_obj->GetComponent<Transform>();
+		Vector3 pos = cameratr->GetPosition();
+		pos += 20 * cameratr->Foward();
+		audio_tr->SetPosition(pos);
+
+		audioTitle = audio_obj->AddComponent<AudioSource>();
+		std::shared_ptr<AudioClip> TitleOst = Resources::Load<AudioClip>(L"BGM", L"BGM\\SFX_Cutscene_Intro_VO.wav");
+		TitleOst->SetVolume(0.5f);
+		//std::shared_ptr<AudioClip> myAudioClip =  Resources::Load<AudioClip>(L"DeathSound",L"gull_death.mp3");
+		audioTitle->SetClip(TitleOst);
+		
+		audioTitle->Play();
+
+
 		//renderer::cameras[0] = cameraComp;
 
 		//TitleSceen
@@ -128,5 +138,7 @@ namespace ya
 	}
 	void TitleScene::OnExit()
 	{
+		audioTitle->Stop();
+		
 	}
 }

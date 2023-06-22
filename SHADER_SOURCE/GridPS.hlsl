@@ -34,5 +34,5 @@ float4 main(VSOut In) : SV_TARGET
         return Out;
     
     discard;
-    return float4(1.0f, 0.0f, 1.0f, 1.0f);
+    return float4(1.0f, 0.0f, 1.0f, 0.0f);
 }

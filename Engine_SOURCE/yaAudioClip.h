@@ -24,6 +24,7 @@ namespace ya
 
 		void Play();
 		void Stop();
+		void SetVolume(float index);
 		void Set3DAttributes(const Vector3 pos, const Vector3 vel);
 		void SetLoop(bool loop) { mbLoop = loop; }
 

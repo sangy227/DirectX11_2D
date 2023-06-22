@@ -694,6 +694,8 @@ namespace ya {
 	}
 	void BossWandaScript::Death()
 	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		tr->SetScale(Vector3(13.0f, 13.0f, 1.0f));
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"wanda_die") = std::bind(&BossWandaScript::ToDeath, this);
 		animator->Play(L"wanda_die");

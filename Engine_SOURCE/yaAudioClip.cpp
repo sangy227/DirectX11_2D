@@ -30,7 +30,7 @@ namespace ya
 			return S_FALSE;
 
 		mSound->set3DMinMaxDistance(mMinDistance, mMaxDistance);
-
+		
 		return S_OK;
 	}
 
@@ -40,13 +40,18 @@ namespace ya
 			mSound->setMode(FMOD_LOOP_NORMAL);
 		else
 			mSound->setMode(FMOD_LOOP_OFF);
-
+		mSound->setMusicChannelVolume(int(&mChannel), mMinDistance);
 		Fmod::SoundPlay(mSound, &mChannel);
 	}
 
 	void AudioClip::Stop()
 	{
 		mChannel->stop();
+	}
+
+	void AudioClip::SetVolume(float index)
+	{
+		mSound->set3DMinMaxDistance(index, mMaxDistance);
 	}
 
 	void AudioClip::Set3DAttributes(const Vector3 pos, const Vector3 vel)
