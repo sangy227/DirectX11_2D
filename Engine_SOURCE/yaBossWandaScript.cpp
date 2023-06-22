@@ -814,5 +814,8 @@ namespace ya {
 		Wanda_Audio_Source[11]->SetClip(audio[11]);
 		Wanda_Audio_Source[11]->Play();
 	}
+	void BossWandaScript::Wanda_Sound_BGM_Intro()
+	{
+	}
 }
 				   
