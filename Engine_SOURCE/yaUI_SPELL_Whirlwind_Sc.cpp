@@ -6,7 +6,10 @@
 #include "yaAnimator.h"
 #include "yaInput.h"
 #include "yaTime.h"
-
+#include "yaResources.h"
+#include "yaAudioClip.h"
+#include "yaObject.h"
+#include "yaAudioSource.h"
 namespace ya {
 	UI_SPELL_Whirlwind_Sc::UI_SPELL_Whirlwind_Sc()
 		: Script()
@@ -64,6 +67,9 @@ namespace ya {
 	{
 		Animator* ani = GetOwner()->GetComponent<Animator>();
 		ani->Play(L"UI_Spell", false);
+
+		
+
 	}
 	void UI_SPELL_Whirlwind_Sc::Action()
 	{

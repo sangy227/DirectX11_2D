@@ -6,8 +6,13 @@
 #include "yaAnimator.h"
 #include "yaInput.h"
 #include "yaTime.h"
-
+#include "yaResources.h"
+#include "yaAudioClip.h"
+#include "yaObject.h"
+#include "yaAudioSource.h"
 namespace ya {
+	//std::shared_ptr<AudioClip> hammer_spell_ready = Resources::Load<AudioClip>(L"Hammer_SpellReady", L"Music\\Player\\SFX_UI_SpellReady_01.wav");
+
 	UI_SPELL_Hammer_Sc::UI_SPELL_Hammer_Sc()
 		: Script()
 		, mTimer(0.f)
@@ -21,6 +26,8 @@ namespace ya {
 	}
 	void UI_SPELL_Hammer_Sc::Initalize()
 	{
+	
+		
 	}
 	void UI_SPELL_Hammer_Sc::Update()
 	{
@@ -69,6 +76,21 @@ namespace ya {
 
 		Animator* ani = GetOwner()->GetComponent<Animator>();
 		ani->Play(L"UI_Spell2",false);
+
+		////std::shared_ptr<AudioClip> hammer_spell_ready = Resources::Load<AudioClip>(L"Hammer_SpellReady", L"Music\\Player\\SFX_UI_SpellReady_01.wav");
+		//std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"BGMmain", L"Moonscars Exterior Music.wav");
+		//myAudioClip->SetVolume(1.0f);
+
+		////Audio Object
+		//audio_obj = object::Instantiate<GameObject>(eLayerType::UI);
+		//Transform* audio_tr = audio_obj->GetComponent<Transform>();
+		//Vector3 pos = cameratr->GetPosition();
+		//pos += 10 * cameratr->Foward();
+		//audio_tr->SetPosition(pos);
+
+		//audio = audio_obj->AddComponent<AudioSource>();
+		//audio->SetClip(myAudioClip);
+		//audio->Play();
 	}
 	void UI_SPELL_Hammer_Sc::Action()
 	{

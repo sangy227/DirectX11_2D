@@ -108,15 +108,15 @@ namespace ya {
 		myAudioClip->SetVolume(1.0f);
 
 		//Audio Object
-		audio_obj[0] = object::Instantiate<GameObject>(eLayerType::UI);
-		Transform* audio_tr = audio_obj[0]->GetComponent<Transform>();
+		audio_obj = object::Instantiate<GameObject>(eLayerType::UI);
+		Transform* audio_tr = audio_obj->GetComponent<Transform>();
 		Vector3 pos = cameratr->GetPosition();
 		pos += 10 * cameratr->Foward();
 		audio_tr->SetPosition(pos);
-		audio[0] = audio_obj[0]->AddComponent<AudioSource>();
-		audio[0]->SetClip(myAudioClip);
-		audio[0]->SetLoop(false);
-		audio[0]->Play();
+
+		audio = audio_obj->AddComponent<AudioSource>();
+		audio->SetClip(myAudioClip);
+		audio->Play();
 
 		//Audio Object
 		//audio_obj[1] = object::Instantiate<GameObject>(eLayerType::UI);
@@ -517,8 +517,8 @@ namespace ya {
 
 			Animator* UI_SpellRect_ani = UI_SpellRect_obj->AddComponent<Animator>();
 			std::shared_ptr<Texture> UI_Spell = Resources::Load<Texture>(L"UISPELL", L"UI\\UI_SpellReady.png");
-			UI_SpellRect_ani->Create(L"UI_Spell", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
-			UI_SpellRect_ani->Create(L"UI_Spell2", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
+			UI_SpellRect_ani->Create(L"UI_Spell", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.05f);
+			UI_SpellRect_ani->Create(L"UI_Spell2", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.05f);
 			UI_SpellRect_ani->Play(L"UI_Spell", false);
 
 			UI_SPELL_Hammer_Sc* UI_SpellRect_Sc = UI_SpellRect_obj->AddComponent<UI_SPELL_Hammer_Sc>();
@@ -566,8 +566,8 @@ namespace ya {
 
 			Animator* UI_SpellRect_ani = UI_SpellRect_obj->AddComponent<Animator>();
 			std::shared_ptr<Texture> UI_Spell = Resources::Load<Texture>(L"UISPELL", L"UI\\UI_SpellReady.png");
-			UI_SpellRect_ani->Create(L"UI_Spell", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
-			UI_SpellRect_ani->Create(L"UI_Spell2", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
+			UI_SpellRect_ani->Create(L"UI_Spell", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.05f);
+			UI_SpellRect_ani->Create(L"UI_Spell2", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.05f);
 			UI_SpellRect_ani->Play(L"UI_Spell", false);
 
 			UI_SPELL_Painwheel_Sc* UI_SpellRect_Sc = UI_SpellRect_obj->AddComponent<UI_SPELL_Painwheel_Sc>();
@@ -613,8 +613,8 @@ namespace ya {
 
 			Animator* UI_SpellRect_ani = UI_SpellRect_obj->AddComponent<Animator>();
 			std::shared_ptr<Texture> UI_Spell = Resources::Load<Texture>(L"UISPELL", L"UI\\UI_SpellReady.png");
-			UI_SpellRect_ani->Create(L"UI_Spell", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
-			UI_SpellRect_ani->Create(L"UI_Spell2", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
+			UI_SpellRect_ani->Create(L"UI_Spell", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.05f);
+			UI_SpellRect_ani->Create(L"UI_Spell2", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.05f);
 			UI_SpellRect_ani->Play(L"UI_Spell", false);
 
 			UI_SPELL_Spear_Sc* UI_SpellRect_Sc = UI_SpellRect_obj->AddComponent<UI_SPELL_Spear_Sc>();
@@ -660,8 +660,8 @@ namespace ya {
 
 			Animator* UI_SpellRect_ani = UI_SpellRect_obj->AddComponent<Animator>();
 			std::shared_ptr<Texture> UI_Spell = Resources::Load<Texture>(L"UISPELL", L"UI\\UI_SpellReady.png");
-			UI_SpellRect_ani->Create(L"UI_Spell", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
-			UI_SpellRect_ani->Create(L"UI_Spell2", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.10f);
+			UI_SpellRect_ani->Create(L"UI_Spell", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.05f);
+			UI_SpellRect_ani->Create(L"UI_Spell2", UI_Spell, Vector2(0.0f, 0.0f), Vector2(99.0f, 151.0f), Vector2::Zero, 5, 5, 24, 0.05f);
 			UI_SpellRect_ani->Play(L"UI_Spell", false);
 
 			UI_SPELL_Whirlwind_Sc* UI_SpellRect_Sc = UI_SpellRect_obj->AddComponent<UI_SPELL_Whirlwind_Sc>();
@@ -927,7 +927,7 @@ namespace ya {
 	}
 	void MainScene::OnExit()
 	{
-		audio[0]->Stop();
+		audio->Stop();
 		gameplayer->Death();
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, false);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectStart, false);

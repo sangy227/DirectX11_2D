@@ -19,7 +19,8 @@ namespace ya
 
 	private:
 		GameObject* cameraObj;
-		AudioSource* audio[100];
-		GameObject* audio_obj[100];
+	protected:
+		AudioSource* audio;
+		GameObject* audio_obj;
 	};
 }

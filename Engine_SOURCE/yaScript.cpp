@@ -6,6 +6,8 @@ namespace ya
 {
 	Script::Script()
 		: Component(eComponentType::Script)
+		
+
 	{
 
 	}
