@@ -3,6 +3,7 @@
 #include "yaCollider2D.h"
 #include "yaAudioClip.h"
 #include "yaAudioSource.h"
+#include "yaCameraScript.h"
 
 namespace ya
 {
@@ -88,6 +89,9 @@ namespace ya
 		void Wanda_Sound_Garden_End();
 		void Wanda_Sound_Die();
 		void Wanda_Sound_BGM_Intro();
+		void Wanda_Sound_BGM_Main();
+		void Wanda_Sound_BGM_Main_Stop();
+		void Wanda_Sound_BGM_End();
 		
 		
 
@@ -98,6 +102,7 @@ namespace ya
 
 		void setmGameObject(GameObject* obj) { mGameObject = obj; }
 		void setCameraObject(GameObject* obj) { mCameraObject = obj; }
+		void setCameraScript(CameraScript* sc) { mCameraSc = sc; }
 		GameObject* GetmGameObject() { return mGameObject; }
 
 
@@ -110,6 +115,7 @@ namespace ya
 		GameObject* HpBar_Bg_HP_obj;
 		GameObject* HpBar_Bg_obj;
 
+		CameraScript* mCameraSc;
 
 		UINT Skill_index;
 		UINT Garden2_index;
@@ -117,6 +123,8 @@ namespace ya
 
 		int hit;
 		float mWanda_Hp;
+		float mTimer;
+		bool mTimer_Trigger;
 	
 
 		std::shared_ptr<AudioClip> audio[100];

@@ -25,7 +25,7 @@
 #include "yaWanda_Dmg_UP_Sc_Fx.h"
 #include "yaWanda_Dmg_Down_Sc_Fx.h"
 #include "yaGrandPa_UI_Sc.h"
-
+#include "yaTime.h"
 
 namespace ya {
 	BossWandaScript::BossWandaScript()
@@ -38,6 +38,8 @@ namespace ya {
 		, mWanda_Hp(7.8f)
 		, Wanda_Audio_obj{}
 		, Wanda_Audio_Source{}
+		, mTimer(0)
+		, mTimer_Trigger(true)
 	{
 	}
 	BossWandaScript::~BossWandaScript()
@@ -60,7 +62,11 @@ namespace ya {
 		audio[9] = Resources::Load<AudioClip>(L"Wanda_Garden_End", L"Music\\Monster\\SFX_BossWanda_S2_Garden_End_Whoosh_01.wav");
 		audio[10] = Resources::Load<AudioClip>(L"Wanda_To_NPC", L"Music\\Monster\\SFX_BossWanda_s2tonpc_Whoosh_01.wav");
 		audio[11] = Resources::Load<AudioClip>(L"Wanda_To_NPC_Voice", L"Music\\Monster\\SFX_BossWanda_s2tonpc_Voice_01.wav");
-		//audio[12] = Resources::Load<AudioClip>(L"Wanda_BGM", L"Music\\Infant Loop 2.wav");
+		audio[12] = Resources::Load<AudioClip>(L"Wanda_BGM_Intro", L"Music\\Infant Intro To Loop 1 2s.wav");
+		audio[13] = Resources::Load<AudioClip>(L"Wanda_BGM", L"Music\\Infant Loop 2.wav");
+		audio[13]->SetVolume(0.1f);
+		audio[14] = Resources::Load<AudioClip>(L"Wanda_BGM_End", L"Music\\Infant Loop 1 to 2.wav");
+		audio[14]->SetVolume(0.1f);
 		for (size_t i = 0; i < 100; i++)
 		{
 			Wanda_Audio_obj[i] = object::Instantiate<GameObject>(eLayerType::UI);
@@ -150,16 +156,28 @@ namespace ya {
 			wanda_s2_skinshed R //쓰지말자
 			wanda_s2_spin T
 		}*/
+		if (mTimer_Trigger == false)
+		{
+			mTimer += 1.0 * Time::DeltaTime();
 
-		if (Input::GetKeyDown(eKeyCode::E)) //여긴 콜라이더 설정
+			if (mTimer > 4.4f)
+			{	
+				Wanda_Sound_BGM_Main();
+				mTimer_Trigger = true;
+				mTimer = 0;
+			}
+		}
+
+		if (Input::GetKeyDown(eKeyCode::E)) //시작 트리거!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		{
 			Start();
-
+			mTimer_Trigger = false;
+		
 		}
 
 		if (Input::GetKeyDown(eKeyCode::R))
 		{
-			//Death();
+			
 
 		}
 		//if (Input::GetKeyDown(eKeyCode::T)) //스킬
@@ -265,10 +283,11 @@ namespace ya {
 	void BossWandaScript::Start()
 	{
 		Wanda_Sound_to_Idle();
-
+		
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 
 		animator->GetCompleteEvent(L"wanda_s2_npc") = std::bind(&BossWandaScript::Wanda_Idel, this);
+		animator->GetEndEvent(L"wanda_s2_npc") = std::bind(&BossWandaScript::Wanda_Sound_BGM_Intro, this);
 		animator->GetEvent(L"wanda_s2_npc", 23) = std::bind(&BossWandaScript::CameraFowardDown, this);
 		animator->Play(L"wanda_s2_npc");
 		CameraFowardUp();
@@ -734,11 +753,14 @@ namespace ya {
 	}
 	void BossWandaScript::Death()
 	{
+		Wanda_Sound_BGM_Main_Stop();
+		
 		Wanda_Sound_Die();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		tr->SetScale(Vector3(13.0f, 13.0f, 1.0f));
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"wanda_die") = std::bind(&BossWandaScript::ToDeath, this);
+		animator->GetEvent(L"wanda_die",35) = std::bind(&BossWandaScript::Wanda_Sound_BGM_End, this);
 		animator->Play(L"wanda_die", false);
 		mWanda_Hp = 0.001;
 		//wanda_die
@@ -746,7 +768,9 @@ namespace ya {
 	void BossWandaScript::ToDeath()
 	{
 		//GetOwner()->Death();
+		
 		HpBar_Bg_obj->Death();
+
 	}
 	void BossWandaScript::Wanda_hurt()
 	{
@@ -816,6 +840,26 @@ namespace ya {
 	}
 	void BossWandaScript::Wanda_Sound_BGM_Intro()
 	{
+		Wanda_Audio_Source[12] = Wanda_Audio_obj[12]->AddComponent<AudioSource>();
+		Wanda_Audio_Source[12]->SetClip(audio[12]);
+		Wanda_Audio_Source[12]->Play();
+	}
+	void BossWandaScript::Wanda_Sound_BGM_Main()
+	{
+		Wanda_Audio_Source[13] = Wanda_Audio_obj[13]->AddComponent<AudioSource>();
+		Wanda_Audio_Source[13]->SetClip(audio[13]);
+		Wanda_Audio_Source[13]->Play();
+	}
+	void BossWandaScript::Wanda_Sound_BGM_Main_Stop()
+	{
+		Wanda_Audio_Source[13] = Wanda_Audio_obj[13]->GetComponent<AudioSource>();
+		Wanda_Audio_Source[13]->Stop();
+	}
+	void BossWandaScript::Wanda_Sound_BGM_End()
+	{
+		Wanda_Audio_Source[14] = Wanda_Audio_obj[14]->AddComponent<AudioSource>();
+		Wanda_Audio_Source[14]->SetClip(audio[14]);
+		Wanda_Audio_Source[14]->Play();
 	}
 }
 				   

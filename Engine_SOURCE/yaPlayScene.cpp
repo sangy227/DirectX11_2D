@@ -357,6 +357,7 @@ namespace ya
 			BossWandaScript* wandaSc = wanda_obj->AddComponent<BossWandaScript>();
 			wandaSc->setmGameObject(gameplayer);
 			wandaSc->setCameraObject(cameraObj);
+			wandaSc->setCameraScript(bcs);
 
 		}
 
