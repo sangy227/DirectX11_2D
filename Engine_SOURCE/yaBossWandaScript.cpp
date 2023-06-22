@@ -49,6 +49,9 @@ namespace ya {
 	}
 	void BossWandaScript::Update()
 	{
+		if (mWanda_Hp < 0)
+			Death();
+
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		//Vector3 rot = tr->GetRotation();
 		//rot.z += 10.0f * Time::DeltaTime();
@@ -183,9 +186,39 @@ namespace ya {
 			int a = 0;
 		}
 
+		if (collider->GetOwner()->GetName() == L"Normal_Attack_Hit_Check")
+		{
+			mWanda_Hp -= 0.12f;
+		}
+
 		if (collider->GetOwner()->GetName() == L"Hammer_Attack_Hit_Check")
 		{
-			hit++;
+			mWanda_Hp -= 0.9f;
+		}
+
+		if (collider->GetOwner()->GetName() == L"Painwheel_Attack_Hit_Check")
+		{
+			mWanda_Hp -= 0.15f;
+		}
+
+		if (collider->GetOwner()->GetName() == L"Spear_Attack_Hit_Check")
+		{
+			mWanda_Hp -= 0.6f;
+		}
+
+		if (collider->GetOwner()->GetName() == L"Whirlwind_Attack_Hit_Check")
+		{
+			mWanda_Hp -= 0.42f;
+		}
+
+
+		if (mWanda_Hp < 0) {
+			GrandPa_UI_Sc* Sc = HpBar_Bg_HP_obj->AddComponent<GrandPa_UI_Sc>();
+			Sc->setIndex(0);
+		}
+		else {
+			GrandPa_UI_Sc* Sc = HpBar_Bg_HP_obj->AddComponent<GrandPa_UI_Sc>();
+			Sc->setIndex(mWanda_Hp);
 		}
 
 
@@ -253,6 +286,7 @@ namespace ya {
 			GrandPa_UI_Sc* Ui_Sc = HpBar_Bg_HP_obj->AddComponent<GrandPa_UI_Sc>();
 			Ui_Sc->setGameObject(GetOwner());
 			Ui_Sc->setIndex(mWanda_Hp);
+			//Ui_Sc->setdivide(2);
 			Ui_Sc->setGrandPaScript(GetOwner()->GetComponent<GrandPaScript>());
 
 
@@ -660,6 +694,11 @@ namespace ya {
 	}
 	void BossWandaScript::Death()
 	{
-		
+		mWanda_Hp = 0.001;
+	}
+	void BossWandaScript::ToDeath()
+	{
+		GetOwner()->Death();
+		HpBar_Bg_obj->Death();
 	}
 }

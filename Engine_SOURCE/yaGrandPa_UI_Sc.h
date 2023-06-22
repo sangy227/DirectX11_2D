@@ -26,6 +26,7 @@ namespace ya
 		void setGrandPaScript(GrandPaScript* sc) { Pa_Sc = sc; }
 		void setPlayerObj(GameObject* sc) { mPlayer = sc; }
 		void setIndex(float sc) { index = sc; }
+		void setdivide(float sc) { divide = sc; }
 		
 
 	private:
@@ -34,5 +35,6 @@ namespace ya
 		GrandPaScript* Pa_Sc;
 		float index;
 		float mTimer;
+		float divide;
 	};
 }

@@ -920,6 +920,7 @@ namespace ya {
 	void MainScene::OnExit()
 	{
 		audio->Stop();
+		gameplayer->Death();
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, false);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectStart, false);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::EventObjectLine, false);

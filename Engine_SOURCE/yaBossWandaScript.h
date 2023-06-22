@@ -71,6 +71,7 @@ namespace ya
 		void CameraFowardDown();
 
 		void Death();
+		void ToDeath();
 
 
 		void setmGameObject(GameObject* obj) { mGameObject = obj; }

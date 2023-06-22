@@ -12,6 +12,7 @@ namespace ya {
 		: Script()
 		, index(0)
 		, mTimer(0)
+		, divide(1)
 	{
 	}
 	GrandPa_UI_Sc::~GrandPa_UI_Sc()
@@ -24,13 +25,13 @@ namespace ya {
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 
-		if (index >= 0) {
+		if (index/divide >= 0) {
 			//GrandPaScript* sc = mGameObject->GetComponent<GrandPaScript>(); 
 			//index = Pa_Sc->GetGrandPa_Hp();
 			tr->SetScale(Vector3(index, 0.08f, 0));
 		}
 
-		if (index <= 0) {
+		if (index/divide <= 0) {
 			//GrandPaScript* sc = mGameObject->GetComponent<GrandPaScript>();
 			//sc->DieDieDie();
 			//GetOwner()->Death();

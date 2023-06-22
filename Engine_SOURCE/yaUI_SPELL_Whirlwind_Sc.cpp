@@ -38,7 +38,7 @@ namespace ya {
 
 		if (check == false)
 		{
-			mTimer += 1.0 * Time::DeltaTime();
+			mTimer += 3.0 * Time::DeltaTime();
 
 			if (mTimer > 7.0f)
 			{

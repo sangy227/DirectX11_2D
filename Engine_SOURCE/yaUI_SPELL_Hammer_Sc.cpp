@@ -42,7 +42,7 @@ namespace ya {
 		{
 			mTimer += 1.0 * Time::DeltaTime();
 
-			if (mTimer > 7.0f)
+			if (mTimer > 3.0f)
 			{
 				Start();
 				check = true;
