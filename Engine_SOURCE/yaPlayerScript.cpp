@@ -754,7 +754,7 @@ namespace ya
 
 		Player_Audio_Source[12] = Player_Audio_obj[12]->AddComponent<AudioSource>();
 		Player_Audio_Source[12]->SetClip(audio[12]);
-		Player_Audio_Source[12]->Play();
+		//Player_Audio_Source[12]->Play();
 	}
 	void PlayerScript::Footstep02()
 	{
@@ -766,7 +766,7 @@ namespace ya
 
 		Player_Audio_Source[13] = Player_Audio_obj[13]->AddComponent<AudioSource>();
 		Player_Audio_Source[13]->SetClip(audio[13]);
-		Player_Audio_Source[13]->Play();
+		//Player_Audio_Source[13]->Play();
 	}
 
 }

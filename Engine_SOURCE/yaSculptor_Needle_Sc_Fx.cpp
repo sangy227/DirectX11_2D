@@ -29,6 +29,8 @@
 #include "yaEnums.h"
 #include "yaGameObject.h"
 #include "yaSculptorScript.h"
+#include "yaResources.h"
+#include "yaAudioClip.h"
 
 namespace ya {
 	Sculptor_Needle_Sc_Fx::Sculptor_Needle_Sc_Fx()
@@ -44,6 +46,14 @@ namespace ya {
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 
 		animator->GetCompleteEvent(L"sculptor_needle") = std::bind(&Sculptor_Needle_Sc_Fx::IDLE1, this);
+
+
+		Sculptor_Ne_Audio_obj = object::Instantiate<GameObject>(eLayerType::UI);
+
+		audio_Ne = Resources::Load<AudioClip>(L"Sculptor_Neddle_Needle", L"Music\\Monster\\SFX_BossTheSculptor_AOE_01.wav");
+		//Sculptor_Ne_Audio_Source = Sculptor_Ne_Audio_obj->AddComponent<AudioSource>();
+
+
 	}
 	void Sculptor_Needle_Sc_Fx::Update()
 	{
@@ -117,10 +127,17 @@ namespace ya {
 		trigger = false;
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 
+		
+		//Sculptor_Ne_Audio_Source->SetClip(audio_Ne);
+		//Sculptor_Ne_Audio_Source->Play();
+
 		animator->GetCompleteEvent(L"sculptor_needle2") = std::bind(&Sculptor_Needle_Sc_Fx::End, this);
 		animator->Play(L"sculptor_needle2");
 	}
 	void Sculptor_Needle_Sc_Fx::IDLE3()
+	{
+	}
+	void Sculptor_Needle_Sc_Fx::Die_Sound()
 	{
 	}
 }

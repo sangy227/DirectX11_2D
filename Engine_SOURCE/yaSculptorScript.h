@@ -2,6 +2,8 @@
 #pragma once
 #include "yaScript.h"
 #include "yaCollider2D.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
 namespace ya
 {
 	class SculptorScript : public Script
@@ -60,6 +62,13 @@ namespace ya
 		void Sculptor_Needle7();
 		void Sculptor_Needle8();
 		
+		void Sculptor_hurt();
+		void Sculptor_Attack_Sound();
+		void Sculptor_Needle_Go();
+		void Sculptor_first_die_Sound();
+		void Sculptor_Die_Sound();
+
+
 
 		void chenge();
 
@@ -76,6 +85,10 @@ namespace ya
 		GameObject* HpBar_Bg_obj;
 		float mSculptor_Hp;
 		bool mbool;
+
+		std::shared_ptr<AudioClip> audio[100];
+		GameObject* Sculptor_Audio_obj[100];
+		AudioSource* Sculptor_Audio_Source[100];
 
 	};
 };

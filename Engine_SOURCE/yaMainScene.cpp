@@ -58,8 +58,8 @@ namespace ya {
 		//ENTER 카메라 무브및 멈춤
 		//UIOJKL 카메라 이동
 		// QW 카메라 진동
-		//ER 할배 키목록
-		//TY 조각가할배 키 목록
+		//E 할배 키목록
+		//T 조각가할배 키 목록
  	}
 	MainScene::~MainScene()
 	{

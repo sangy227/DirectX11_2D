@@ -36,6 +36,8 @@ namespace ya {
 		, mGrandpaState(eGrandPaState::IDLE)
 		, Attack_index(0)
 		, mGrandPa_Hp(7.5f)
+		, GrandPa_Audio_obj{}
+		, GrandPa_Audio_Source{}
 	{
 	}
 	GrandPaScript::~GrandPaScript()
@@ -43,6 +45,16 @@ namespace ya {
 	}
 	void GrandPaScript::Initalize()
 	{
+		audio[0] = Resources::Load<AudioClip>(L"GrandPa_Hurt", L"Music\\UI\\SFX_Player_Hit_Enemy_Squish_01.wav");
+		audio[0]->SetVolume(5.0f);
+		audio[1] = Resources::Load<AudioClip>(L"GrandPa_Attack", L"Music\\Monster\\SFX_BossRedIrma_Needle_Explo_Magic_01.wav");
+		audio[2] = Resources::Load<AudioClip>(L"GrandPa_Needle_Die", L"Music\\Monster\\SFX_BossRedIrma_Needle_Background_01 (mp3cut.net).wav");
+		audio[3] = Resources::Load<AudioClip>(L"GrandPa_Needle_Go", L"Music\\Monster\\SFX_BossRedIrma_Needle_Burst_02.wav");
+		audio[4] = Resources::Load<AudioClip>(L"GrandPa_Dead", L"Music\\Monster\\SFX_EnemyMinelayer_Death_Voice_03.wav");
+		for (size_t i = 0; i < 100; i++)
+		{
+			GrandPa_Audio_obj[i] = object::Instantiate<GameObject>(eLayerType::UI);
+		}
 	}
 	void GrandPaScript::Update()
 	{
@@ -105,7 +117,7 @@ namespace ya {
 		{
 			
 				//Grandpa_DIE();
-				mGrandPa_Hp -= 0.3;
+				/*mGrandPa_Hp -= 0.3;
 				if (mGrandPa_Hp < 0) {
 					GrandPa_UI_Sc* Sc = HpBar_Bg_HP_obj->AddComponent<GrandPa_UI_Sc>();
 					Sc->setIndex(0);
@@ -114,7 +126,7 @@ namespace ya {
 					GrandPa_UI_Sc* Sc = HpBar_Bg_HP_obj->AddComponent<GrandPa_UI_Sc>();
 					Sc->setIndex(mGrandPa_Hp);
 				}
-				
+				*/
 			
 			
 		}
@@ -138,28 +150,36 @@ namespace ya {
 		if (collider->GetOwner()->GetName() == L"Normal_Attack_Hit_Check")
 		{
 			mGrandPa_Hp -= 0.2f;
-
+			GrandPa_hurt();
 			
 		}
 
 		if (collider->GetOwner()->GetName() == L"Hammer_Attack_Hit_Check")
 		{
 			mGrandPa_Hp -= 1.5f;
+			GrandPa_hurt();
+
 		}
 
 		if (collider->GetOwner()->GetName() == L"Painwheel_Attack_Hit_Check")
 		{
 			mGrandPa_Hp -= 0.25f;
+			GrandPa_hurt();
+
 		}
 
 		if (collider->GetOwner()->GetName() == L"Spear_Attack_Hit_Check")
 		{
 			mGrandPa_Hp -= 1.0f;
+			GrandPa_hurt();
+
 		}
 
 		if (collider->GetOwner()->GetName() == L"Whirlwind_Attack_Hit_Check")
 		{
 			mGrandPa_Hp -= 0.7f;
+			GrandPa_hurt();
+
 		}
 		
 
@@ -291,6 +311,7 @@ namespace ya {
 	void GrandPaScript::Grandpa_ATTACK1()
 	{
 		//mGrandpaState = eGrandPaState::ATTACK3;
+		GrandPa_Needle_Cast_Sound();
 		Needle_FX1();
 		Needle_FX3();
 		Needle_FX5();
@@ -301,6 +322,8 @@ namespace ya {
 
 	void GrandPaScript::Grandpa_ATTACK2()
 	{
+		GrandPa_Attack_Sound();
+		
 		//mGrandpaState = eGrandPaState::ATTACK3;
 		Needle_FX2();
 		Needle_FX4();
@@ -331,11 +354,12 @@ namespace ya {
 		animator->GetCompleteEvent(L"grandpa_die") = std::bind(&GrandPaScript::dead, this);
 		animator->Play(L"grandpa_die",false);
 		mGrandPa_Hp = 0.001;
+		GrandPa_Die_Sound();
 	}
 
 	void GrandPaScript::dead()
 	{
-		GetOwner()->Death();
+		//GetOwner()->Death();
 		HpBar_Bg_obj->Death();
 	}
 
@@ -353,6 +377,7 @@ namespace ya {
 	}
 	void GrandPaScript::Needle_FX3()
 	{
+		
 		{
 			Monster* needleeffect = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			needleeffect->SetName(L"GrandPa_Needle_01");
@@ -403,6 +428,7 @@ namespace ya {
 	}
 	void GrandPaScript::Needle_FX2()
 	{
+		
 		{
 			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			needleeffect2->SetName(L"GrandPa_Needle_02");
@@ -453,6 +479,7 @@ namespace ya {
 	}
 	void GrandPaScript::Needle_FX4()
 	{
+		GrandPa_Needle_Go_Sound();
 		{
 			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			needleeffect2->SetName(L"GrandPa_Needle_03");
@@ -487,6 +514,8 @@ namespace ya {
 			needleeffect2_Ani->Create(L"needle_die2", needle_die2, Vector2(0.0f, 0.0f), Vector2(76.0f, 70.0f), Vector2(0.0f, -0.0f), 5, 5, 25, 0.10f);
 			needleeffect2_Ani->Create(L"needle_die", needle_die, Vector2(0.0f, 0.0f), Vector2(452.0f, 450.0f), Vector2(0.0f, -0.0f), 4, 3, 10, 0.10f);
 
+			//needleeffect2_Ani->GetEvent(L"needle_idle", 22) = std::bind(&GrandPaScript::GrandPa_Needle_Die_Sound, this);
+
 			needleeffect2_Ani->Play(L"needle_idle", false); //루프 안돌림
 
 
@@ -503,6 +532,7 @@ namespace ya {
 	}
 	void GrandPaScript::Needle_FX5()
 	{
+		GrandPa_Needle_Go_Sound();
 		{
 			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			needleeffect2->SetName(L"GrandPa_Needle_04");
@@ -537,6 +567,7 @@ namespace ya {
 			needleeffect2_Ani->Create(L"needle_die2", needle_die2, Vector2(0.0f, 0.0f), Vector2(76.0f, 70.0f), Vector2(0.0f, -0.0f), 5, 5, 25, 0.10f);
 			needleeffect2_Ani->Create(L"needle_die", needle_die, Vector2(0.0f, 0.0f), Vector2(452.0f, 450.0f), Vector2(0.0f, -0.0f), 4, 3, 10, 0.10f);
 
+			//needleeffect2_Ani->GetEvent(L"needle_idle",22) = std::bind(&GrandPaScript::GrandPa_Needle_Die_Sound, this);
 			needleeffect2_Ani->Play(L"needle_idle", false); //루프 안돌림
 
 
@@ -553,6 +584,7 @@ namespace ya {
 	}
 	void GrandPaScript::Needle_FX1()
 	{
+		
 		{
 			Monster* needleeffect2 = object::Instantiate<Monster>(eLayerType::Attack_Object);
 			needleeffect2->SetName(L"GrandPa_Needle_04");
@@ -605,4 +637,38 @@ namespace ya {
 	{
 		mGrandPa_Hp = 0;
 	}
+	void GrandPaScript::GrandPa_hurt()
+	{
+		GrandPa_Audio_Source[0] = GrandPa_Audio_obj[0]->AddComponent<AudioSource>();
+		GrandPa_Audio_Source[0]->SetClip(audio[0]);
+		GrandPa_Audio_Source[0]->Play();
+	}
+	void GrandPaScript::GrandPa_Attack_Sound()
+	{
+		GrandPa_Audio_Source[1] = GrandPa_Audio_obj[1]->AddComponent<AudioSource>();
+		GrandPa_Audio_Source[1]->SetClip(audio[1]);
+		GrandPa_Audio_Source[1]->Play();
+	}
+
+	void GrandPaScript::GrandPa_Needle_Cast_Sound()
+	{
+		GrandPa_Audio_Source[2] = GrandPa_Audio_obj[2]->AddComponent<AudioSource>();
+		GrandPa_Audio_Source[2]->SetClip(audio[2]);
+		GrandPa_Audio_Source[2]->Play();
+	}
+
+	void GrandPaScript::GrandPa_Needle_Go_Sound()
+	{
+		GrandPa_Audio_Source[3] = GrandPa_Audio_obj[3]->AddComponent<AudioSource>();
+		GrandPa_Audio_Source[3]->SetClip(audio[3]);
+		GrandPa_Audio_Source[3]->Play();
+	}
+
+	void GrandPaScript::GrandPa_Die_Sound()
+	{
+		GrandPa_Audio_Source[4] = GrandPa_Audio_obj[4]->AddComponent<AudioSource>();
+		GrandPa_Audio_Source[4]->SetClip(audio[4]);
+		GrandPa_Audio_Source[4]->Play();
+	}
+
 }

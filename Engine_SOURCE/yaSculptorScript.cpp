@@ -36,13 +36,26 @@ namespace ya {
 		, mNeedleState(eNeedleState::None)
 		, mbool(true)
 		, mSculptor_Hp(7.5)
-	{
+		, Sculptor_Audio_obj{}
+		, Sculptor_Audio_Source{}
+	{	 
+
 	}
 	SculptorScript::~SculptorScript()
 	{
 	}
 	void SculptorScript::Initalize()
 	{
+		audio[0] = Resources::Load<AudioClip>(L"Sculptor_Hurt", L"Music\\UI\\SFX_Player_Hit_Enemy_Squish_01.wav");
+		audio[0]->SetVolume(5.0f);
+		audio[1] = Resources::Load<AudioClip>(L"Sculptor_Cast", L"Music\\Monster\\SFX_BossTheSculptor_Cast_01.wav");
+		audio[2] = Resources::Load<AudioClip>(L"Sculptor_Neddle", L"Music\\Monster\\SFX_BossTheSculptor_AOE_01.wav");
+		audio[3] = Resources::Load<AudioClip>(L"Sculptor_first_die", L"Music\\Monster\\SFX_BossTheSculptor_FirstOne_Death_01.wav");
+		audio[4] = Resources::Load<AudioClip>(L"Sculptor_second_die", L"Music\\Monster\\SFX_BossTheSculptor_Death_01.wav");
+		for (size_t i = 0; i < 100; i++)
+		{
+			Sculptor_Audio_obj[i] = object::Instantiate<GameObject>(eLayerType::UI);
+		}
 	}
 	void SculptorScript::Update()
 	{
@@ -93,7 +106,7 @@ namespace ya {
 		if (Input::GetKeyDown(eKeyCode::Y)) //여긴 콜라이더 설정
 		{
 			//Grandpa_DIE();
-			mSculptor_Hp -= 0.3;
+			/*mSculptor_Hp -= 0.3;
 			if (mSculptor_Hp < 0) {
 				Sculptor_UI_Sc* Sc = HpBar_Bg_HP_obj->AddComponent<Sculptor_UI_Sc>();
 				Sc->setIndex(0);
@@ -101,7 +114,7 @@ namespace ya {
 			else {
 				Sculptor_UI_Sc* Sc = HpBar_Bg_HP_obj->AddComponent<Sculptor_UI_Sc>();
 				Sc->setIndex(mSculptor_Hp);
-			}
+			}*/
 
 		}
 
@@ -119,25 +132,31 @@ namespace ya {
 		if (collider->GetOwner()->GetName() == L"Normal_Attack_Hit_Check")
 		{
 			mSculptor_Hp -= 0.16f;
+			Sculptor_hurt();
 		}
 
 		if (collider->GetOwner()->GetName() == L"Hammer_Attack_Hit_Check")
 		{
 			mSculptor_Hp -= 1.2f;
+			Sculptor_hurt();
+
 		}
 
 		if (collider->GetOwner()->GetName() == L"Painwheel_Attack_Hit_Check")
 		{
+			Sculptor_hurt();
 			mSculptor_Hp -= 0.2f;
 		}
 
 		if (collider->GetOwner()->GetName() == L"Spear_Attack_Hit_Check")
 		{
+			Sculptor_hurt();
 			mSculptor_Hp -= 0.8f;
 		}
 
 		if (collider->GetOwner()->GetName() == L"Whirlwind_Attack_Hit_Check")
 		{
+			Sculptor_hurt();
 			mSculptor_Hp -= 0.56f;
 		}
 
@@ -249,6 +268,7 @@ namespace ya {
 	}
 	void SculptorScript::Sculptor_ATTACK1()
 	{
+		Sculptor_Attack_Sound();
 		
 		//Sculptor_Needle3();
 		//Sculptor_Needle4();
@@ -284,7 +304,8 @@ namespace ya {
 	void SculptorScript::Sculptor_DIE()
 	{
 		mSculptorState = eSculptorState::IDLE;
-
+		Sculptor_first_die_Sound();
+		Sculptor_Die_Sound();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"sculptor_die") = std::bind(&SculptorScript::Dead, this);
 		animator->Play(L"sculptor_die",false);
@@ -292,7 +313,7 @@ namespace ya {
 
 	void SculptorScript::Dead()
 	{
-		GetOwner()->Death();
+		//GetOwner()->Death();
 		HpBar_Bg_obj->Death();
 	}
 
@@ -401,6 +422,7 @@ namespace ya {
 
 	void SculptorScript::Sculptor_Needle3()
 	{
+	
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>(); //할배꺼 가져온거
 		{
 			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Attack_Object);
@@ -432,6 +454,7 @@ namespace ya {
 			SculptorNeedle_Ani->Create(L"sculptor_needle1", sculptor_needle, Vector2(0.0f, 468.0f), Vector2(107.0f, 117.0f), Vector2(0.0f, 0.0f), 9, 2, 18, 0.07f);
 			SculptorNeedle_Ani->Create(L"sculptor_needle2", sculptor_needle, Vector2(0.0f, 702.0f), Vector2(107.0f, 117.0f), Vector2(0.0f, 0.0f), 9, 2, 13, 0.05f);
 
+			SculptorNeedle_Ani->GetStartEvent(L"sculptor_needle2") = std::bind(&SculptorScript::Sculptor_Needle_Go, this);
 
 			SculptorNeedle_Ani->Play(L"sculptor_needle", false); //루프 안돌림
 
@@ -450,6 +473,8 @@ namespace ya {
 
 	void SculptorScript::Sculptor_Needle4()
 	{
+		
+
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>(); //할배꺼 가져온거
 		{
 			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Attack_Object);
@@ -477,6 +502,7 @@ namespace ya {
 			SculptorNeedle_Ani->Create(L"sculptor_needle1", sculptor_needle, Vector2(0.0f, 468.0f), Vector2(107.0f, 117.0f), Vector2(0.0f, 0.0f), 9, 2, 18, 0.07f);
 			SculptorNeedle_Ani->Create(L"sculptor_needle2", sculptor_needle, Vector2(0.0f, 702.0f), Vector2(107.0f, 117.0f), Vector2(0.0f, 0.0f), 9, 2, 13, 0.05f);
 
+			SculptorNeedle_Ani->GetStartEvent(L"sculptor_needle2") = std::bind(&SculptorScript::Sculptor_Needle_Go, this);
 
 			SculptorNeedle_Ani->Play(L"sculptor_needle", false); //루프 안돌림
 
@@ -495,6 +521,8 @@ namespace ya {
 
 	void SculptorScript::Sculptor_Needle5()
 	{
+		
+
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>(); //할배꺼 가져온거
 		{
 			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Attack_Object);
@@ -522,6 +550,7 @@ namespace ya {
 			SculptorNeedle_Ani->Create(L"sculptor_needle1", sculptor_needle, Vector2(0.0f, 468.0f), Vector2(107.0f, 117.0f), Vector2(0.0f, 0.0f), 9, 2, 18, 0.07f);
 			SculptorNeedle_Ani->Create(L"sculptor_needle2", sculptor_needle, Vector2(0.0f, 702.0f), Vector2(107.0f, 117.0f), Vector2(0.0f, 0.0f), 9, 2, 13, 0.05f);
 
+			SculptorNeedle_Ani->GetStartEvent(L"sculptor_needle2") = std::bind(&SculptorScript::Sculptor_Needle_Go, this);
 
 			SculptorNeedle_Ani->Play(L"sculptor_needle", false); //루프 안돌림
 
@@ -540,6 +569,8 @@ namespace ya {
 
 	void SculptorScript::Sculptor_Needle6()
 	{
+		
+
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>(); //할배꺼 가져온거
 		{
 			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Attack_Object);
@@ -567,6 +598,7 @@ namespace ya {
 			SculptorNeedle_Ani->Create(L"sculptor_needle1", sculptor_needle, Vector2(0.0f, 468.0f), Vector2(107.0f, 117.0f), Vector2(0.0f, 0.0f), 9, 2, 18, 0.07f);
 			SculptorNeedle_Ani->Create(L"sculptor_needle2", sculptor_needle, Vector2(0.0f, 702.0f), Vector2(107.0f, 117.0f), Vector2(0.0f, 0.0f), 9, 2, 13, 0.05f);
 
+			SculptorNeedle_Ani->GetStartEvent(L"sculptor_needle2") = std::bind(&SculptorScript::Sculptor_Needle_Go, this);
 
 			SculptorNeedle_Ani->Play(L"sculptor_needle", false); //루프 안돌림
 
@@ -585,6 +617,8 @@ namespace ya {
 
 	void SculptorScript::Sculptor_Needle7()
 	{
+		
+
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>(); //할배꺼 가져온거
 		{
 			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Attack_Object);
@@ -612,6 +646,7 @@ namespace ya {
 			SculptorNeedle_Ani->Create(L"sculptor_needle1", sculptor_needle, Vector2(0.0f, 468.0f), Vector2(107.0f, 117.0f), Vector2(0.0f, 0.0f), 9, 2, 18, 0.07f);
 			SculptorNeedle_Ani->Create(L"sculptor_needle2", sculptor_needle, Vector2(0.0f, 702.0f), Vector2(107.0f, 117.0f), Vector2(0.0f, 0.0f), 9, 2, 13, 0.05f);
 
+			SculptorNeedle_Ani->GetStartEvent(L"sculptor_needle2") = std::bind(&SculptorScript::Sculptor_Needle_Go, this);
 
 			SculptorNeedle_Ani->Play(L"sculptor_needle", false); //루프 안돌림
 
@@ -630,6 +665,8 @@ namespace ya {
 
 	void SculptorScript::Sculptor_Needle8()
 	{
+		
+
 		GameObject* gameobj = GetOwner()->GetComponent<GameObject>(); //할배꺼 가져온거
 		{
 			Monster* SculptorNeedle_effect = object::Instantiate<Monster>(eLayerType::Attack_Object);
@@ -661,6 +698,7 @@ namespace ya {
 			SculptorNeedle_Ani->Create(L"sculptor_needle1", sculptor_needle, Vector2(0.0f, 468.0f), Vector2(107.0f, 117.0f), Vector2(0.0f, 0.0f), 9, 2, 18, 0.07f);
 			SculptorNeedle_Ani->Create(L"sculptor_needle2", sculptor_needle, Vector2(0.0f, 702.0f), Vector2(107.0f, 117.0f), Vector2(0.0f, 0.0f), 9, 2, 13, 0.05f);
 
+			SculptorNeedle_Ani->GetStartEvent(L"sculptor_needle2") = std::bind(&SculptorScript::Sculptor_Needle_Go, this);
 
 			SculptorNeedle_Ani->Play(L"sculptor_needle", false); //루프 안돌림
 
@@ -675,6 +713,41 @@ namespace ya {
 
 
 		}
+	}
+
+	void SculptorScript::Sculptor_hurt()
+	{
+		Sculptor_Audio_Source[0] = Sculptor_Audio_obj[0]->AddComponent<AudioSource>();
+		Sculptor_Audio_Source[0]->SetClip(audio[0]);
+		Sculptor_Audio_Source[0]->Play();
+	}
+
+	void SculptorScript::Sculptor_Attack_Sound()
+	{
+		Sculptor_Audio_Source[1] = Sculptor_Audio_obj[1]->AddComponent<AudioSource>();
+		Sculptor_Audio_Source[1]->SetClip(audio[1]);
+		Sculptor_Audio_Source[1]->Play();
+	}
+
+	void SculptorScript::Sculptor_Needle_Go()
+	{
+		Sculptor_Audio_Source[2] = Sculptor_Audio_obj[2]->AddComponent<AudioSource>();
+		Sculptor_Audio_Source[2]->SetClip(audio[2]);
+		Sculptor_Audio_Source[2]->Play();
+	}
+
+	void SculptorScript::Sculptor_first_die_Sound()
+	{
+		Sculptor_Audio_Source[3] = Sculptor_Audio_obj[3]->AddComponent<AudioSource>();
+		Sculptor_Audio_Source[3]->SetClip(audio[3]);
+		Sculptor_Audio_Source[3]->Play();
+	}
+
+	void SculptorScript::Sculptor_Die_Sound()
+	{
+		Sculptor_Audio_Source[4] = Sculptor_Audio_obj[4]->AddComponent<AudioSource>();
+		Sculptor_Audio_Source[4]->SetClip(audio[4]);
+		Sculptor_Audio_Source[4]->Play();
 	}
 
 	

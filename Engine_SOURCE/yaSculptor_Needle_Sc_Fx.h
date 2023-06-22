@@ -4,6 +4,9 @@
 #pragma once
 #include "yaScript.h"
 #include "yaCollider2D.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
+
 namespace ya
 {
 	class Sculptor_Needle_Sc_Fx : public Script
@@ -31,6 +34,8 @@ namespace ya
 		void IDLE2();
 		void IDLE3();
 
+		void Die_Sound();
+
 
 		void setmGameObject(GameObject* obj) { mGameObject = obj; }
 
@@ -40,5 +45,9 @@ namespace ya
 		GameObject* mGameObject; //여기선 지금 할배꺼 obj들고있음
 		
 		bool trigger;
+
+		std::shared_ptr<AudioClip> audio_Ne;
+		GameObject* Sculptor_Ne_Audio_obj;
+		AudioSource* Sculptor_Ne_Audio_Source;
 	};
 };

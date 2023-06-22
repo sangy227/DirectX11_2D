@@ -1,6 +1,8 @@
 #pragma once
 #include "yaScript.h"
 #include "yaCollider2D.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
 
 namespace ya
 {
@@ -74,6 +76,26 @@ namespace ya
 		void ToDeath();
 
 
+
+
+		void Wanda_hurt();
+		void Wanda_Sound_to_Idle();
+		void Wanda_Sound_Spin();
+		void Wanda_Sound_Chain();
+		void Wanda_Sound_Aoe();
+		void Wanda_Sound_Garden_Intro();
+		void Wanda_Sound_Garden_loop();
+		void Wanda_Sound_Garden_End();
+		void Wanda_Sound_Die();
+		void Wanda_Sound_BGM_Intro();
+		
+		
+
+
+
+
+
+
 		void setmGameObject(GameObject* obj) { mGameObject = obj; }
 		void setCameraObject(GameObject* obj) { mCameraObject = obj; }
 		GameObject* GetmGameObject() { return mGameObject; }
@@ -95,9 +117,11 @@ namespace ya
 
 		int hit;
 		float mWanda_Hp;
-	private:
-		GameObject* Spin_attack_Right;
-		GameObject* Spin_attack_Left;
+	
+
+		std::shared_ptr<AudioClip> audio[100];
+		GameObject* Wanda_Audio_obj[100];
+		AudioSource* Wanda_Audio_Source[100];
 	};
 }
 

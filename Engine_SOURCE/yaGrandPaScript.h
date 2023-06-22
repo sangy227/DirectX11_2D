@@ -2,6 +2,8 @@
 
 #pragma once
 #include "yaScript.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
 
 namespace ya
 {
@@ -53,7 +55,11 @@ namespace ya
 
 		void DieDieDie();
 
-
+		void GrandPa_hurt();
+		void GrandPa_Attack_Sound();
+		void GrandPa_Needle_Cast_Sound();
+		void GrandPa_Needle_Go_Sound();
+		void GrandPa_Die_Sound();
 
 
 
@@ -71,5 +77,10 @@ namespace ya
 		GameObject* HpBar_Bg_obj;
 		int Attack_index;
 		float mGrandPa_Hp;
+
+
+		std::shared_ptr<AudioClip> audio[100];
+		GameObject* GrandPa_Audio_obj[100];
+		AudioSource* GrandPa_Audio_Source[100];
 	};
 };

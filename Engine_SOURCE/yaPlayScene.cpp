@@ -326,10 +326,10 @@ namespace ya
 
 			BossWanda_Animator->Create(L"wanda_idle", wanda_idle, Vector2(0.0f, 0.0f), Vector2(96.0f, 106.0f), Vector2::Zero, 4, 4, 13, 0.10f);
 			BossWanda_Animator->Create(L"wanda_aoe_middle", wanda_aoe_middle, Vector2(0.0f, 0.0f), Vector2(130.0f, 167.0f), Vector2(0.0f, -0.03f), 6, 6, 36, 0.10f);
-			BossWanda_Animator->Create(L"wanda_chain", wanda_chain, Vector2(0.0f, 0.0f), Vector2(285.0f, 98.0f), Vector2(0.07f, -0.03f), 5, 2, 10, 0.10f , 3); //¾¸
-			BossWanda_Animator->Create(L"wanda_chain2", wanda_chain, Vector2(0.0f, 196.0f), Vector2(285.0f, 98.0f), Vector2(0.07f, -0.03f), 5, 3, 5, 0.10f , 3); //¾¸
-			BossWanda_Animator->Create(L"wanda_chain3", wanda_chain, Vector2(0.0f, 294.0f), Vector2(285.0f, 98.0f), Vector2(0.07f, -0.03f), 5, 5, 5, 0.10f , 3); //¾¸
-			BossWanda_Animator->Create(L"wanda_chain4", wanda_chain, Vector2(0.0f, 392.0f), Vector2(285.0f, 98.0f), Vector2(0.07f, -0.03f), 5, 5, 5, 0.10f , 3); //¾¸
+			BossWanda_Animator->Create(L"wanda_chain", wanda_chain, Vector2(0.0f, 0.0f), Vector2(285.0f, 98.0f), Vector2(0.07f, -0.03f), 5, 2, 10, 0.11f , 3); //¾¸
+			BossWanda_Animator->Create(L"wanda_chain2", wanda_chain, Vector2(0.0f, 196.0f), Vector2(285.0f, 98.0f), Vector2(0.07f, -0.03f), 5, 3, 5, 0.11f , 3); //¾¸
+			BossWanda_Animator->Create(L"wanda_chain3", wanda_chain, Vector2(0.0f, 294.0f), Vector2(285.0f, 98.0f), Vector2(0.07f, -0.03f), 5, 5, 5, 0.11f , 3); //¾¸
+			BossWanda_Animator->Create(L"wanda_chain4", wanda_chain, Vector2(0.0f, 392.0f), Vector2(285.0f, 98.0f), Vector2(0.07f, -0.03f), 5, 5, 5, 0.11f , 3); //¾¸
 			BossWanda_Animator->Create(L"wanda_s1_s2", wanda_s1_s2, Vector2(0.0f, 0.0f), Vector2(119.0f, 122.0f), Vector2(0.0f, -0.03f), 6, 5, 26, 0.10f, 6);
 			BossWanda_Animator->Create(L"wanda_s2_aoe", wanda_s2_aoe, Vector2(0.0f, 0.0f), Vector2(365.0f, 234.0f), Vector2(0.0f, -0.03f), 5, 5, 15, 0.10f); //¾¸
 			BossWanda_Animator->Create(L"wanda_s2_aoe2", wanda_s2_aoe, Vector2(0.0f, 702.0f), Vector2(365.0f, 234.0f), Vector2(0.0f, -0.03f), 5, 2, 5, 0.10f); //¾¸
