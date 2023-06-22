@@ -3,6 +3,8 @@
 #include "yaCameraScript.h"
 #include "yaCollider2D.h"
 
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
 namespace ya
 {
 	class PlayerScript : public Script
@@ -51,11 +53,38 @@ namespace ya
 		CameraScript* GetCameraScript() { return mCameraSc; }
 		
 
+		void attack_suond02();
+		void attack_suond03();
+
+		void hammer_sound01();
+		void hammer_sound02();
+
+		void painwheel_sound01();
+		void painwheel_sound02();
+
+		void Spear_sound01();
+		void Spear_sound02();
+
+		void Whirlwind_sound01();
+		void Whirlwind_sound02();
+
+		void Footstep01();
+		void Footstep02();
+
+
+
+
+
 	private:
 		ePlayerState mState;
 		CameraScript* mCameraSc;
 		
 		GameObject* mGameObject;
 		GameObject* mAttack_Object;
+
+
+		std::shared_ptr<AudioClip> audio[100];
+		GameObject* Player_Audio_obj[100];
+		AudioSource* Player_Audio_Source[100];
 	};
 }

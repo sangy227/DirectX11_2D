@@ -30,6 +30,8 @@ namespace ya
 		void setPosY(float a) { PosY = a; }
 
 	private:
+
+
 		GameObject* mGameObject;
 		GameObject* mPlayer;
 		float mTimer;

@@ -8,7 +8,7 @@ namespace ya
 		, mSound(nullptr)
 		, mChannel(nullptr)
 		, mMinDistance(1.0f)
-		, mMaxDistance(1000.0f)
+		, mMaxDistance(100.0f)
 		, mbLoop(false)
 	{
 

@@ -99,11 +99,12 @@ namespace ya {
 
 		Transform* cameratr = cameraObj->GetComponent<Transform>();
 		cameratr->SetPosition(Vector3(1.0f, 1.0f, -3.0f));
-		AudioListener* player_lis = cameraObj->AddComponent<AudioListener>();
+		AudioListener* player_lis = cameraObj->AddComponent<AudioListener>(); //¿©±â¶û
 
 		
 
-#pragma region Audio
+#pragma region Audio 
+		//¿©±â
 		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"BGMmain", L"Moonscars Exterior Music.wav");
 		myAudioClip->SetVolume(1.0f);
 
@@ -118,9 +119,7 @@ namespace ya {
 		audio->SetClip(myAudioClip);
 		audio->Play();
 
-		//Audio Object
-		//audio_obj[1] = object::Instantiate<GameObject>(eLayerType::UI);
-		//audio[1] = audio_obj[0]->AddComponent<AudioSource>();
+		
 		
 
 

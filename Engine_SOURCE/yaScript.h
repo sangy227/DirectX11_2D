@@ -1,6 +1,7 @@
 #pragma once
 #include "yaComponent.h"
 #include "yaCollider2D.h"
+#include "yaAudioSource.h"
 
 namespace ya
 {
@@ -26,6 +27,7 @@ namespace ya
 	private:
 
 	protected:
-		
+		GameObject* audio_obj;
+		AudioSource* audio;
 	};
 }

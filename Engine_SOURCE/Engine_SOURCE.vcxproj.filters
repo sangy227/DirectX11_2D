@@ -76,20 +76,8 @@
     <Filter Include="Scene\Manager">
       <UniqueIdentifier>{ed02c5d8-b13c-4afe-85b6-3e56a722014f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Collider">
-      <UniqueIdentifier>{92b865c2-1040-44bb-9ddb-b9ebff3bccbe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource\Prefab">
       <UniqueIdentifier>{b366b499-a62e-4505-9f52-19a691c5fba5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Collider\Manager">
-      <UniqueIdentifier>{0347b04d-368f-41d2-b90e-b1a726c5fc71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Collider\2D">
-      <UniqueIdentifier>{51ad1f08-b1a8-4cce-a84d-49b9b06e11a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Collider\3D">
-      <UniqueIdentifier>{6b267699-3830-4c57-89d0-68c916e6fb9a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\Animator">
       <UniqueIdentifier>{5617f228-a6b1-4d89-8a60-2aea1ca48f8c}</UniqueIdentifier>
@@ -147,6 +135,18 @@
     </Filter>
     <Filter Include="Component\Script\Contents\UI">
       <UniqueIdentifier>{98ffd51f-02bb-48e9-bfbc-837d542bfb13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Animator\Collider">
+      <UniqueIdentifier>{92b865c2-1040-44bb-9ddb-b9ebff3bccbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Animator\Collider\Manager">
+      <UniqueIdentifier>{0347b04d-368f-41d2-b90e-b1a726c5fc71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Animator\Collider\2D">
+      <UniqueIdentifier>{51ad1f08-b1a8-4cce-a84d-49b9b06e11a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Animator\Collider\3D">
+      <UniqueIdentifier>{6b267699-3830-4c57-89d0-68c916e6fb9a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -232,19 +232,19 @@
       <Filter>Scene\Manager</Filter>
     </ClCompile>
     <ClCompile Include="yaCollisionManager.cpp">
-      <Filter>Component\Collider\Manager</Filter>
+      <Filter>Component\Animator\Collider\Manager</Filter>
     </ClCompile>
     <ClCompile Include="yaPrefab.cpp">
       <Filter>Resource\Prefab</Filter>
     </ClCompile>
     <ClCompile Include="yaCollider2D.cpp">
-      <Filter>Component\Collider\2D</Filter>
+      <Filter>Component\Animator\Collider\2D</Filter>
     </ClCompile>
     <ClCompile Include="yaCollider3D.cpp">
-      <Filter>Component\Collider\3D</Filter>
+      <Filter>Component\Animator\Collider\3D</Filter>
     </ClCompile>
     <ClCompile Include="yaCollider.cpp">
-      <Filter>Component\Collider</Filter>
+      <Filter>Component\Animator\Collider</Filter>
     </ClCompile>
     <ClCompile Include="yaAnimation.cpp">
       <Filter>Component\Animator</Filter>
@@ -496,19 +496,19 @@
       <Filter>Scene\Manager</Filter>
     </ClInclude>
     <ClInclude Include="yaCollisionManager.h">
-      <Filter>Component\Collider\Manager</Filter>
+      <Filter>Component\Animator\Collider\Manager</Filter>
     </ClInclude>
     <ClInclude Include="yaPrefab.h">
       <Filter>Resource\Prefab</Filter>
     </ClInclude>
     <ClInclude Include="yaCollider2D.h">
-      <Filter>Component\Collider\2D</Filter>
+      <Filter>Component\Animator\Collider\2D</Filter>
     </ClInclude>
     <ClInclude Include="yaCollider3D.h">
-      <Filter>Component\Collider\3D</Filter>
+      <Filter>Component\Animator\Collider\3D</Filter>
     </ClInclude>
     <ClInclude Include="yaCollider.h">
-      <Filter>Component\Collider</Filter>
+      <Filter>Component\Animator\Collider</Filter>
     </ClInclude>
     <ClInclude Include="yaAnimation.h">
       <Filter>Component\Animator</Filter>

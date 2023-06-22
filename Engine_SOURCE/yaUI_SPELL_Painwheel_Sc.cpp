@@ -23,6 +23,12 @@ namespace ya {
 	}
 	void UI_SPELL_Painwheel_Sc::Initalize()
 	{
+		std::shared_ptr<AudioClip> hammer_spell_ready = Resources::Load<AudioClip>(L"Hammer_SpellReady", L"Music\\Player\\SFX_UI_SpellReady_01.wav");
+		hammer_spell_ready->SetVolume(0.5f);
+
+		audio_obj = object::Instantiate<GameObject>(eLayerType::UI);
+		audio = audio_obj->AddComponent<AudioSource>();
+		audio->SetClip(hammer_spell_ready);
 	}
 	void UI_SPELL_Painwheel_Sc::Update()
 	{
@@ -42,9 +48,9 @@ namespace ya {
 
 		if (check == false)
 		{
-			mTimer += 3.0 * Time::DeltaTime();
+			mTimer += 1.0 * Time::DeltaTime();
 
-			if (mTimer > 7.0f)
+			if (mTimer > 5.0f)
 			{
 				Start();
 				check = true;
@@ -69,7 +75,14 @@ namespace ya {
 		Animator* ani = GetOwner()->GetComponent<Animator>();
 		ani->Play(L"UI_Spell", false);
 
-		
+		//Audio Object
+		Transform* audio_tr = audio_obj->GetComponent<Transform>();
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		audio_tr->SetPosition(pos);
+
+		audio = audio_obj->GetComponent<AudioSource>();
+		audio->Play();
 	}
 	void UI_SPELL_Painwheel_Sc::Action()
 	{

@@ -67,10 +67,10 @@ namespace ya
 
 	void PlayScene::Update()
 	{
-		/*if (Input::GetKeyDown(eKeyCode::N))
+		if (Input::GetKeyDown(eKeyCode::E))
 		{
-			SceneManager::LoadScene(eSceneType::Tilte);
-		}*/
+			P_audio->Stop();
+		}
 		
 
 		Scene::Update();
@@ -122,10 +122,30 @@ namespace ya
 		//cameraComp->TurnLayerMask(eLayerType::UI, false);
 		CameraScript* bcs = cameraObj->AddComponent<CameraScript>();
 		mainCamera = cameraComp;
-
 		Transform* cameratr = cameraObj->GetComponent<Transform>();
-		
 		cameratr->SetPosition(Vector3(1.0f,1.0f,-3.0f));
+
+		AudioListener* player_lis = cameraObj->AddComponent<AudioListener>();
+
+
+#pragma region Audio 
+		//여기
+		std::shared_ptr<AudioClip> P_PlayerBGM = Resources::Load<AudioClip>(L"BGMPlay", L"Music\\Monster\\003_Cutscene_Adelinka_Voice_01.wav");
+		//myAudioClip->SetVolume(1.0f);
+
+		//Audio Object
+		GameObject* P_audio_obj = object::Instantiate<GameObject>(eLayerType::UI);
+		Transform* audio_tr = P_audio_obj->GetComponent<Transform>();
+		Vector3 pos = cameratr->GetPosition();
+		pos += 10 * cameratr->Foward();
+		audio_tr->SetPosition(pos);
+
+		P_audio = P_audio_obj->AddComponent<AudioSource>();
+		P_audio->SetClip(P_PlayerBGM);
+		P_audio->Play();
+
+#pragma endregion
+
 
 		//PlaySceenBG ->배경화면 부분
 		//3개의 레이어로 구상함
