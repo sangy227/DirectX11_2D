@@ -177,7 +177,7 @@ namespace ya {
 
 		if (Input::GetKeyDown(eKeyCode::R))
 		{
-			
+			Wanda_Skill_Chain();
 
 		}
 		//if (Input::GetKeyDown(eKeyCode::T)) //스킬
@@ -390,6 +390,8 @@ namespace ya {
 	{
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"wanda_s2_spin2") = std::bind(&BossWandaScript::Wanda_Skill_Spin3, this);
+		animator->GetStartEvent(L"wanda_s2_spin2") = std::bind(&BossWandaScript::cameraShakeBig, this);
+		animator->GetEvent(L"wanda_s2_spin2",3) = std::bind(&BossWandaScript::cameraShakeIdel, this);
 		animator->Play(L"wanda_s2_spin2");
 
 		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
@@ -423,6 +425,8 @@ namespace ya {
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"wanda_s2_spin4") = std::bind(&BossWandaScript::Wanda_Idel, this);
+		animator->GetStartEvent(L"wanda_s2_spin4") = std::bind(&BossWandaScript::cameraShakeBig, this);
+		animator->GetEvent(L"wanda_s2_spin4", 3) = std::bind(&BossWandaScript::cameraShakeIdel, this);
 		animator->Play(L"wanda_s2_spin4");
 	}
 
@@ -457,6 +461,7 @@ namespace ya {
 		Wanda_Sound_Chain();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"wanda_chain") = std::bind(&BossWandaScript::Wanda_Skill_Chain2, this);
+		animator->GetEvent(L"wanda_chain", 9) = std::bind(&BossWandaScript::cameraShakeBig, this);
 		animator->Play(L"wanda_chain");
 	}
 
@@ -483,6 +488,7 @@ namespace ya {
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"wanda_chain2") = std::bind(&BossWandaScript::Wanda_Skill_Chain3, this);
+		animator->GetEvent(L"wanda_chain2", 3) = std::bind(&BossWandaScript::cameraShakeIdel, this);
 		animator->Play(L"wanda_chain2");
 	}
 
@@ -495,6 +501,8 @@ namespace ya {
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"wanda_chain3") = std::bind(&BossWandaScript::Wanda_Skill_Chain4, this);
+		animator->GetEvent(L"wanda_chain3", 4) = std::bind(&BossWandaScript::cameraShakeBig, this);
+
 		animator->Play(L"wanda_chain3");
 	}
 
@@ -522,6 +530,7 @@ namespace ya {
 
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetEvent(L"wanda_chain4", 2) = std::bind(&BossWandaScript::cameraShakeIdel, this);
 		animator->GetCompleteEvent(L"wanda_chain4") = std::bind(&BossWandaScript::Wanda_Idel, this);
 		animator->Play(L"wanda_chain4");
 	}
@@ -566,6 +575,8 @@ namespace ya {
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"wanda_s2_aoe2") = std::bind(&BossWandaScript::Wanda_Skill_Aoe3, this);
+		animator->GetStartEvent(L"wanda_s2_aoe2") = std::bind(&BossWandaScript::cameraShakeBig, this);
+		animator->GetEvent(L"wanda_s2_aoe2",2) = std::bind(&BossWandaScript::cameraShakeIdel, this);
 		animator->Play(L"wanda_s2_aoe2");
 	}
 
@@ -590,6 +601,7 @@ namespace ya {
 		Wanda_Sound_Garden_Intro();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"wanda_s2_garden") = std::bind(&BossWandaScript::Wanda_Skill_Garden2, this);
+		animator->GetEvent(L"wanda_s2_garden", 7) = std::bind(&BossWandaScript::cameraShakeBig, this);
 		animator->Play(L"wanda_s2_garden");
 	}
 	void BossWandaScript::Wanda_Skill_Garden2()
@@ -628,7 +640,7 @@ namespace ya {
 
 
 		Garden2_index++; // 공격모션 얼마나 반복 시키는지
-		if (Garden2_index > 6)
+		if (Garden2_index > 5)
 		{
 			Garden2_index = 0;
 			animator->GetCompleteEvent(L"wanda_s2_garden2") = std::bind(&BossWandaScript::Wanda_Skill_Garden3, this);
@@ -643,6 +655,7 @@ namespace ya {
 	}
 	void BossWandaScript::Wanda_Skill_Garden3()
 	{
+		cameraShakeIdel();
 		Wanda_Sound_Garden_End();
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		animator->GetCompleteEvent(L"wanda_s2_garden3") = std::bind(&BossWandaScript::Wanda_Idel, this);
@@ -860,6 +873,18 @@ namespace ya {
 		Wanda_Audio_Source[14] = Wanda_Audio_obj[14]->AddComponent<AudioSource>();
 		Wanda_Audio_Source[14]->SetClip(audio[14]);
 		Wanda_Audio_Source[14]->Play();
+	}
+	void BossWandaScript::cameraShakeSmall()
+	{
+		mCameraSc->SetCameraState_Small_Shake();
+	}
+	void BossWandaScript::cameraShakeBig()
+	{
+		mCameraSc->SetCameraState_Big_Shake();
+	}
+	void BossWandaScript::cameraShakeIdel()
+	{
+		mCameraSc->SetCameraState_Idle();
 	}
 }
 				   

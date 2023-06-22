@@ -95,7 +95,9 @@ namespace ya
 		
 		
 
-
+		void cameraShakeSmall();
+		void cameraShakeBig();
+		void cameraShakeIdel();
 
 
 
