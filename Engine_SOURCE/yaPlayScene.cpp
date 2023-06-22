@@ -302,6 +302,7 @@ namespace ya
 			std::shared_ptr<Texture> wanda_s2_npc_idle = Resources::Load<Texture>(L"wanda_S2_NPC_IDLE", L"Boss\\T_Boss_Wanda_S2_NPC_idel.png");
 			std::shared_ptr<Texture> wanda_s2_skinshed = Resources::Load<Texture>(L"wanda_S2_SkinShed", L"Boss\\T_Boss_Wanda_S2_SkinShed.png");
 			std::shared_ptr<Texture> wanda_s2_spin = Resources::Load<Texture>(L"wanda_S2_Spin", L"Boss\\T_Boss_Wanda_S2_Spin.png"); //¾¸
+			std::shared_ptr<Texture> wanda_die = Resources::Load<Texture>(L"wanda_die", L"Boss\\BossWanda_Die.png"); //¾¸
 
 			BossWanda_Animator->Create(L"wanda_idle", wanda_idle, Vector2(0.0f, 0.0f), Vector2(96.0f, 106.0f), Vector2::Zero, 4, 4, 13, 0.10f);
 			BossWanda_Animator->Create(L"wanda_aoe_middle", wanda_aoe_middle, Vector2(0.0f, 0.0f), Vector2(130.0f, 167.0f), Vector2(0.0f, -0.03f), 6, 6, 36, 0.10f);
@@ -323,6 +324,7 @@ namespace ya
 			BossWanda_Animator->Create(L"wanda_s2_spin2", wanda_s2_spin, Vector2(0.0f, 432.0f), Vector2(391.0f, 216.0f), Vector2(0.0f, -0.03f), 6, 4, 6, 0.10f); //¾¸
 			BossWanda_Animator->Create(L"wanda_s2_spin3", wanda_s2_spin, Vector2(0.0f, 648.0f), Vector2(391.0f, 216.0f), Vector2(0.0f, -0.03f), 6, 3, 6, 0.10f); //¾¸
 			BossWanda_Animator->Create(L"wanda_s2_spin4", wanda_s2_spin, Vector2(0.0f, 864.0f), Vector2(391.0f, 216.0f), Vector2(0.0f, -0.03f), 6, 2, 7, 0.10f); //¾¸
+			BossWanda_Animator->Create(L"wanda_die", wanda_die, Vector2(0.0f, 0.0f), Vector2(99.0f, 119.0f), Vector2(0.0f, -0.03f), 7, 6, 42, 0.10f); //¾¸
 
 			BossWanda_Animator->Play(L"wanda_s2_npc_idle", true);
 			

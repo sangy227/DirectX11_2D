@@ -140,7 +140,7 @@ namespace ya {
 
 		if (Input::GetKeyDown(eKeyCode::R)) 
 		{
-			Wanda_Skill_Chain();
+			//Death();
 			
 		}
 		//if (Input::GetKeyDown(eKeyCode::T)) //½ºÅ³
@@ -188,27 +188,27 @@ namespace ya {
 
 		if (collider->GetOwner()->GetName() == L"Normal_Attack_Hit_Check")
 		{
-			mWanda_Hp -= 0.12f;
+			mWanda_Hp -= 0.15f;
 		}
 
 		if (collider->GetOwner()->GetName() == L"Hammer_Attack_Hit_Check")
 		{
-			mWanda_Hp -= 0.9f;
+			mWanda_Hp -= 1.2f;
 		}
 
 		if (collider->GetOwner()->GetName() == L"Painwheel_Attack_Hit_Check")
 		{
-			mWanda_Hp -= 0.15f;
+			mWanda_Hp -= 0.20f;
 		}
 
 		if (collider->GetOwner()->GetName() == L"Spear_Attack_Hit_Check")
 		{
-			mWanda_Hp -= 0.6f;
+			mWanda_Hp -= 0.9f;
 		}
 
 		if (collider->GetOwner()->GetName() == L"Whirlwind_Attack_Hit_Check")
 		{
-			mWanda_Hp -= 0.42f;
+			mWanda_Hp -= 0.5f;
 		}
 
 
@@ -694,7 +694,11 @@ namespace ya {
 	}
 	void BossWandaScript::Death()
 	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetCompleteEvent(L"wanda_die") = std::bind(&BossWandaScript::ToDeath, this);
+		animator->Play(L"wanda_die");
 		mWanda_Hp = 0.001;
+		//wanda_die
 	}
 	void BossWandaScript::ToDeath()
 	{
